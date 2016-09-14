@@ -1,0 +1,40 @@
+I. Users
+
+1. user_id 
+2. email
+3. password
+4. level
+5. created_at
+6. last_login
+
+II. Information
+
+1. reg_num
+2. full_name
+3. course_code
+4. father_name
+5. mother_name
+6. dob
+7. sex
+8. email
+9. phone
+10. start_year
+11. admission_form
+12. category
+13. sub_category
+13. state
+14. cgpa
+15. black_dots
+16. created_at
+17. updated_at
+
+III. Courses
+
+1. course code
+2. course_name
+3. course_duration
+
+IV. Visibility
+
+1. field
+2. level
