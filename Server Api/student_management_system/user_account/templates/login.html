@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{%block title%}User Login{% endblock %}
+{% block content %}
+{% if errors %}
+<center>
+<p><b>Sorry, that's not a valid username/password</b></p>
+    {% endif %}
+    <form class = "form-horizontal" action="" method="post">
+    {% csrf_token %}
+        <div class = "row">
+            <div class = "col-md-offset-5">
+                <div class = "col-md-3">
+                    <label class = "form-group" for="username"><i>Enter Username</i></label>
+                </div>
+            </div>
+            <div class = "col-md-4"></div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-offset-5">
+                <div class = "col-md-3">
+                    <input class = "form-control" type="text" name="username" value="" id="username"><br/>
+                </div>
+            </div>
+            <div class = "col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class = "col-md-offset-5">
+                <div class = "col-md-3">
+                    <label  class = "form-group"for="password"><i>Password:</i></label>
+                </div>
+            </div>
+            <div class = "col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class = "col-md-offset-5">
+                <div class = "col-md-3">
+                    <input class = "form-control" type="password" name="password" value="" id="password"><br/>
+                </div>
+            </div>
+        </div>
+         <div class="row">
+            <div class = "col-md-offset-5">
+                <div class = "col-md-3">
+        <input class = "btn btn-lg btn-primary " type="submit" value="login"><hr/>
+                    <a href = "{% url 'reset_password' %}">Forgot Password</a>
+                    </div>
+            </div>
+        </div>
+    </form>
+
+    </center>
+    {% endblock %}

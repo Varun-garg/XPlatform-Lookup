@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{%block title%}Sign Up{% endblock %}
+{% block content %}
+{% load formcontrol %}
+
+<form class = "form-horizontal" action = "{% url 'signup' %}" method="post">
+    {% csrf_token %}
+   {% for field in form %}
+    <center>
+        <div class = "row">
+            <div class = "form-group">
+                <div class = "col-md-3"></div>
+                    <div class = "col-md-2 ">
+                        <label>{{field.label_tag}}</label>
+                    </div>
+                    <div class = "col-md-3">
+                        {{field|addcss:"form-control"}}
+                    </div>
+                    <div class = "col-md-3">
+                        <b><i>{{field.errors}}</i></b>
+                    </div>
+            </div>
+        </div>
+    {% endfor %}
+    <input type="submit" class = "btn btn-primary" value="Register"><br/>
+    <b>
+    *Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.<br/>
+    *Enter the same password as before, for verification.
+    </b>
+    </center>
+</form>
+{% endblock %}
