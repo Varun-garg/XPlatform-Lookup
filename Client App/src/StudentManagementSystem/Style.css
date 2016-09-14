@@ -1,0 +1,10 @@
+.button
+{
+     -fx-background-color: #4CAF50; /* Green */
+     -fx-background-radius: 0;
+}
+
+.login
+{
+    -fx-background-color: #eceff1; /* Bluish */
+}
