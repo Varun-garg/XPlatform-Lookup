@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{%block title%}Change Password{% endblock %}
+{% block content %}
+{% load formcontrol %}
+{% if messages %}
+    <center>
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><b><i>{{ message }}</i></b></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+        </center>
+<center>
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in form%}
+        <div class="row">
+            <div class = "col-md-offset-4">
+                <div class = "col-md-4">
+                    <label>{{field.label_tag}}</label>
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class = "col-md-offset-4">
+            <div class = "col-md-4">
+                {{field|addcss:"formcontrol"}}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+   <div class="row">
+        <div class = "col-md-offset-4">
+            <div class = "col-md-4">
+                <hr/>
+                    <input type="submit" class = "btn btn-primary" value="Submit" />
+            </div>
+        </div>
+    </div>
+</form>
+</center>
+{% endblock %}
