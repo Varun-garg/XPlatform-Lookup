@@ -1,0 +1,8 @@
+{
+	"_id": {
+		"$oid": "57d98cc69f2e3345a2593260"
+	},
+	"course_code": "U01",
+	"course_name": "Integrated Dual Degree Programme(B. Tech - M. Tech / MBA)",
+	"course_duration": 5.0
+}

@@ -1,0 +1,28 @@
+{
+	"_id": {
+		"$oid": "57d986f09f2e3345a259325c"
+	},
+	"email": "13ics035@gbu.ac.in",
+	"password": "123456",
+	"level": 1.0,
+	"created_at": {
+		"$timestamp": {
+			"t": 1473873648,
+			"i": 1
+		}
+	}
+}
+{
+	"_id": {
+		"$oid": "57d987389f2e3345a259325d"
+	},
+	"email": "asolanki@gbu.ac.in",
+	"password": "123456",
+	"level": 2.0,
+	"created_at": {
+		"$timestamp": {
+			"t": 1473873720,
+			"i": 1
+		}
+	}
+}
