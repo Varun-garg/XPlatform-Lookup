@@ -1,19 +1,22 @@
 package StudentManagementSystem;
 
+import StudentManagementSystem.Stages.Login;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sun.rmi.runtime.Log;
 
-public class Main extends Application {
+import java.util.List;
+
+public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        primaryStage.setTitle("Login to Student Management System");
-        primaryStage.setScene(new Scene(root, 400, 400));
-        primaryStage.show();
+
+        Login login = new Login();
+        login.display(primaryStage);
+
     }
 
 

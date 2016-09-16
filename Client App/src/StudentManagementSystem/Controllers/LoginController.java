@@ -1,14 +1,17 @@
-package StudentManagementSystem;
+package StudentManagementSystem.Controllers;
 
 import java.io.BufferedReader;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import StudentManagementSystem.Stages.MainPanel;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,16 +22,19 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class MainController {
+public class LoginController {
+
 	@FXML
-	private JFXTextField top;
+	private JFXTextField LoginField;
 
-	public void event(ActionEvent event) {
+    @FXML
+    private VBox fxml_root;
 
-		String name = top.getText();
+    public void event(ActionEvent event) throws IOException {
+
+		String name = LoginField.getText();
 		System.out.println(name);
-		//String name2="admin";
-		//if (name=="admin") {
+		if (name.equals("admin")) {
 			String jsonData = "";
 			try {
 
@@ -46,11 +52,9 @@ public class MainController {
 				String output;
 				System.out.println("Output from Server .... \n");
 				while ((output = br.readLine()) != null) {
-
 					jsonData += output + "\n";
-
 				}
-				// System.out.println(jsonData);
+				 System.out.println(jsonData);
 				conn.disconnect();
 
 			} catch (MalformedURLException e) {
@@ -82,40 +86,19 @@ public class MainController {
 					System.out.println("fname=" + fname);
 					String mname = (String) person.get("mname");
 					System.out.println("mname=" + mname);
-					String dob = (String) person.get("dob");
-					System.out.println("dob=" + dob);
-					String gender = (String) person.get("gender");
-					System.out.println("gender=" + gender);
-					String cat = (String) person.get("cat");
-					System.out.println("cat=" + cat);
-					String state = (String) person.get("state");
-					// System.out.println("state="+state);
-					long rank = (long) person.get("rank");
-					System.out.println("rank=" + rank);
-					long mobile = (long) person.get("mobile");
-					System.out.println("mobile=" + mobile);
-					String emailid = (String) person.get("emailid");
-					System.out.println("emailid=" + emailid);
-					String ddbank = (String) person.get("ddbank");
-					System.out.println("ddbank=" + ddbank);
-					long ddno = (long) person.get("ddno");
-					System.out.println("ddno=" + ddno);
-					String dddate = (String) person.get("dddate");
-					System.out.println("dddate=" + dddate);
-					Boolean isdd = (Boolean) person.get("isdd");
-					System.out.println("isdd=" + isdd);
-					Boolean isfee = (Boolean) person.get("isfee");
-					System.out.println("isfee=" + isfee);
-					Boolean isreg = (Boolean) person.get("isreg");
-					System.out.println("isreg=" + isreg);
 
+					//assuming logging is done
+                    // in some method block
+                    Stage stageTheLabelBelongs = (Stage) LoginField.getScene().getWindow();
+                    MainPanel mainPanel = new MainPanel();
+                    mainPanel.display(stageTheLabelBelongs);
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		/*} else {
+		} else {
 			System.out.println("User does not exist");
-		}*/
+		}
 	}
 
 }
