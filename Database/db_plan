@@ -3,26 +3,27 @@ I. Users
 0. _id
 1. email
 2. password
-3. level	
+3. level
 4. created_at
 
 II. Information
 
 0. _id
+enroll_um
 1. reg_num
 2. full_name
-3. course_code
+3. prog_name
 4. father_name
 5. mother_name
 6. dob
 7. sex
 8. email
 9. phone
-10. start_year
+
 11. admission_form
+adm_roll
 12. category
 13. sub_category
-14. state
 15. cgpa
 16. black_dots
 17. created_at
@@ -42,4 +43,4 @@ IV. Visibility
 
 V. Logs
 
-* Logs schema not yet decided. 
+* Logs schema not yet decided.
