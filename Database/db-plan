@@ -1,0 +1,38 @@
+I. Users
+
+0. _id
+1. email
+2. password
+3. level
+4. created_at
+
+II. Information
+
+0. _id
+1. enroll_num
+2. roll_num
+3. full_name
+4. prog_name
+5. father_name
+6. mother_name
+7. dob
+8. sex
+9. email
+10. phone
+11. adm_form_num
+12. adm_roll_num
+13. category
+14. sub_category
+15. cgpa
+16. black_dots
+17. created_at
+
+III. Visibility
+
+0. _id
+1. field
+2. level
+
+V. Logs
+
+* Logs schema not yet decided.

@@ -1,0 +1,119 @@
+{
+	"_id": {
+		"$oid": "57d98d739f2e3345a2593261"
+	},
+	"field": "roll_num",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593262"
+	},
+	"field": "full_name",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593263"
+	},
+	"field": "prog_name",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593264"
+	},
+	"field": "father_name",
+	"level": 3.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593265"
+	},
+	"field": "mother_name",
+	"level": 3.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593266"
+	},
+	"field": "dob",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593267"
+	},
+	"field": "sex",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593268"
+	},
+	"field": "email",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593269"
+	},
+	"field": "phone",
+	"level": 4.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a259326a"
+	},
+	"field": "enroll_num",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a259326b"
+	},
+	"field": "adm_form_num",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a259326c"
+	},
+	"field": "category",
+	"level": 2.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a259326d"
+	},
+	"field": "sub_category",
+	"level": 3.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a259326e"
+	},
+	"field": "adm_roll_num",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a259326f"
+	},
+	"field": "cgpa",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593270"
+	},
+	"field": "black_dots",
+	"level": 1.0
+}
+{
+	"_id": {
+		"$oid": "57d98f9c9f2e3345a2593271"
+	},
+	"field": "created_at",
+	"level": 4.0
+}
