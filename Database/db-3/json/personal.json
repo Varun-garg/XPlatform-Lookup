@@ -1,0 +1,29 @@
+{
+	"_id": {
+		"$oid": "57d98b9e9f2e3345a259325f"
+	},
+	"full_name": "Rajat Saxena",
+	"father_name": "Rajeev Saxena",
+	"mother_name": "Sangeeta Saxena",
+	"dob": {
+		"$date": "1994-12-23T18:30:00.000Z"
+	},
+	"sex": "Male",
+	"email": "rajat24saxena@gmail.com",
+	"phone": "9013211136",
+	"category": "General",
+	"sub_category": "None",
+	"cgpa": 9.0,
+	"black_dots": 0.0,
+	"created_at": {
+		"$timestamp": {
+			"t": 1473874846,
+			"i": 1
+		}
+	},
+	"roll_num": "13ics035",
+	"enroll_num": "131618",
+	"prog_name": "5-Year Integrated B.Tech + M.Tech/MBA",
+	"adm_form_num": "7531595",
+	"adm_roll_num": "U015648"
+}

@@ -1,0 +1,22 @@
+{
+	"_id": {
+		"$oid": "57ea9d2b12ef4719bbc42694"
+	},
+	"roll_num": "13ics035",
+	"hostel_name": "Sant Ravidas",
+	"room_num": "F-01",
+	"warden": {
+		"name": "Rakesh Shrivastava",
+		"mob": "8945632145"
+	},
+	"caretaker": [
+		{
+			"name": "Sonu",
+			"mob": "9966332255"
+		},
+		{
+			"name": "Ram",
+			"mob": "8800225566"
+		}
+	]
+}
