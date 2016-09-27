@@ -42,28 +42,26 @@ public class MenuController implements Initializable {
         this.RollNo = RollNo;
     }
 
-    TextFlow generateTextFlow(String field1, String field2)
-    {
+    TextFlow generateTextFlow(String field1, String field2) {
         TextFlow flow = new TextFlow();
 
-        Text text1=new Text(field1);
+        Text text1 = new Text(field1);
         text1.setStyle("-fx-font-weight: bold");
 
-        Text text2=new Text(field2);
+        Text text2 = new Text(field2);
         text2.setStyle("-fx-font-weight: regular");
 
         flow.getChildren().addAll(text1, text2);
         return flow;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources){
+    private void DisplayPersonalInfo() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
         // client.register(MenuController.class);
 
-        RollNo = "R0221039";
-        clientTarget = client.target(Configuration.API_HOST+"data/admin/" + RollNo + "/?format=json");
+        if (RollNo == null) RollNo = "13ICS057";
+        clientTarget = client.target(Configuration.API_HOST + "data/admin/" + RollNo + "/?format=json");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
 
@@ -71,24 +69,27 @@ public class MenuController implements Initializable {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Student student = mapper.readValue(response,Student.class);
-            System.out.println(student.getCname());
-            System.out.println(student.getMobile());
+            Student student = mapper.readValue(response, Student.class);
 
-            personal_info_vbox.getChildren().add(generateTextFlow("Student Name   :",student.getCname()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Roll number       :",student.getRoll()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Mobile number :",student.getMobile()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Course                :",student.getCname() + " - " + student.getCd()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Date of Birth     :",student.getDob()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Gender               :",student.getGender()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Father's Name   :",student.getFname()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Mother's Name :",student.getMname()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Category            :",student.getCat()));
-            personal_info_vbox.getChildren().add(generateTextFlow("State                  :",student.getState()));
-        }
-        catch (Exception e)
-        {
+            personal_info_vbox.getChildren().add(generateTextFlow("Student Name   :", student.getFullName()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Enrollment         :", student.getEnrollNo()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Roll number       :", student.getRollNo()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Email                   :", student.getEmail()));
+            personal_info_vbox.getChildren().add(generateTextFlow("School                :", student.getSchool()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Mobile number :", student.getPhone()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Course                :", student.getProgramName()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Date of Birth     :", student.getDob()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Gender               :", student.getSex()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Father's Name   :", student.getFatherName()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Mother's Name :", student.getMotherName()));
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.DisplayPersonalInfo();
     }
 }

@@ -15,187 +15,183 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-        "cd",
-        "cdname",
-        "cname",
-        "roll",
-        "fname",
-        "mname",
+        "full_name",
+        "enroll_no",
+        "program_name",
+        "school",
+        "roll_no",
+        "father_name",
+        "mother_name",
         "dob",
-        "gender",
-        "cat",
-        "state",
-        "rank",
-        "mobile",
-        "emailid",
-        "ddbank",
-        "ddno",
-        "dddate",
-        "isdd",
-        "isfee",
-        "isreg"
+        "sex",
+        "email",
+        "phone"
 })
 public class Student {
 
-    @JsonProperty("cd")
-    private String cd;
-    @JsonProperty("cdname")
-    private String cdname;
-    @JsonProperty("cname")
-    private String cname;
-    @JsonProperty("roll")
-    private String roll;
-    @JsonProperty("fname")
-    private String fname;
-    @JsonProperty("mname")
-    private String mname;
+    @JsonProperty("full_name")
+    private String fullName;
+    @JsonProperty("enroll_no")
+    private String enrollNo;
+    @JsonProperty("program_name")
+    private String programName;
+    @JsonProperty("school")
+    private String school;
+    @JsonProperty("roll_no")
+    private String rollNo;
+    @JsonProperty("father_name")
+    private String fatherName;
+    @JsonProperty("mother_name")
+    private String motherName;
     @JsonProperty("dob")
     private String dob;
-    @JsonProperty("gender")
-    private String gender;
-    @JsonProperty("cat")
-    private String cat;
-    @JsonProperty("state")
-    private String state;
-    @JsonProperty("rank")
-    private Integer rank;
-    @JsonProperty("mobile")
-    private String mobile;
-    @JsonProperty("emailid")
-    private String emailid;
-    @JsonProperty("ddbank")
-    private String ddbank;
-    @JsonProperty("ddno")
-    private String ddno;
-    @JsonProperty("dddate")
-    private String dddate;
-    @JsonProperty("isdd")
-    private Boolean isdd;
-    @JsonProperty("isfee")
-    private Boolean isfee;
-    @JsonProperty("isreg")
-    private Boolean isreg;
+    @JsonProperty("sex")
+    private String sex;
+    @JsonProperty("email")
+    private String email;
+    @JsonProperty("phone")
+    private String phone;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      *
      * @return
-     * The cd
+     * The fullName
      */
-    @JsonProperty("cd")
-    public String getCd() {
-        return cd;
+    @JsonProperty("full_name")
+    public String getFullName() {
+        return fullName;
     }
 
     /**
      *
-     * @param cd
-     * The cd
+     * @param fullName
+     * The full_name
      */
-    @JsonProperty("cd")
-    public void setCd(String cd) {
-        this.cd = cd;
-    }
-
-    /**
-     *
-     * @return
-     * The cdname
-     */
-    @JsonProperty("cdname")
-    public String getCdname() {
-        return cdname;
-    }
-
-    /**
-     *
-     * @param cdname
-     * The cdname
-     */
-    @JsonProperty("cdname")
-    public void setCdname(String cdname) {
-        this.cdname = cdname;
+    @JsonProperty("full_name")
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     /**
      *
      * @return
-     * The cname
+     * The enrollNo
      */
-    @JsonProperty("cname")
-    public String getCname() {
-        return cname;
+    @JsonProperty("enroll_no")
+    public String getEnrollNo() {
+        return enrollNo;
     }
 
     /**
      *
-     * @param cname
-     * The cname
+     * @param enrollNo
+     * The enroll_no
      */
-    @JsonProperty("cname")
-    public void setCname(String cname) {
-        this.cname = cname;
-    }
-
-    /**
-     *
-     * @return
-     * The roll
-     */
-    @JsonProperty("roll")
-    public String getRoll() {
-        return roll;
-    }
-
-    /**
-     *
-     * @param roll
-     * The roll
-     */
-    @JsonProperty("roll")
-    public void setRoll(String roll) {
-        this.roll = roll;
+    @JsonProperty("enroll_no")
+    public void setEnrollNo(String enrollNo) {
+        this.enrollNo = enrollNo;
     }
 
     /**
      *
      * @return
-     * The fname
+     * The programName
      */
-    @JsonProperty("fname")
-    public String getFname() {
-        return fname;
+    @JsonProperty("program_name")
+    public String getProgramName() {
+        return programName;
     }
 
     /**
      *
-     * @param fname
-     * The fname
+     * @param programName
+     * The program_name
      */
-    @JsonProperty("fname")
-    public void setFname(String fname) {
-        this.fname = fname;
+    @JsonProperty("program_name")
+    public void setProgramName(String programName) {
+        this.programName = programName;
     }
 
     /**
      *
      * @return
-     * The mname
+     * The school
      */
-    @JsonProperty("mname")
-    public String getMname() {
-        return mname;
+    @JsonProperty("school")
+    public String getSchool() {
+        return school;
     }
 
     /**
      *
-     * @param mname
-     * The mname
+     * @param school
+     * The school
      */
-    @JsonProperty("mname")
-    public void setMname(String mname) {
-        this.mname = mname;
+    @JsonProperty("school")
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    /**
+     *
+     * @return
+     * The rollNo
+     */
+    @JsonProperty("roll_no")
+    public String getRollNo() {
+        return rollNo;
+    }
+
+    /**
+     *
+     * @param rollNo
+     * The roll_no
+     */
+    @JsonProperty("roll_no")
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
+
+    /**
+     *
+     * @return
+     * The fatherName
+     */
+    @JsonProperty("father_name")
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    /**
+     *
+     * @param fatherName
+     * The father_name
+     */
+    @JsonProperty("father_name")
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    /**
+     *
+     * @return
+     * The motherName
+     */
+    @JsonProperty("mother_name")
+    public String getMotherName() {
+        return motherName;
+    }
+
+    /**
+     *
+     * @param motherName
+     * The mother_name
+     */
+    @JsonProperty("mother_name")
+    public void setMotherName(String motherName) {
+        this.motherName = motherName;
     }
 
     /**
@@ -221,241 +217,61 @@ public class Student {
     /**
      *
      * @return
-     * The gender
+     * The sex
      */
-    @JsonProperty("gender")
-    public String getGender() {
-        return gender;
+    @JsonProperty("sex")
+    public String getSex() {
+        return sex;
     }
 
     /**
      *
-     * @param gender
-     * The gender
+     * @param sex
+     * The sex
      */
-    @JsonProperty("gender")
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    /**
-     *
-     * @return
-     * The cat
-     */
-    @JsonProperty("cat")
-    public String getCat() {
-        return cat;
-    }
-
-    /**
-     *
-     * @param cat
-     * The cat
-     */
-    @JsonProperty("cat")
-    public void setCat(String cat) {
-        this.cat = cat;
+    @JsonProperty("sex")
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     /**
      *
      * @return
-     * The state
+     * The email
      */
-    @JsonProperty("state")
-    public String getState() {
-        return state;
+    @JsonProperty("email")
+    public String getEmail() {
+        return email;
     }
 
     /**
      *
-     * @param state
-     * The state
+     * @param email
+     * The email
      */
-    @JsonProperty("state")
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     *
-     * @return
-     * The rank
-     */
-    @JsonProperty("rank")
-    public Integer getRank() {
-        return rank;
-    }
-
-    /**
-     *
-     * @param rank
-     * The rank
-     */
-    @JsonProperty("rank")
-    public void setRank(Integer rank) {
-        this.rank = rank;
+    @JsonProperty("email")
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
      *
      * @return
-     * The mobile
+     * The phone
      */
-    @JsonProperty("mobile")
-    public String getMobile() {
-        return mobile;
+    @JsonProperty("phone")
+    public String getPhone() {
+        return phone;
     }
 
     /**
      *
-     * @param mobile
-     * The mobile
+     * @param phone
+     * The phone
      */
-    @JsonProperty("mobile")
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    /**
-     *
-     * @return
-     * The emailid
-     */
-    @JsonProperty("emailid")
-    public String getEmailid() {
-        return emailid;
-    }
-
-    /**
-     *
-     * @param emailid
-     * The emailid
-     */
-    @JsonProperty("emailid")
-    public void setEmailid(String emailid) {
-        this.emailid = emailid;
-    }
-
-    /**
-     *
-     * @return
-     * The ddbank
-     */
-    @JsonProperty("ddbank")
-    public String getDdbank() {
-        return ddbank;
-    }
-
-    /**
-     *
-     * @param ddbank
-     * The ddbank
-     */
-    @JsonProperty("ddbank")
-    public void setDdbank(String ddbank) {
-        this.ddbank = ddbank;
-    }
-
-    /**
-     *
-     * @return
-     * The ddno
-     */
-    @JsonProperty("ddno")
-    public String getDdno() {
-        return ddno;
-    }
-
-    /**
-     *
-     * @param ddno
-     * The ddno
-     */
-    @JsonProperty("ddno")
-    public void setDdno(String ddno) {
-        this.ddno = ddno;
-    }
-
-    /**
-     *
-     * @return
-     * The dddate
-     */
-    @JsonProperty("dddate")
-    public String getDddate() {
-        return dddate;
-    }
-
-    /**
-     *
-     * @param dddate
-     * The dddate
-     */
-    @JsonProperty("dddate")
-    public void setDddate(String dddate) {
-        this.dddate = dddate;
-    }
-
-    /**
-     *
-     * @return
-     * The isdd
-     */
-    @JsonProperty("isdd")
-    public Boolean getIsdd() {
-        return isdd;
-    }
-
-    /**
-     *
-     * @param isdd
-     * The isdd
-     */
-    @JsonProperty("isdd")
-    public void setIsdd(Boolean isdd) {
-        this.isdd = isdd;
-    }
-
-    /**
-     *
-     * @return
-     * The isfee
-     */
-    @JsonProperty("isfee")
-    public Boolean getIsfee() {
-        return isfee;
-    }
-
-    /**
-     *
-     * @param isfee
-     * The isfee
-     */
-    @JsonProperty("isfee")
-    public void setIsfee(Boolean isfee) {
-        this.isfee = isfee;
-    }
-
-    /**
-     *
-     * @return
-     * The isreg
-     */
-    @JsonProperty("isreg")
-    public Boolean getIsreg() {
-        return isreg;
-    }
-
-    /**
-     *
-     * @param isreg
-     * The isreg
-     */
-    @JsonProperty("isreg")
-    public void setIsreg(Boolean isreg) {
-        this.isreg = isreg;
+    @JsonProperty("phone")
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @JsonAnyGetter
