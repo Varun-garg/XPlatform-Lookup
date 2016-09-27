@@ -1,7 +1,6 @@
 from django.shortcuts import HttpResponse
 import json
 from .models import UserSMS
-from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 
 

@@ -13,7 +13,7 @@ class AdminStudent_List(generics.ListAPIView):
 
 class AdminStudent_Detail(generics.RetrieveAPIView):
     queryset = studentdb.objects.all()
-    lookup_field = 'roll'
+    lookup_field = 'roll_no'
     serializer_class = AdminSerializer
 
 
@@ -21,6 +21,6 @@ class AdminStudent_Detail(generics.RetrieveAPIView):
 
 
 class Student_Detail(generics.RetrieveAPIView):
+    lookup_field = 'roll_no'
     queryset = studentdb.objects.all()
-    lookup_field = 'roll'
     serializer_class = StudentSerializer

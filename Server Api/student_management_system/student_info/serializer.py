@@ -5,13 +5,12 @@ from .models import studentdb
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = studentdb
-        fields = ('cd', 'cdname', 'cname', 'roll', 'fname', 'mname', 'dob', 'gender', 'cat', 'state', 'rank', 'mobile', 'emailid')
+        fields = ('full_name', 'enroll_no', 'program_name', 'school', 'roll_no', 'father_name', 'mother_name', 'dob', 'sex', 'email', 'phone')
 
 
 class AdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = studentdb
-        fields = ('cd', 'cdname', 'cname', 'roll', 'fname', 'mname', 'dob', 'gender', 'cat', 'state', 'rank', 'mobile', 'emailid', 'ddbank',
-                  'ddno', 'dddate', 'isdd', 'isfee', 'isreg')
+        fields = ('full_name', 'enroll_no', 'program_name', 'school', 'roll_no', 'father_name', 'mother_name', 'dob', 'sex', 'email', 'phone')
 
 
