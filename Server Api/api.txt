@@ -1,0 +1,5 @@
+127.0.0.1:8000/data/admin
+127.0.0.1:8000/data/admin/13ics057
+127.0.0.1:8000/data/student/13ics057
+
+http://127.0.0.1:8000/user/login?email=sarthak%40example.com&password=sarthak

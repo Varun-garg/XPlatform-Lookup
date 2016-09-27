@@ -5,11 +5,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import StudentManagementSystem.Stages.MainPanel;
-import javafx.scene.control.Label;
+import StudentManagementSystem.DisplayMethods;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
@@ -57,14 +58,8 @@ public class LoginController {
 				 System.out.println(jsonData);
 				conn.disconnect();
 
-			} catch (MalformedURLException e) {
-
+			} catch (IOException e) { //MalformedURLException is subclass of IOException, so not needed separately
 				e.printStackTrace();
-
-			} catch (IOException e) {
-
-				e.printStackTrace();
-
 			}
 			JSONParser parser = new JSONParser();
 
@@ -85,15 +80,15 @@ public class LoginController {
 					String fname = (String) person.get("fname");
 					System.out.println("fname=" + fname);
 					String mname = (String) person.get("mname");
-					System.out.println("mname=" + mname);
+					System.out.println("mname=" + mname); //removed extra values
 
 					//assuming logging is done
                     // in some method block
-                    Stage stageTheLabelBelongs = (Stage) LoginField.getScene().getWindow();
-                    MainPanel mainPanel = new MainPanel();
-                    mainPanel.display(stageTheLabelBelongs);
+                    Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
+					DisplayMethods displayMethods = DisplayMethods.getInstance();
+					displayMethods.LoginDisplay(CurrentStage);
 				}
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {

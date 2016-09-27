@@ -1,22 +1,21 @@
 package StudentManagementSystem;
 
-import StudentManagementSystem.Stages.Login;
+import StudentManagementSystem.Controllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sun.rmi.runtime.Log;
 
-import java.util.List;
+import java.io.IOException;
 
 public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Login login = new Login();
-        login.display(primaryStage);
-
+        DisplayMethods displayMethods = DisplayMethods.getInstance();
+        displayMethods.LoginDisplay(primaryStage);
     }
 
 
