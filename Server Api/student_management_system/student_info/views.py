@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from .serializer import AdminSerializer, StudentSerializer
+from .serializer import AdminSerializer, StudentSerializer, HostelSerializer
 from rest_framework import generics
-from .models import studentdb
+from .models import studentdb, hostel_info
 import json
 from django.shortcuts import HttpResponse
 
@@ -61,4 +60,9 @@ def addstudent(request):
         response_data['message'] = 'success'
         return HttpResponse(json.dumps(response_data), content_type="application/json")
 
+
+class Hostel_Detail(generics.RetrieveAPIView):
+    queryset = hostel_info.objects.all()
+    lookup_field = 'roll_num'
+    serializer_class = HostelSerializer
 

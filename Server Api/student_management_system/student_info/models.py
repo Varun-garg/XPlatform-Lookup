@@ -15,3 +15,13 @@ class studentdb(models.Model):
     email = models.EmailField(max_length=100,null= True)
     phone = models.IntegerField(null= True)
 
+
+class hostel_info(models.Model):
+    roll_num = models.CharField(max_length=100, null= True)
+    hostel_name = models.CharField(max_length=100 ,null= True)
+    room_num = models.CharField(max_length=100,null= True)
+    warden_name = models.CharField(max_length=200,null= True)
+    warden_mob = models.IntegerField(null= True)
+    caretaker_name = models.CharField(max_length=200,null= True)
+    caretaker_num = models.IntegerField(null= True)
+
