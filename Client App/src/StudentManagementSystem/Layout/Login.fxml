@@ -18,7 +18,7 @@
                 <Image url="@../Assets/logo.png"/>
             </image>
         </ImageView>
-        <JFXTextField fx:id="LoginField" maxWidth="200" minWidth="200" prefHeight="31.0" prefWidth="200"
+        <JFXTextField fx:id="usernameField" maxWidth="200" minWidth="200" prefHeight="31.0" prefWidth="200"
                       promptText="Username">
             <VBox.margin>
                 <Insets>
@@ -26,7 +26,7 @@
                 </Insets>
             </VBox.margin>
         </JFXTextField>
-        <JFXPasswordField maxWidth="200" minWidth="200" prefHeight="31.0" prefWidth="200" promptText="Password">
+        <JFXPasswordField fx:id="passwordField" maxWidth="200" minWidth="200" prefHeight="31.0" prefWidth="200" promptText="Password">
             <VBox.margin>
                 <Insets>
                     <bottom>20</bottom>

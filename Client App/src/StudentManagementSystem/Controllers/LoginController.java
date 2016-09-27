@@ -7,8 +7,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import StudentManagementSystem.Configuration;
 import StudentManagementSystem.DisplayMethods;
+import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.Model.Student;
 import StudentManagementSystem.SessionManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jfoenix.controls.JFXPasswordField;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,80 +28,59 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import sun.rmi.runtime.Log;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 
 public class LoginController {
 
 	@FXML
-	private JFXTextField LoginField;
+	private JFXTextField usernameField;
+
+	@FXML
+	private JFXPasswordField passwordField;
 
     @FXML
     private VBox fxml_root;
 
     public void event(ActionEvent event) throws IOException {
 
-		String name = LoginField.getText();
-		System.out.println(name);
-		if (name.equals("admin")) {
+		String username = usernameField.getText();
+		String password = passwordField.getText();
+		System.out.println(username);
+
 			String jsonData = "";
 			try {
 
-				URL url = new URL("http://localhost/sms/students.json");
-				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-				conn.setRequestMethod("GET");
-				conn.setRequestProperty("Accept", "application/json");
+				WebTarget clientTarget;
+				Client client = ClientBuilder.newClient();
+				clientTarget = client.target(Configuration.API_HOST + "user/login?email=" + username + "&password=" + password);
+				javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
 
-				if (conn.getResponseCode() != 200) {
-					throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-				}
+				String response = rawResponse.readEntity(String.class);
+				ObjectMapper mapper = new ObjectMapper();
+				LoginResponse loginResponse = mapper.readValue(response,LoginResponse.class);
 
-				BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-
-				String output;
-				System.out.println("Output from Server .... \n");
-				while ((output = br.readLine()) != null) {
-					jsonData += output + "\n";
-				}
-				 System.out.println(jsonData);
-				conn.disconnect();
-
-			} catch (IOException e) { //MalformedURLException is subclass of IOException, so not needed separately
-				e.printStackTrace();
-			}
-			JSONParser parser = new JSONParser();
-
-			try {
-				JSONArray a = (JSONArray) parser.parse(jsonData);
-
-				for (Object o : a) {
-					JSONObject person = (JSONObject) o;
-
-					String cd = (String) person.get("cd");
-					System.out.println("cd=" + cd);
-					String cdname = (String) person.get("cdname");
-					System.out.println("cdname=" + cdname);
-					String cname = (String) person.get("cname");
-					System.out.println("cname=" + cname);
-					String roll = (String) person.get("roll");
-					System.out.println("roll=" + roll);
-					String fname = (String) person.get("fname");
-					System.out.println("fname=" + fname);
-					String mname = (String) person.get("mname");
-					System.out.println("mname=" + mname); //removed extra values
-
-					//assuming logging is done
-                    // in some method block
+				if(loginResponse.getMessage().equals("success")) {
 					SessionManager sessionManager = SessionManager.getInstance();
-					sessionManager.setFullName("bitches! session is working!!!!");
-                    Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
+					sessionManager.setFullName(username);
+					sessionManager.setLoginStatus(sessionManager.LOGGED_IN);
+					sessionManager.setPassword(password);
+					Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
 					DisplayMethods displayMethods = DisplayMethods.getInstance();
 					displayMethods.MenuDisplay(CurrentStage);
+				}
+				else
+				{
+					System.out.println("Login Failed, try again");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("User does not exist");
-		}
+
 	}
 
 }

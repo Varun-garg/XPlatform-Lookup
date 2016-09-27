@@ -9,7 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import javax.ws.rs.client.Client;
@@ -39,10 +42,22 @@ public class MenuController implements Initializable {
         this.RollNo = RollNo;
     }
 
+    TextFlow generateTextFlow(String field1, String field2)
+    {
+        TextFlow flow = new TextFlow();
+
+        Text text1=new Text(field1);
+        text1.setStyle("-fx-font-weight: bold");
+
+        Text text2=new Text(field2);
+        text2.setStyle("-fx-font-weight: regular");
+
+        flow.getChildren().addAll(text1, text2);
+        return flow;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        System.out.println("yoyoyo");
-
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
         // client.register(MenuController.class);
@@ -59,6 +74,17 @@ public class MenuController implements Initializable {
             Student student = mapper.readValue(response,Student.class);
             System.out.println(student.getCname());
             System.out.println(student.getMobile());
+
+            personal_info_vbox.getChildren().add(generateTextFlow("Student Name   :",student.getCname()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Roll number       :",student.getRoll()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Mobile number :",student.getMobile()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Course                :",student.getCname() + " - " + student.getCd()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Date of Birth     :",student.getDob()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Gender               :",student.getGender()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Father's Name   :",student.getFname()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Mother's Name :",student.getMname()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Category            :",student.getCat()));
+            personal_info_vbox.getChildren().add(generateTextFlow("State                  :",student.getState()));
         }
         catch (Exception e)
         {
