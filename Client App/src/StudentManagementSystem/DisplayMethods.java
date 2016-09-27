@@ -1,6 +1,7 @@
 package StudentManagementSystem;
 
 
+import StudentManagementSystem.Controllers.MenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,8 +26,16 @@ public class DisplayMethods {
     public void MenuDisplay(Stage parentStage) throws IOException
     {
         if (parentStage == null) parentStage = new Stage();
-        parentStage.setTitle("Welcome Admin");
-        Parent LoginLayout = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
+        SessionManager sessionManager = SessionManager.getInstance();
+        parentStage.setTitle("Welcome " + sessionManager.getFullName()) ;
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
+        Parent LoginLayout = fxmlLoader.load();
+
+        MenuController menuController = fxmlLoader.<MenuController>getController();
+        menuController.setRollNo("R0221039");
+
+
         parentStage.setScene(new Scene(LoginLayout, 800, 500));
         parentStage.show();
         //VBox vBox (VBox)

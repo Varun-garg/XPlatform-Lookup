@@ -5,36 +5,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
-  <tabs>
-    <Tab text="Personal">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <VBox id="personal_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0" prefWidth="582.0" />
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Hostel">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-    <Tab text="Exams">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-    <Tab text="Students">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-    <Tab text="Submit Review">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+         prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.76-ea"
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.MenuController">
+    <tabs>
+        <Tab text="Personal">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <VBox fx:id="personal_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0" prefWidth="582.0"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Hostel">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </content>
+        </Tab>
+        <Tab text="Exams">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </content>
+        </Tab>
+        <Tab text="Students">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </content>
+        </Tab>
+        <Tab text="Submit Review">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </content>
+        </Tab>
 
-  </tabs>
+    </tabs>
 </TabPane>

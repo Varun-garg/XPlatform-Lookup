@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import StudentManagementSystem.DisplayMethods;
+import StudentManagementSystem.SessionManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -84,9 +85,11 @@ public class LoginController {
 
 					//assuming logging is done
                     // in some method block
+					SessionManager sessionManager = SessionManager.getInstance();
+					sessionManager.setFullName("bitches! session is working!!!!");
                     Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
 					DisplayMethods displayMethods = DisplayMethods.getInstance();
-					displayMethods.LoginDisplay(CurrentStage);
+					displayMethods.MenuDisplay(CurrentStage);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
