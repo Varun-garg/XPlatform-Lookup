@@ -1,5 +1,13 @@
-127.0.0.1:8000/data/admin
-127.0.0.1:8000/data/admin/13ics057
-127.0.0.1:8000/data/student/13ics057
+172.25.5.54:8000/data/admin -->list students (not admin)
 
-http://127.0.0.1:8000/user/login?email=sarthak%40example.com&password=sarthak
+http://172.25.5.54:8000/data/admin/13ICS057/ --> editable student
+
+http://172.25.5.54:8000/data/student/13ICS057/ --> non editable student
+
+172.25.5.54:8000/user/login?email=varun.10@live.com&password=pass1234 -->login
+
+172.25.5.54:8000/data/student/new_entry/?full_name=asas&enroll_no=22&program_name=22&school=22&roll_no=22&father_name=ss&mother_name=22&dob=2017-02-15&sex=2&email=varun.22@live.com&phone=2222
+-->insert student
+
+http://172.25.5.54:8000/data/student/hostel/13ICS057/
+-->hostel info

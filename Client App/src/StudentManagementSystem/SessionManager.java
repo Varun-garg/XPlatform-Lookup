@@ -18,6 +18,16 @@ public class SessionManager {
     private String UserType;
     private String FullName;
 
+    public String getRollNumber() {
+        return RollNumber;
+    }
+
+    public void setRollNumber(String rollNumber) {
+        RollNumber = rollNumber;
+    }
+
+    private String RollNumber;
+
     private int LoginStatus = 0;
     public static final int LOGGED_IN = 1;
     public static final int LOGGED_OUT = 0;

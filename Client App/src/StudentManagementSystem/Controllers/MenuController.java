@@ -55,12 +55,35 @@ public class MenuController implements Initializable {
         return flow;
     }
 
+    public void DisplayStudents() {
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        clientTarget = client.target(Configuration.API_HOST + "data/admin"  + "/?format=json");
+
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String response = rawResponse.readEntity(String.class);
+
+        try {
+            Student[] students = mapper.readValue(response, Student[].class);
+            for(int i = 0; i < students.length; i++)
+            {
+                System.out.println("Student " + students[i].getFullName());
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private void DisplayPersonalInfo() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
         // client.register(MenuController.class);
 
-        if (RollNo == null) RollNo = "13ICS057";
         clientTarget = client.target(Configuration.API_HOST + "data/admin/" + RollNo + "/?format=json");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
@@ -90,6 +113,11 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (RollNo == null) RollNo = "13ICS057";
+
+
         this.DisplayPersonalInfo();
+        this.DisplayStudents();
     }
 }

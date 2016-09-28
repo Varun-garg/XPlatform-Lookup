@@ -69,6 +69,9 @@ public class LoginController {
 				sessionManager.setFullName(username);
 				sessionManager.setLoginStatus(sessionManager.LOGGED_IN);
 				sessionManager.setPassword(password);
+				if(loginResponse.getRollNo().length() > 0)
+					sessionManager.setRollNumber(loginResponse.getRollNo());
+				sessionManager.setUserType(loginResponse.getType());
 				Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
 				DisplayMethods displayMethods = DisplayMethods.getInstance();
 				displayMethods.MenuDisplay(CurrentStage);
@@ -78,7 +81,8 @@ public class LoginController {
 				System.out.println("Login Failed, try again");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("Login Failed, try again");
 		}
 
 	}
