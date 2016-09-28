@@ -81,7 +81,7 @@ public class LoginController {
 				System.out.println("Login Failed, try again");
 			}
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Login Failed, try again");
 		}
 

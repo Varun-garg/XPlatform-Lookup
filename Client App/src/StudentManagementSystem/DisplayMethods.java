@@ -33,12 +33,11 @@ public class DisplayMethods {
         Parent LoginLayout = fxmlLoader.load();
 
         MenuController menuController = fxmlLoader.<MenuController>getController();
-        menuController.setRollNo("R0221039");
-
+        menuController.setRollNo(sessionManager.getRollNumber());
 
         parentStage.setScene(new Scene(LoginLayout, 800, 500));
         parentStage.show();
-        //VBox vBox (VBox)
+        menuController.Display();
     }
 
     public void LoginDisplay(Stage parentStage) throws Exception {

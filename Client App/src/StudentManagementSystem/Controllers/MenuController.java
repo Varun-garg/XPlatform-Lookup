@@ -7,9 +7,12 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -32,6 +35,12 @@ public class MenuController implements Initializable {
     @FXML
     private VBox personal_info_vbox;
 
+    @FXML
+    private VBox students_list_vbox;
+
+    @FXML
+    private TabPane tab_plane;
+
     private String RollNo; // roll_no for personal,hostel & exams info
 
     public String getRollNo() {
@@ -39,6 +48,7 @@ public class MenuController implements Initializable {
     }
 
     public void setRollNo(String RollNo) {
+        System.out.println("got roll number " + RollNo);
         this.RollNo = RollNo;
     }
 
@@ -55,7 +65,7 @@ public class MenuController implements Initializable {
         return flow;
     }
 
-    public void DisplayStudents() {
+    private void DisplayStudents() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
         clientTarget = client.target(Configuration.API_HOST + "data/admin"  + "/?format=json");
@@ -70,7 +80,18 @@ public class MenuController implements Initializable {
             Student[] students = mapper.readValue(response, Student[].class);
             for(int i = 0; i < students.length; i++)
             {
-                System.out.println("Student " + students[i].getFullName());
+                if(students[i].getRollNo().length() == 0) continue;
+
+                Button button = new Button(students[i].getFullName());
+                button.setMinWidth(150);
+                button.setPadding(new Insets(5,5,5,5));//(top/right/bottom/left)
+                final int final_iterator = i;
+                button.setOnAction(e -> {
+                    this.setRollNo(students[final_iterator].getRollNo());
+                    tab_plane.getSelectionModel().select(0);
+                    this.Display();
+                });
+                students_list_vbox.getChildren().add(button);
             }
         }
         catch (Exception e)
@@ -94,17 +115,17 @@ public class MenuController implements Initializable {
         try {
             Student student = mapper.readValue(response, Student.class);
 
-            personal_info_vbox.getChildren().add(generateTextFlow("Student Name   :", student.getFullName()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Enrollment         :", student.getEnrollNo()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Roll number       :", student.getRollNo()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Email                   :", student.getEmail()));
-            personal_info_vbox.getChildren().add(generateTextFlow("School                :", student.getSchool()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Mobile number :", student.getPhone()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Course                :", student.getProgramName()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Date of Birth     :", student.getDob()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Gender               :", student.getSex()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Father's Name   :", student.getFatherName()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Mother's Name :", student.getMotherName()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Student Name     :", student.getFullName()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Enrollment           :", student.getEnrollNo()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Roll number         :", student.getRollNo()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Email                     :", student.getEmail()));
+            personal_info_vbox.getChildren().add(generateTextFlow("School                  :", student.getSchool()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Mobile number   :", student.getPhone()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Course                  :", student.getProgramName()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Date of Birth       :", student.getDob()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Gender                 :", student.getSex()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Father's Name     :", student.getFatherName()));
+            personal_info_vbox.getChildren().add(generateTextFlow("Mother's Name   :", student.getMotherName()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,9 +134,17 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        personal_info_vbox.setSpacing(10);
+        students_list_vbox.setSpacing(10);
+    }
 
-        if (RollNo == null) RollNo = "13ICS057";
+    public void Display()
+    {
 
+        personal_info_vbox.getChildren().clear(); //clear previous data
+        students_list_vbox.getChildren().clear();
+
+        if (RollNo == null) return; // empty info????
 
         this.DisplayPersonalInfo();
         this.DisplayStudents();
