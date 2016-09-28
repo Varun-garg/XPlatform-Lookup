@@ -52,34 +52,34 @@ public class LoginController {
 		String password = passwordField.getText();
 		System.out.println(username);
 
-			String jsonData = "";
-			try {
+		try {
 
-				WebTarget clientTarget;
-				Client client = ClientBuilder.newClient();
-				clientTarget = client.target(Configuration.API_HOST + "user/login?email=" + username + "&password=" + password);
-				javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+			WebTarget clientTarget;
+			Client client = ClientBuilder.newClient();
+			clientTarget = client.target(Configuration.API_HOST + "user/login?email=" + username + "&password=" + password);
+			javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
 
-				String response = rawResponse.readEntity(String.class);
-				ObjectMapper mapper = new ObjectMapper();
-				LoginResponse loginResponse = mapper.readValue(response,LoginResponse.class);
+			String response = rawResponse.readEntity(String.class);
+			ObjectMapper mapper = new ObjectMapper();
+			LoginResponse loginResponse = mapper.readValue(response,LoginResponse.class);
 
-				if(loginResponse.getMessage().equals("success")) {
-					SessionManager sessionManager = SessionManager.getInstance();
-					sessionManager.setFullName(username);
-					sessionManager.setLoginStatus(sessionManager.LOGGED_IN);
-					sessionManager.setPassword(password);
-					Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
-					DisplayMethods displayMethods = DisplayMethods.getInstance();
-					displayMethods.MenuDisplay(CurrentStage);
-				}
-				else
-				{
-					System.out.println("Login Failed, try again");
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			System.out.println("got message " + loginResponse.getMessage());
+			if(loginResponse.getMessage().equals("success")) {
+				SessionManager sessionManager = SessionManager.getInstance();
+				sessionManager.setFullName(username);
+				sessionManager.setLoginStatus(sessionManager.LOGGED_IN);
+				sessionManager.setPassword(password);
+				Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
+				DisplayMethods displayMethods = DisplayMethods.getInstance();
+				displayMethods.MenuDisplay(CurrentStage);
 			}
+			else
+			{
+				System.out.println("Login Failed, try again");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
