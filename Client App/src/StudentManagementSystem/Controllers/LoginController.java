@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
@@ -46,24 +47,30 @@ public class LoginController {
     @FXML
     private VBox fxml_root;
 
-    public void event(ActionEvent event) throws IOException {
+	@FXML
+	private Label current_status;
+
+	public void event(ActionEvent event) throws IOException {
 
 		String username = usernameField.getText();
 		String password = passwordField.getText();
 		System.out.println(username);
 
 		try {
-
+			current_status.setText("sending parameters to api");
 			WebTarget clientTarget;
 			Client client = ClientBuilder.newClient();
 			clientTarget = client.target(Configuration.API_HOST + "user/login?email=" + username + "&password=" + password);
+
 			javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+
 
 			String response = rawResponse.readEntity(String.class);
 			ObjectMapper mapper = new ObjectMapper();
 			LoginResponse loginResponse = mapper.readValue(response,LoginResponse.class);
 
 			System.out.println("got message " + loginResponse.getMessage());
+			current_status.setText("Recieved message " + loginResponse.getMessage());
 			if(loginResponse.getMessage().equals("success")) {
 				SessionManager sessionManager = SessionManager.getInstance();
 				sessionManager.setFullName(username);
@@ -83,6 +90,8 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Login Failed, try again");
+			current_status.setText("Login failed ");
+
 		}
 
 	}
