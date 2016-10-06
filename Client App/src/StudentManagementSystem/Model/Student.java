@@ -3,6 +3,7 @@ package StudentManagementSystem.Model;
 //credits http://www.jsonschema2pojo.org/
 
 import java.util.HashMap;
+
 import java.util.Map;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;

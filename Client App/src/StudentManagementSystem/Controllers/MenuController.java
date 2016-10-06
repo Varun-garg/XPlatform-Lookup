@@ -1,6 +1,7 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
+import StudentManagementSystem.Model.Hostel;
 import StudentManagementSystem.Model.Student;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
@@ -37,6 +38,9 @@ public class MenuController implements Initializable {
 
     @FXML
     private VBox students_list_vbox;
+    
+    @FXML
+    private VBox hostel_info_vbox;
 
     @FXML
     private TabPane tab_plane;
@@ -106,7 +110,7 @@ public class MenuController implements Initializable {
         // client.register(MenuController.class);
 
         clientTarget = client.target(Configuration.API_HOST + "data/admin/" + RollNo + "/?format=json");
-
+        
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
 
         String response = rawResponse.readEntity(String.class);
@@ -131,11 +135,40 @@ public class MenuController implements Initializable {
         }
 
     }
+    private void DisplayHostelInfo() {
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        // client.register(MenuController.class);
+
+        clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/" + RollNo + "/?format=json");
+        
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+
+        String response = rawResponse.readEntity(String.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Hostel hos = mapper.readValue(response, Hostel.class);
+
+            hostel_info_vbox.getChildren().add(generateTextFlow("Roll No                         :",hos.getRollNum()));
+            hostel_info_vbox.getChildren().add(generateTextFlow("Room No                      :",hos.getRoomNum()));
+            hostel_info_vbox.getChildren().add(generateTextFlow("Warden Name              :", hos.getWardenName()));
+            hostel_info_vbox.getChildren().add(generateTextFlow("Warden Mobile No.     :", hos.getWardenMob()));
+            hostel_info_vbox.getChildren().add(generateTextFlow("Caretaker Name           :", hos. getCaretakerName()));
+            hostel_info_vbox.getChildren().add(generateTextFlow("Caretaker Mobile No.  :", hos.getCaretakerNum()));
+            
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         personal_info_vbox.setSpacing(10);
         students_list_vbox.setSpacing(10);
+        hostel_info_vbox.setSpacing(10);
     }
 
     public void Display()
@@ -143,10 +176,12 @@ public class MenuController implements Initializable {
 
         personal_info_vbox.getChildren().clear(); //clear previous data
         students_list_vbox.getChildren().clear();
+        hostel_info_vbox.getChildren().clear();
 
         if (RollNo == null) return; // empty info????
 
         this.DisplayPersonalInfo();
         this.DisplayStudents();
+        this.DisplayHostelInfo();
     }
 }
