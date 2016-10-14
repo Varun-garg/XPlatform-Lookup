@@ -1,6 +1,8 @@
-from .serializer import AdminSerializer, StudentSerializer, HostelSerializer
+from .serializer import AdminSerializer, StudentSerializer, HostelSerializer, MarksStatusSerializer, MarksSubjectsSerializer
 from rest_framework import generics
-from .models import studentdb, hostel_info
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import studentdb, hostel_info, marks_status, marks_subjects
 import json
 from django.shortcuts import HttpResponse
 
@@ -65,4 +67,17 @@ class Hostel_Detail(generics.RetrieveAPIView):
     queryset = hostel_info.objects.all()
     lookup_field = 'roll_num'
     serializer_class = HostelSerializer
+
+
+class Student_Exams(APIView):
+
+    def get(self, request, **kwargs):
+        subjects = marks_subjects.objects.filter(roll_num=kwargs['roll_num'], semester=kwargs['semester'])
+        status = marks_status.objects.filter(roll_num=kwargs['roll_num'], semester=kwargs['semester'])
+        subjects_serializer = MarksSubjectsSerializer(subjects, many=True)
+        status_serializer = MarksStatusSerializer(status, many=True)
+
+        return Response({'Marks Summary': subjects_serializer.data, 'Overall Result': status_serializer.data,})
+
+
 

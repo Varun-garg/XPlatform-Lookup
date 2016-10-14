@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import studentdb, hostel_info
+from .models import studentdb, hostel_info, marks_status, marks_subjects
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -18,4 +18,16 @@ class HostelSerializer(serializers.ModelSerializer):
     class Meta:
         model = hostel_info
         fields = ('roll_num', 'room_num', 'warden_name', 'warden_mob', 'caretaker_name', 'caretaker_num')
+
+
+class MarksStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = marks_status
+        fields = ('roll_num', 'tc', 'tgp', 'sgpa', 'result', 'semester')
+
+
+class MarksSubjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = marks_subjects
+        fields = ('subject_code', 'grade')
 
