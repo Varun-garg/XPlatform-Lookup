@@ -15,6 +15,10 @@ class studentdb(models.Model):
     email = models.EmailField(max_length=100,null= True)
     phone = models.IntegerField(null= True)
 
+    def __str__(self):
+        desc = self.roll_num + "-" + self.full_name
+        return desc
+
 
 class hostel_info(models.Model):
     roll_num = models.CharField(max_length=100, null= True)
@@ -25,12 +29,19 @@ class hostel_info(models.Model):
     caretaker_name = models.CharField(max_length=200, null= True)
     caretaker_num = models.IntegerField(null= True)
 
+    def __str__(self):
+        desc = self.roll_num + "-" + self.hostel_name
+        return desc
 
 class marks_subjects(models.Model):
     roll_num = models.CharField(max_length=100, null=True)
     subject_code = models.CharField(max_length=10, null=True)
     grade = models.CharField(max_length=10, null=True)
     semester = models.PositiveIntegerField(null=True)
+
+    def __str__(self):
+        desc = self.roll_num + "-" + self.subject_code
+        return desc
 
 
 class marks_status(models.Model):
@@ -41,6 +52,9 @@ class marks_status(models.Model):
     result = models.CharField(max_length=50,null = True)
     semester = models.PositiveIntegerField(null=True)
 
+    def __str__(self):
+        desc = self.roll_num + "-" + self.result
+        return desc
 
 
 
