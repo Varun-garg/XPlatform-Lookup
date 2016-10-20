@@ -30,17 +30,18 @@ class Student_Detail(generics.RetrieveAPIView):
 
 
 def addstudent(request):
+    response_data = {}
     if request.method == 'GET':
-        full_name = request.GET.get('full_name', '')
+        full_name = request.GET.get('full_name')
         enroll_no = request.GET.get('enroll_no')
-        program_name = request.GET.get('program_name', '')
-        school = request.GET.get('school', '')
-        roll_no = request.GET.get('roll_no', '')
-        father_name = request.GET.get('father_name', '')
-        mother_name = request.GET.get('mother_name', '')
+        program_name = request.GET.get('program_name')
+        school = request.GET.get('school')
+        roll_no = request.GET.get('roll_no')
+        father_name = request.GET.get('father_name')
+        mother_name = request.GET.get('mother_name')
         dob = request.GET.get('dob')
-        sex = request.GET.get('sex', '')
-        email = request.GET.get('email', '')
+        sex = request.GET.get('sex')
+        email = request.GET.get('email')
         phone = request.GET.get('phone')
 
         new_student = studentdb()
@@ -57,10 +58,80 @@ def addstudent(request):
         new_student.phone = phone
         new_student.save()
 
-        response_data = {}
+        response_data['message'] = 'success'
+
+    else:
+        response_data['message'] = 'fail'
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+def addhostelinfo(request):
+    response_data = {}
+    if request.method == 'GET':
+        roll_num = request.GET.get('roll_num')
+        hostel_name = request.GET.get('hostel_name')
+        room_num = request.GET.get('room_num')
+        warden_name = request.GET.get('warden_name')
+        warden_mob = request.GET.get('warden_mob')
+        caretaker_name = request.GET.get('caretaker_name')
+        caretaker_num = request.GET.get('caretaker_num')
+
+        new_hostel_info = hostel_info()
+        new_hostel_info.roll_num = roll_num
+        new_hostel_info.hostel_name = hostel_name
+        new_hostel_info.room_num = room_num
+        new_hostel_info.warden_name = warden_name
+        new_hostel_info.warden_mob = warden_mob
+        new_hostel_info.caretaker_name = caretaker_name
+        new_hostel_info.caretaker_num = caretaker_num
+        new_hostel_info.save()
 
         response_data['message'] = 'success'
-        return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+    else:
+        response_data['message'] = 'fail'
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+def addmarksinfo(request):
+    response_data = {}
+    if request.method == 'GET':
+        roll_num = request.GET.get('roll_num')
+        subject_code = request.GET.get('subject_code')
+        grade = request.GET.get('grade')
+        tc = request.GET.get('tc')
+        tgp = request.GET.get('tgp')
+        sgpa = request.GET.get('sgpa')
+        result = request.GET.get('result')
+        semester = request.GET.get('semester')
+
+        new_marks_subjects = marks_subjects()
+
+        new_marks_subjects.roll_num = roll_num
+        new_marks_subjects.subject_code = subject_code
+        new_marks_subjects.grade = grade
+        new_marks_subjects.semester = semester
+
+        new_marks_status = marks_status()
+
+        new_marks_status.roll_num = roll_num
+        new_marks_status.tc = tc
+        new_marks_status.tgp = tgp
+        new_marks_status.sgpa = sgpa
+        new_marks_status.result = result
+        new_marks_status.semester = semester
+
+        new_marks_status.save()
+        new_marks_subjects.save()
+
+        response_data['message'] = 'success'
+
+    else:
+        response_data['message'] = 'fail'
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 class Hostel_Detail(generics.RetrieveAPIView):
