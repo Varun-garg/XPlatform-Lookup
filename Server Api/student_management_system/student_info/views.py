@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import studentdb, hostel_info, marks_status, marks_subjects
 import json
 from django.shortcuts import HttpResponse
+from rest_framework.decorators import api_view
 
 # These will be used in the admin section
 
@@ -29,20 +30,21 @@ class Student_Detail(generics.RetrieveAPIView):
     serializer_class = StudentSerializer
 
 
+@api_view(['POST'])
 def addstudent(request):
     response_data = {}
-    if request.method == 'GET':
-        full_name = request.GET.get('full_name')
-        enroll_no = request.GET.get('enroll_no')
-        program_name = request.GET.get('program_name')
-        school = request.GET.get('school')
-        roll_no = request.GET.get('roll_no')
-        father_name = request.GET.get('father_name')
-        mother_name = request.GET.get('mother_name')
-        dob = request.GET.get('dob')
-        sex = request.GET.get('sex')
-        email = request.GET.get('email')
-        phone = request.GET.get('phone')
+    if request.method == 'POST':
+        full_name = request.POST.get('full_name')
+        enroll_no = request.POST.get('enroll_no')
+        program_name = request.POST.get('program_name')
+        school = request.POST.get('school')
+        roll_no = request.POST.get('roll_no')
+        father_name = request.POST.get('father_name')
+        mother_name = request.POST.get('mother_name')
+        dob = request.POST.get('dob')
+        sex = request.POST.get('sex')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
 
         new_student = studentdb()
         new_student.full_name = full_name

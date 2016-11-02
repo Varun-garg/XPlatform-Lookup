@@ -84,7 +84,8 @@ public class MenuController implements Initializable {
             Student[] students = mapper.readValue(response, Student[].class);
             for(int i = 0; i < students.length; i++)
             {
-                if(students[i].getRollNo().length() == 0) continue;
+                System.out.println(students[i].getFullName() + " "  + students[i].getRollNo());
+                if(students[i].getRollNo() == null || students[i].getRollNo().length() == 0) continue;
 
                 Button button = new Button(students[i].getFullName());
                 button.setMinWidth(150);
