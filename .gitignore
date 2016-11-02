@@ -1,2 +1,4 @@
-Client App/.idea/
-Server Api/student_management_system/.idea/
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+**/out/production/
+*.pyc
