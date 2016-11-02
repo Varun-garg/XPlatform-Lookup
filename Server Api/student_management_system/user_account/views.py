@@ -3,15 +3,21 @@ import json
 from .models import UserSMS
 from django.views.decorators.csrf import csrf_protect
 from django.db.models.query_utils import Q
+from rest_framework.decorators import api_view
 
 
-@csrf_protect
+@api_view(['POST'])
 def user_login(request):
-    if request.method == 'GET':
-        username = request.GET.get('username', '')
-        email = request.GET.get('email', '')
-        password = request.GET.get('password', '')
-        user = UserSMS.objects.get(Q(email=email)|Q(username=username))
+    if request.method == 'POST':
+        username = request.POST.get('email', '')
+        # client does not know if it is username or email, so it sends any data in email field
+        email = request.POST.get('email', '')
+        password = request.POST.get('password', '')
+
+        try:  # to avoid error when no user exists
+            user = UserSMS.objects.get(Q(email=email) | Q(username=username))
+        except UserSMS.DoesNotExist:
+            user = None
         response_data = {}
 
         # if user is None:

@@ -34,7 +34,10 @@ import sun.rmi.runtime.Log;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class LoginController {
@@ -61,9 +64,14 @@ public class LoginController {
 			current_status.setText("sending parameters to api");
 			WebTarget clientTarget;
 			Client client = ClientBuilder.newClient();
-			clientTarget = client.target(Configuration.API_HOST + "user/login?email=" + username + "&password=" + password);
+			clientTarget = client.target(Configuration.API_HOST + "user/login");//?email=" + username + "&password=" + password
 
-			javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+			Form auth_form = new Form();
+			auth_form.param("email",username);
+			auth_form.param("password",password);
+
+			javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").
+					post(Entity.entity(auth_form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
 
 			String response = rawResponse.readEntity(String.class);
