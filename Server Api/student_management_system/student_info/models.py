@@ -16,7 +16,11 @@ class studentdb(models.Model):
     phone = models.IntegerField(null= True)
 
     def __str__(self):
-        desc = self.roll_num + "-" + self.full_name
+        if self.roll_no is None:
+            self.roll_no = 'NULL/None'
+        if self.full_name is None:
+            self.full_name = 'NULL/None'
+        desc = self.roll_no + "-" + self.full_name
         return desc
 
 
