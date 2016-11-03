@@ -2,3 +2,4 @@
 **/.idea/tasks.xml
 **/out/production/
 *.pyc
+**/Server Api/student_management_system/static/
