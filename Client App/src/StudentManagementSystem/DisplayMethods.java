@@ -35,7 +35,7 @@ public class DisplayMethods {
         MenuController menuController = fxmlLoader.<MenuController>getController();
         menuController.setRollNo(sessionManager.getRollNumber());
 
-        parentStage.setScene(new Scene(LoginLayout, 800, 500));
+        parentStage.setScene(new Scene(LoginLayout, 800, 600));
         parentStage.show();
         menuController.Display();
     }

@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-         prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.76-ea"
+<?import com.jfoenix.controls.JFXButton?>
+<TabPane fx:id="tab_plane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.112-ea"
          xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.MenuController"
-        fx:id="tab_plane">
+         stylesheets="@LayoutStyle.css">
     <tabs>
         <Tab text="Personal">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <VBox fx:id="personal_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0" prefWidth="582.0"/>
+                        <VBox fx:id="personal_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0"
+                              prefWidth="582.0"/>
                     </children>
                 </AnchorPane>
             </content>
@@ -23,7 +32,8 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <VBox fx:id="hostel_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0" prefWidth="582.0"/>
+                        <VBox fx:id="hostel_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0"
+                              prefWidth="582.0"/>
                     </children>
                 </AnchorPane>
             </content>
@@ -35,11 +45,58 @@
         </Tab>
         <Tab text="Students">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <VBox fx:id="students_list_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0" prefWidth="582.0"/>
-                    </children>
-                </AnchorPane>
+                <HBox spacing="10">
+                    <padding>
+                        <Insets bottom="25" left="25" right="25" top="25"/>
+                    </padding>
+                    <VBox fx:id="students_list_vbox"/>
+                    <GridPane fx:id="new_student_form_grid" vgap="10">
+                        <Text GridPane.rowIndex="0" GridPane.columnIndex="0">Full name:</Text>
+                        <JFXTextField GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="full_name"/>
+
+                        <Text GridPane.rowIndex="1" GridPane.columnIndex="0">Enrollment Number:</Text>
+                        <JFXTextField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="enroll_no"/>
+
+                        <Text GridPane.rowIndex="2" GridPane.columnIndex="0">Roll Number:</Text>
+                        <JFXTextField GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="roll_no"/>
+
+                        <Text GridPane.rowIndex="3" GridPane.columnIndex="0">Program Name:</Text>
+                        <JFXTextField GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="program_name"/>
+
+                        <Text GridPane.rowIndex="4" GridPane.columnIndex="0">School:</Text>
+                        <JFXTextField GridPane.rowIndex="4" GridPane.columnIndex="1" fx:id="school"/>
+
+                        <Text GridPane.rowIndex="5" GridPane.columnIndex="0">Father's Name:</Text>
+                        <JFXTextField GridPane.rowIndex="5" GridPane.columnIndex="1" fx:id="father_name"/>
+
+                        <Text GridPane.rowIndex="6" GridPane.columnIndex="0">Mother's Name :</Text>
+                        <JFXTextField GridPane.rowIndex="6" GridPane.columnIndex="1" fx:id="mother_name"/>
+
+                        <Text GridPane.rowIndex="7" GridPane.columnIndex="0">DOB (YYYY-MM-DD):</Text>
+                        <JFXTextField GridPane.rowIndex="7" GridPane.columnIndex="1" fx:id="dob"/>
+
+                        <Text GridPane.rowIndex="8" GridPane.columnIndex="0">Sex:</Text>
+                        <JFXTextField GridPane.rowIndex="8" GridPane.columnIndex="1" fx:id="sex"/>
+
+                        <Text GridPane.rowIndex="9" GridPane.columnIndex="0">Email:</Text>
+                        <JFXTextField GridPane.rowIndex="9" GridPane.columnIndex="1" fx:id="email"/>
+
+                        <Text GridPane.rowIndex="10" GridPane.columnIndex="0">Phone Number:</Text>
+                        <JFXTextField GridPane.rowIndex="10" GridPane.columnIndex="1" fx:id="phone"/>
+
+
+                        <JFXButton fx:id="button" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="TOP"
+                                   mnemonicParsing="false" onAction="#AddStudent" styleClass="button_green" text="Add Student"
+                                   textAlignment="CENTER" GridPane.rowIndex="11" GridPane.columnIndex="0"
+                                   GridPane.columnSpan="2">
+                            <opaqueInsets>
+                                <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                            </opaqueInsets>
+                        </JFXButton>
+
+                    </GridPane>
+
+                </HBox>
             </content>
         </Tab>
         <Tab text="Submit Review">

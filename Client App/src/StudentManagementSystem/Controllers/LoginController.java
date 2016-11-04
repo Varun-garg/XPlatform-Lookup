@@ -54,7 +54,7 @@ public class LoginController {
 	@FXML
 	private Label current_status;
 
-	public void event(ActionEvent event) throws IOException {
+	public void LoginEvent(ActionEvent event) throws IOException {
 
 		String username = usernameField.getText();
 		String password = passwordField.getText();
