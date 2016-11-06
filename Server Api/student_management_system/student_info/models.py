@@ -34,8 +34,13 @@ class hostel_info(models.Model):
     caretaker_num = models.IntegerField(null= True)
 
     def __str__(self):
+        if self.roll_num is None:
+            self.roll_num = 'NULL/None'
+        if self.hostel_name is None:
+            self.hostel_name = 'NULL/None'
         desc = self.roll_num + "-" + self.hostel_name
         return desc
+
 
 class marks_subjects(models.Model):
     roll_num = models.CharField(max_length=100, null=True)
@@ -44,6 +49,10 @@ class marks_subjects(models.Model):
     semester = models.PositiveIntegerField(null=True)
 
     def __str__(self):
+        if self.roll_num is None:
+            self.roll_num = 'NULL/None'
+        if self.subject_code is None:
+            self.subject_code = 'NULL/None'
         desc = self.roll_num + "-" + self.subject_code
         return desc
 
@@ -57,6 +66,10 @@ class marks_status(models.Model):
     semester = models.PositiveIntegerField(null=True)
 
     def __str__(self):
+        if self.roll_num is None:
+            self.roll_num = 'NULL/None'
+        if self.result is None:
+            self.result = 'NULL/None'
         desc = self.roll_num + "-" + self.result
         return desc
 
