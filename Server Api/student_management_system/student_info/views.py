@@ -6,7 +6,7 @@ from .models import studentdb, hostel_info, marks_status, marks_subjects
 import json
 from django.shortcuts import HttpResponse
 from rest_framework.decorators import api_view
-from django.views.decorators.csrf import csrf_exempt
+#from django.views.decorators.csrf import csrf_exempt
 # These will be used in the admin section
 
 
@@ -37,34 +37,34 @@ def addstudent(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
         if full_name is None:
-            errors.append("Enter Full Name")
+            errors.append("full_name: Enter Full Name")
         enroll_no = request.POST.get('enroll_no')
         if enroll_no is None:
-            errors.append("Enter Enrollment Number")
+            errors.append("enroll_no: Enter Enrollment Number")
         program_name = request.POST.get('program_name')
         if program_name is None:
-            errors.append("Enter program_name")
+            errors.append("program_name: Enter program_name")
         school = request.POST.get('school')
         if school is None:
-            errors.append("Enter School Name")
+            errors.append("school: Enter School Name")
         roll_no = request.POST.get('roll_no')
         existing_entry = studentdb.objects.filter(roll_no = roll_no)
-        if existing_entry is not None:
-            errors.append("Entry corresponding to this roll number already exists")
+        if existing_entry.count() > 0:
+            errors.append("roll_no: Entry corresponding to this roll number already exists")
         if roll_no is None:
-            errors.append("Enter Roll Number")
+            errors.append("roll_no: Enter Roll Number")
         father_name = request.POST.get('father_name', '')
         mother_name = request.POST.get('mother_name', '')
         dob = request.POST.get('dob')
         if dob is None:
-            errors.append("Enter Date Of Birth")
+            errors.append("dob: Enter Date Of Birth")
         sex = request.POST.get('sex', '')
         email = request.POST.get('email')
         if email is None:
-            errors.append("Enter email id")
+            errors.append("email: Enter email id")
         phone = request.POST.get('phone')
         if phone is None:
-            errors.append("Enter phone Number")
+            errors.append("phone: Enter phone Number")
         if len(errors) == 0:
             new_student = studentdb()
             new_student.full_name = full_name
@@ -95,16 +95,16 @@ def addhostelinfo(request):
     if request.method == 'POST':
         roll_num = request.POST.get('roll_no')
         existing_entry = studentdb.objects.filter(roll_no = roll_num)
-        if existing_entry is None:
-            errors.append("No student with this roll number exists")
+        if existing_entry.count() is 0:
+            errors.append("roll_no: No student with this roll number exists")
         if roll_num is None:
-            errors.append("Enter Roll Number")
+            errors.append("roll_no: Enter Roll Number")
         hostel_name = request.POST.get('hostel_name')
         if hostel_name is None:
-            errors.append("Enter Hostel Name")
+            errors.append("hostel_name: Enter Hostel Name")
         room_num = request.POST.get('room_num')
         if room_num is None:
-            errors.append("Enter Room Number")
+            errors.append("room_num: Enter Room Number")
         warden_name = request.POST.get('warden_name')
         warden_mob = request.POST.get('warden_mob')
         caretaker_name = request.POST.get('caretaker_name')
@@ -135,31 +135,31 @@ def addmarksinfo(request):
     if request.method == 'POST':
         roll_num = request.POST.get('roll_no')
         existing_entry = studentdb.objects.filter(roll_no = roll_num)
-        if existing_entry is None:
-            errors.append("No student with this roll number exists")
+        if existing_entry.count() is 0:
+            errors.append("roll_no: No student with this roll number exists")
         if roll_num is None:
-            errors.append("Enter Roll Number")
+            errors.append("roll_no: Enter Roll Number")
         subject_code = request.POST.get('subject_code')
         if subject_code is None:
-            errors.append("Enter Subject Code")
+            errors.append("subject_code: Enter Subject Code")
         grade = request.POST.get('grade')
         if grade is None:
-            errors.append("Enter Grade")
+            errors.append("grade: Enter Grade")
         tc = request.POST.get('tc')
         if tc is None:
-            errors.append("Enter Total Credits")
+            errors.append("tc: Enter Total Credits")
         tgp = request.POST.get('tgp')
         if tgp is None:
-            errors.append("Enter Total Grade Point")
+            errors.append("tgp: Enter Total Grade Point")
         sgpa = request.POST.get('sgpa')
         if sgpa is None:
-            errors.append("Enter SGPA")
+            errors.append("sgpa: Enter SGPA")
         result = request.POST.get('result')
         if result is None:
-            errors.append("Enter Status (Result)")
+            errors.append("result: Enter Status (Result)")
         semester = request.POST.get('semester')
         if semester is None:
-            errors.append("Enter Semester")
+            errors.append("semester: Enter Semester")
         if len(errors) == 0:
             new_marks_subjects = marks_subjects()
             new_marks_subjects.roll_num = roll_num
