@@ -13,6 +13,12 @@
 <?import javafx.scene.text.Text?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ScrollPane?>
 <TabPane fx:id="tab_plane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
          prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.112-ea"
          xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.MenuController"
@@ -40,7 +46,79 @@
         </Tab>
         <Tab text="Exams">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                <ScrollPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+                    <content>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+                            <padding>
+                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                            </padding>
+                            <children>
+                                <HBox>
+                                    <children>
+                                        <Label fx:id="l3" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="450.0" text="SEMESTER-7" textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP">
+                                            <font>
+                                                <Font name="System Bold" size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="exams" depthTest="DISABLE" prefHeight="210" prefWidth="800">
+                                    <columns>
+                                        <TableColumn fx:id="subjectcode" prefWidth="400.0" text="SUBJECT_CODE" />
+                                        <TableColumn fx:id="grade" minWidth="0.0" prefWidth="400.0" text="GRADE" />
+                                    </columns>
+                                </TableView>
+                                <HBox prefHeight="17.0" prefWidth="800.0"  styleClass="hbox">
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="385.0" text="SGPA">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label  fx:id="l1" prefHeight="17.0" prefWidth="80.0" >
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <!--<Separator prefHeight="20.0" prefWidth="600.0" />-->
+                                <HBox prefHeight="9.0" prefWidth="600.0">
+                                    <children>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="450.0" text="SEMESTER-8" textFill="#0e0561">
+                                            <font>
+                                                <Font name="System Bold" size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <TableView prefHeight="210.0" prefWidth="800.0">
+                                    <columns>
+                                        <TableColumn prefWidth="400.0" text="SUBJECT_CODE" />
+                                        <TableColumn minWidth="0.0" prefWidth="400.0" text="GRADE" />
+                                    </columns>
+                                </TableView>
+                                <HBox prefHeight="17.0" prefWidth="800.0"  styleClass="hbox">
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="80.0" text="SGPA">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label  fx:id="l2" prefHeight="17.0" prefWidth="640.0" >
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </VBox>
+                    </content>
+                </ScrollPane>
             </content>
         </Tab>
         <Tab text="Students">

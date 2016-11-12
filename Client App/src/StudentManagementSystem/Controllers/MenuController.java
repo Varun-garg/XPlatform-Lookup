@@ -1,36 +1,28 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
-import StudentManagementSystem.DisplayMethods;
-import StudentManagementSystem.Model.Hostel;
-import StudentManagementSystem.Model.LoginResponse;
-import StudentManagementSystem.Model.Student;
-import StudentManagementSystem.SessionManager;
+import StudentManagementSystem.Model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
+
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import javax.xml.ws.Response;
-import javax.xml.ws.WebEndpoint;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -49,6 +41,8 @@ public class MenuController implements Initializable {
     private TabPane tab_plane;
 
     private String RollNo; // roll_no for personal,hostel & exams info
+
+    private int semester=6;
 
     public String getRollNo() {
         return RollNo;
@@ -196,11 +190,12 @@ public class MenuController implements Initializable {
         }
     }
 
-    private void DisplayHostelInfo() {
+    private void displayHostelInfo() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
 
         clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/" + RollNo + "/?format=json");
+
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
 
@@ -214,19 +209,77 @@ public class MenuController implements Initializable {
             hostel_info_vbox.getChildren().add(generateTextFlow("Warden Mobile No.     :", hos.getWardenMob()));
             hostel_info_vbox.getChildren().add(generateTextFlow("Caretaker Name           :", hos.getCaretakerName()));
             hostel_info_vbox.getChildren().add(generateTextFlow("Caretaker Mobile No.  :", hos.getCaretakerNum()));
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
+    @FXML // fx:id="exams"
+    private TableView<Exams> exams;
+
+    @FXML // fx:id="subjectcode"
+    private TableColumn<ExamsResult, String> subjectcode;
+
+    @FXML // fx:id="grade"
+    private TableColumn<ExamsResult, String> grade;
+
+    @FXML
+    private Label l1;
+
+    @FXML
+    private Label l3;
+
+    private void displayExamsInfo(){
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        clientTarget = client.target("http://studentmanagementsystem.pythonanywhere.com/data/student/exams/13ICS047/6");
+        //clientTarget = client.target(Configuration.API_HOST + "data/student/exams/13ICS047"+"/"+semester+ "/");
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+        String response = rawResponse.readEntity(String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Exams e = mapper.readValue(response,Exams.class);
+
+            List<OverallResult> o = e.getOverallResult();
+            List<MarksSummary> m=e.getMarksSummary();
+
+            l3.setText(String.valueOf("SEMESTER-"+o.get(0).getSemester()));
+
+            PropertyValueFactory<ExamsResult, String> subjectcodeProperty =
+                    new PropertyValueFactory<ExamsResult, String>("subjectcode");
+
+            PropertyValueFactory<ExamsResult, String> gradeProperty =
+                    new PropertyValueFactory<ExamsResult, String>("grade");
+
+            subjectcode.setCellValueFactory( subjectcodeProperty );
+            grade.setCellValueFactory( gradeProperty );
+
+            ObservableList<Exams> data =
+                    FXCollections.observableArrayList();
+            for(int i=0;i<7;i++){
+                data.add(new ExamsResult(m.get(i).getSubjectCode(),m.get(i).getGrade()));
+            }
+
+            exams.setItems( data );
+            l1.setText(String.valueOf(o.get(0).getSgpa()));
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         personal_info_vbox.setSpacing(10);
         students_list_vbox.setSpacing(10);
         hostel_info_vbox.setSpacing(10);
+
+
+
     }
 
     public void Display() {
@@ -239,6 +292,7 @@ public class MenuController implements Initializable {
 
         this.DisplayPersonalInfo();
         this.DisplayStudents();
-        this.DisplayHostelInfo();
+        this.displayHostelInfo();
+        this.displayExamsInfo();
     }
 }
