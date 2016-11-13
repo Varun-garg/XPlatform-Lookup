@@ -11,11 +11,22 @@ import java.io.IOException;
 
 public class MainApplication extends Application {
 
+    Stage window;
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        window=primaryStage;
         DisplayMethods displayMethods = DisplayMethods.getInstance();
         displayMethods.LoginDisplay(primaryStage);
+        primaryStage.setOnCloseRequest(e->{
+            e.consume();
+            closeProgram();
+        });
+    }
+    public void closeProgram(){
+        boolean value = ConfirmationBox.display("CONFIRMATION","Are you sure you want to exit?");
+        if(value){
+            window.close();
+        }
     }
 
 
