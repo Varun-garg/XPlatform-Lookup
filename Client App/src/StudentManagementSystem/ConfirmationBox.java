@@ -25,13 +25,13 @@ public class ConfirmationBox {
         Label l = new Label(message);
         l.setFont(Font.font ("Bold", 20));
 
-        Button b1 = new Button("Yes");
+        Button b1 = new Button("   Yes   ");
         b1.setOnAction(e1->{
             answer=true;
             window.close();
         });
 
-        Button b2 = new Button("No");
+        Button b2 = new Button("   No   ");
         b2.setOnAction(e2->{
             answer=false;
             window.close();

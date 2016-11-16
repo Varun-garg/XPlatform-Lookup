@@ -23,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -228,12 +229,27 @@ public class MenuController implements Initializable {
     private Label l1;
 
     @FXML
+    private Label l2;
+
+    @FXML
     private Label l3;
 
-    private void displayExamsInfo(){
+        @FXML
+        private ChoiceBox<String> cb;
+
+
+    public void choicebox(){
+        for(int i=1;i<=7;i++)
+            cb.getItems().add(""+i);
+        cb.setValue("7");
+    }
+
+
+    public void displayExamsInfo(String n){
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target("http://studentmanagementsystem.pythonanywhere.com/data/student/exams/13ICS047/6");
+        //clientTarget = client.target("http://studentmanagementsystem.pythonanywhere.com/data/student/exams/13ICS047/6");
+        clientTarget= client.target("http://127.0.0.1:8000/data/student/exams/13ICS047/"+n);
         //clientTarget = client.target(Configuration.API_HOST + "data/student/exams/13ICS047"+"/"+semester+ "/");
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
@@ -260,10 +276,14 @@ public class MenuController implements Initializable {
             for(int i=0;i<7;i++){
                 data.add(new ExamsResult(m.get(i).getSubjectCode(),m.get(i).getGrade()));
             }
-
             exams.setItems( data );
             l1.setText(String.valueOf(o.get(0).getSgpa()));
+            String l2=String.valueOf(o.get(0).getResult());
+            this.l2.setText(l2.toUpperCase(Locale.forLanguageTag(l2)));
 
+            //cb = new ChoiceBox<String>();
+
+            cb.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)->this.displayExamsInfo(newValue));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -293,6 +313,7 @@ public class MenuController implements Initializable {
         this.DisplayPersonalInfo();
         this.DisplayStudents();
         this.displayHostelInfo();
-        this.displayExamsInfo();
+        this.displayExamsInfo("7");
+        this.choicebox();
     }
 }
