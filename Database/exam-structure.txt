@@ -1,0 +1,48 @@
+{
+  "id" : "57ea9d2b12ef4719bbc42694",
+  "prog" : "BTech + MTech/MBA",
+  "batch" : "2013-2018",
+  "sem" : 6,
+  "marks" : [
+              {
+                "roll" : "13ics001",
+                "subjects" : {
+                                "cs-302" : "Ex",
+                                "cs-304" : "A",
+                                "cs-306" : "A",
+                                "cs-308" : "Ex",
+                                "cs-382" : "B",
+                                "cs-384" : "Ex",
+                                "gp" : "B"
+                              },
+                "status" : {
+                              "tc" : "26",
+                              "tgp" : "202",
+                              "sgpa" : 7.77,
+                              "cgpa" : 7.5,
+                              "result" : "promoted"
+                            }
+                
+              },
+              {
+                "roll" : "13ics002",
+                "subjects" : {
+                                "cs-302" : "Ex",
+                                "cs-304" : "A",
+                                "cs-306" : "A",
+                                "cs-308" : "Ex",
+                                "cs-382" : "B",
+                                "cs-384" : "Ex",
+                                "gp" : "B"
+                              },
+                "status" : {
+                              "tc" : "29",
+                              "tgp" : "202",
+                              "sgpa" : 8.5,
+                              "cgpa" : 8.1,
+                              "result" : "promoted"
+                            }
+              }
+            ]
+            
+}

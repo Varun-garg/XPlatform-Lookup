@@ -7,6 +7,9 @@ import json
 from django.shortcuts import HttpResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
+from django.core.validators import validate_email
+from django import forms
+import re
 # These will be used in the admin section
 
 
@@ -38,35 +41,46 @@ def addstudent(request):
         errors = []
         if request.method == 'POST':
             full_name = request.POST.get('full_name')
-            if full_name is None:
+            if (full_name is None) or (len(full_name)==0):
                 errors.append("full_name: Enter Full Name")
+            elif full_name.isdigit():
+                errors.append("full_name: Invalid Full Name")
             enroll_no = request.POST.get('enroll_no')
-            if enroll_no is None:
+            if (enroll_no is None) or (len(enroll_no)==0):
                 errors.append("enroll_no: Enter Enrollment Number")
             program_name = request.POST.get('program_name')
-            if program_name is None:
+            if (program_name is None) or (len(program_name)==0):
                 errors.append("program_name: Enter program_name")
             school = request.POST.get('school')
-            if school is None:
+            if (school is None) or (len(school)==0):
                 errors.append("school: Enter School Name")
             roll_no = request.POST.get('roll_no')
+            if (roll_no is None) or (len(roll_no)==0):
+                errors.append("roll_no: Enter Roll Number")
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
+                errors.append("roll_no: Invalid Roll Number")
             existing_entry = studentdb.objects.filter(roll_no = roll_no)
             if existing_entry.count() > 0:
                 errors.append("roll_no: Entry corresponding to this roll number already exists")
-            if roll_no is None:
-                errors.append("roll_no: Enter Roll Number")
             father_name = request.POST.get('father_name', '')
             mother_name = request.POST.get('mother_name', '')
             dob = request.POST.get('dob')
-            if dob is None:
+            if (dob is None) or (len(dob)==0):
                 errors.append("dob: Enter Date Of Birth")
             sex = request.POST.get('sex', '')
             email = request.POST.get('email')
-            if email is None:
+            if (email is None) or (len(email)==0):
                 errors.append("email: Enter email id")
+            else :
+                try:
+                    validate_email(email)
+                except forms.ValidationError:
+                    errors.append("email: Invalid email id")
             phone = request.POST.get('phone')
-            if phone is None:
+            if (phone is None) or (len(phone)==0):
                 errors.append("phone: Enter phone Number")
+            elif not phone.isdigit():
+                errors.append("phone: Invalid phone Number")
             if len(errors) == 0:
                 new_student = studentdb()
                 new_student.full_name = full_name
@@ -99,16 +113,18 @@ def addhostelinfo(request):
         errors = []
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
+            if (roll_num is None) or (len(roll_num)==0):
+                errors.append("roll_no: Enter Roll Number")
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
+                errors.append("roll_no: Invalid Roll Number")
             existing_entry = studentdb.objects.filter(roll_no = roll_num)
             if existing_entry.count() is 0:
                 errors.append("roll_no: No student with this roll number exists")
-            if roll_num is None:
-                errors.append("roll_no: Enter Roll Number")
             hostel_name = request.POST.get('hostel_name')
-            if hostel_name is None:
+            if (hostel_name is None) or (len(hostel_name)==0):
                 errors.append("hostel_name: Enter Hostel Name")
             room_num = request.POST.get('room_num')
-            if room_num is None:
+            if (room_num is None) or (len(room_num)==0):
                 errors.append("room_num: Enter Room Number")
             warden_name = request.POST.get('warden_name')
             warden_mob = request.POST.get('warden_mob')
@@ -142,32 +158,36 @@ def addmarksinfo(request):
         errors = []
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
+            if (roll_num is None) or (len(room_num)==0):
+                errors.append("roll_no: Enter Roll Number")
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
+                errors.append("roll_no: Invalid Roll Number")
             existing_entry = studentdb.objects.filter(roll_no = roll_num)
             if existing_entry.count() is 0:
                 errors.append("roll_no: No student with this roll number exists")
-            if roll_num is None:
-                errors.append("roll_no: Enter Roll Number")
             subject_code = request.POST.get('subject_code')
-            if subject_code is None:
+            if (subject_code is None) or (len(subject_code)==0):
                 errors.append("subject_code: Enter Subject Code")
             grade = request.POST.get('grade')
-            if grade is None:
+            if (grade is None) or (len(grade)==0):
                 errors.append("grade: Enter Grade")
             tc = request.POST.get('tc')
-            if tc is None:
+            if (tc is None) or (len(tc)==0):
                 errors.append("tc: Enter Total Credits")
             tgp = request.POST.get('tgp')
-            if tgp is None:
+            if (tgp is None) or (len(tgp)==0):
                 errors.append("tgp: Enter Total Grade Point")
             sgpa = request.POST.get('sgpa')
-            if sgpa is None:
+            if (sgpa is None) or (len(sgpa)==0):
                 errors.append("sgpa: Enter SGPA")
             result = request.POST.get('result')
-            if result is None:
+            if (result is None) or (len(result)==0):
                 errors.append("result: Enter Status (Result)")
             semester = request.POST.get('semester')
-            if semester is None:
+            if (semester is None) or (len(semester)==0):
                 errors.append("semester: Enter Semester")
+            elif not semester.isdigit():
+                errors.append("semester: Invalid Semester")
             if len(errors) == 0:
                 new_marks_subjects = marks_subjects()
                 new_marks_subjects.roll_num = roll_num
