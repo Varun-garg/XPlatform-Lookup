@@ -36,8 +36,8 @@ class Student_Detail(generics.RetrieveAPIView):
 @api_view(['POST'])
 def addstudent(request):
     response_data = {}
-    print(request.session['group_name'])
-    if request.session['group_name'] == 'STAD' or request.session['group_name'] == 'OAD':
+    var = request.session.get('group_name')
+    if (var is not None) and (request.session['group_name'] == 'STAD' or request.session['group_name'] == 'OAD'):
         errors = []
         if request.method == 'POST':
             full_name = request.POST.get('full_name')
@@ -109,7 +109,8 @@ def addstudent(request):
 @api_view(['POST'])
 def addhostelinfo(request):
     response_data = {}
-    if request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD':
+    var = request.session.get('group_name')
+    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
         errors = []
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
@@ -154,11 +155,12 @@ def addhostelinfo(request):
 @api_view(['POST'])
 def addmarksinfo(request):
     response_data = {}
-    if request.session['group_name'] == 'MAD' or request.session['group_name'] == 'OAD':
+    var = request.session.get('group_name')
+    if (var is not None) and (request.session['group_name'] == 'MAD' or request.session['group_name'] == 'OAD'):
         errors = []
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
-            if (roll_num is None) or (len(room_num)==0):
+            if (roll_num is None) or (len(roll_num)==0):
                 errors.append("roll_no: Enter Roll Number")
             elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
                 errors.append("roll_no: Invalid Roll Number")
