@@ -9,25 +9,26 @@ from rest_framework.decorators import api_view
 @api_view(['POST'])
 def user_login(request):
     response_data = {}
-
     if request.method == 'POST':
-        username = request.POST.get('email', '')
+        username = request.POST.get('email')
         # client does not know if it is username or email, so it sends any data in email field
-        email = request.POST.get('email', '')
-        password = request.POST.get('password', '')
-
+        email = request.POST.get('email')
+        password = request.POST.get('password')
         try:  # to avoid error when no user exists
             user = UserSMS.objects.get(Q(email=email) | Q(username=username))
         except UserSMS.DoesNotExist:
             user = None
-
         # if user is None:
         #     response_data['message'] = 'fail'
         #     return HttpResponse(json.dumps(response_data), content_type="application/json")
         if user is not None:
             dbpass = user.password
             if dbpass == password:
-
+                #setting session variables
+                #-------------------------------------------------
+                request.session['user'] = user.username
+                request.session['group_name'] = user.group_name
+                #-------------------------------------------------
                 response_data['group_name'] = user.group_name
                 response_data['email'] = user.email
                 response_data['username'] = user.username
@@ -41,7 +42,6 @@ def user_login(request):
     else:
         response_data['message'] = 'fail'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
-
 
 @api_view(['POST'])
 def new_user_registration(request):

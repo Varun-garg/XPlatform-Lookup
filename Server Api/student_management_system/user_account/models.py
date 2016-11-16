@@ -18,3 +18,5 @@ class UserGroup(models.Model):
     section = models.CharField(max_length = 200, null = True)
     permissions = models.PositiveIntegerField()
 
+    def __str__(self):
+        return self.group_name + ' ' + str(self.permissions)
