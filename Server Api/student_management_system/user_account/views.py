@@ -6,7 +6,7 @@ from django.db.models.query_utils import Q
 from rest_framework.decorators import api_view
 
 
-@api_view(['POST'])
+@csrf_exempt
 def user_login(request):
     response_data = {}
     if request.method == 'POST':
@@ -44,7 +44,7 @@ def user_login(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def new_user_registration(request):
     response_data = {}
     var = request.session.get('group_name')
@@ -86,7 +86,7 @@ def new_user_registration(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def new_usergroup(request):
     response_data = {}
     var = request.session.get('group_name')

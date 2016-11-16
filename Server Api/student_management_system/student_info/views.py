@@ -33,7 +33,7 @@ class Student_Detail(generics.RetrieveAPIView):
     serializer_class = StudentSerializer
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addstudent(request):
     response_data = {}
     var = request.session.get('group_name')
@@ -106,7 +106,7 @@ def addstudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addhostelinfo(request):
     response_data = {}
     var = request.session.get('group_name')
@@ -116,7 +116,7 @@ def addhostelinfo(request):
             roll_num = request.POST.get('roll_no')
             if (roll_num is None) or (len(roll_num)==0):
                 errors.append("roll_no: Enter Roll Number")
-            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_num) is None:
                 errors.append("roll_no: Invalid Roll Number")
             existing_entry = studentdb.objects.filter(roll_no = roll_num)
             if existing_entry.count() is 0:
@@ -152,7 +152,7 @@ def addhostelinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addmarksinfo(request):
     response_data = {}
     var = request.session.get('group_name')
@@ -162,7 +162,7 @@ def addmarksinfo(request):
             roll_num = request.POST.get('roll_no')
             if (roll_num is None) or (len(roll_num)==0):
                 errors.append("roll_no: Enter Roll Number")
-            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_num) is None:
                 errors.append("roll_no: Invalid Roll Number")
             existing_entry = studentdb.objects.filter(roll_no = roll_num)
             if existing_entry.count() is 0:

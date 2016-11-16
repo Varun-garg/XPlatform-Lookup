@@ -313,7 +313,7 @@ public class MenuController implements Initializable {
         this.DisplayPersonalInfo();
         this.DisplayStudents();
         this.displayHostelInfo();
-        this.displayExamsInfo("7");
+        this.displayExamsInfo("6");
         this.choicebox();
     }
 }
