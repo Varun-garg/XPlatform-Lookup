@@ -2,6 +2,7 @@ package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.Model.*;
+import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -15,11 +16,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import  java.net.URL;
+import java.net.URLConnection;
+import java.util.List;
+import java.util.Map;
 
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -43,7 +49,7 @@ public class MenuController implements Initializable {
 
     private String RollNo; // roll_no for personal,hostel & exams info
 
-    private int semester=6;
+    private String cookie;
 
     @FXML // fx:id="exams"
     private TableView<Exams> exams;
@@ -65,6 +71,13 @@ public class MenuController implements Initializable {
 
     @FXML
     private ChoiceBox<String> cb;
+
+    private String sid=getCookie();
+
+
+    public String getCookie(){
+        return SessionManager.getCookie();
+    }
 
     public String getRollNo() {
         return RollNo;
@@ -175,7 +188,10 @@ public class MenuController implements Initializable {
     @FXML
     private JFXTextField phone;
 
+
+
     public void AddStudent(ActionEvent event) throws IOException{
+
         Form newStudentForm = new Form();
         newStudentForm.param("full_name", full_name.getText());
         newStudentForm.param("enroll_no", enroll_no.getText());
@@ -193,7 +209,7 @@ public class MenuController implements Initializable {
         Client client = ClientBuilder.newClient();
         clientTarget = client.target(Configuration.API_HOST + "data/student/new_entry/");
 
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie",sid).
                 post(Entity.entity(newStudentForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
         String response = rawResponse.readEntity(String.class);
@@ -208,15 +224,16 @@ public class MenuController implements Initializable {
             //tab_plane.getSelectionModel().select(0);
             this.Display();
         } else {
-            System.out.print("Error: Student with roll no" + roll_no.getText() + "couold not be added");
+            System.out.print("Error: Student with roll no" + roll_no.getText() + "could not be added");
         }
     }
 
     private void displayHostelInfo() {
-        WebTarget clientTarget;
-        Client client = ClientBuilder.newClient();
 
-        clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/" + RollNo + "/?format=json");
+        WebTarget clientTarget;
+
+        Client client = ClientBuilder.newClient();
+        clientTarget= client.target(Configuration.API_HOST + "data/student/hostel/" + RollNo + "/?format=json");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
@@ -252,7 +269,10 @@ public class MenuController implements Initializable {
     private JFXTextField caretaker_num;
     @FXML
 
+
+
     public void addHostel(ActionEvent event) throws IOException {
+
 
         Form newHostelForm = new Form();
 
@@ -269,7 +289,7 @@ public class MenuController implements Initializable {
         Client client = ClientBuilder.newClient();
         clientTarget = client.target(Configuration.API_HOST + "data/student/new_entry_hostel/");
 
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie",sid).
                 post(Entity.entity(newHostelForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
         String response = rawResponse.readEntity(String.class);
@@ -301,7 +321,7 @@ public class MenuController implements Initializable {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
         //clientTarget = client.target("http://studentmanagementsystem.pythonanywhere.com/data/student/exams/13ICS047/6");
-        clientTarget= client.target("http://127.0.0.1:8000/data/student/exams/13ICS047/"+n);
+        clientTarget = client.target("http://127.0.0.1:8000/data/student/exams/13ICS047/"+n);
         //clientTarget = client.target(Configuration.API_HOST + "data/student/exams/13ICS047"+"/"+semester+ "/");
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
@@ -348,9 +368,9 @@ public class MenuController implements Initializable {
     private Label lab;
 
     public void displayReview(){
-        //String s =ta.getText();
+
         lab.setText("1) "+ta.getText());
-        //System.out.println(ta.getText());
+
     }
 
 
@@ -360,8 +380,6 @@ public class MenuController implements Initializable {
         personal_info_vbox.setSpacing(10);
         students_list_vbox.setSpacing(10);
         hostel_info_vbox.setSpacing(10);
-
-
 
     }
 
