@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^student/new_entry/$', views.addstudent),
     url(r'^student/new_entry_hostel/$', views.addhostelinfo),
     url(r'^student/new_entry_marks/$', views.addmarksinfo),
+    url(r'^student/new_entry_review/$', views.add_review),
     url(r'^student/(?P<roll_no>[\w-]+)/$', views.Student_Detail.as_view()),
     url(r'^student/exams/(?P<roll_num>[\w-]+)/(?P<semester>[0-9]+)$', views.Student_Exams.as_view()),
     url(r'^student/hostel/(?P<roll_num>[\w-]+)/$', views.Hostel_Detail.as_view()),

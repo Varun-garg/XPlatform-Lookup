@@ -74,5 +74,20 @@ class marks_status(models.Model):
         return desc
 
 
+class SubmitReview(models.Model):
+    student = models.CharField(max_length=100)
+    comment = models.CharField(max_length=1000)
+    user = models.CharField(max_length=100)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        if self.student is None:
+            self.student = 'NULL/None'
+        if self.comment is None:
+            self.comment = 'NULL/None'
+        desc = self.student + "-" + self.comment
+        return desc
+
+
 
 

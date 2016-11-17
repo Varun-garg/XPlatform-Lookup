@@ -2,7 +2,7 @@ from .serializer import AdminSerializer, StudentSerializer, HostelSerializer, Ma
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import studentdb, hostel_info, marks_status, marks_subjects
+from .models import studentdb, hostel_info, marks_status, marks_subjects, SubmitReview
 import json
 from django.shortcuts import HttpResponse
 from rest_framework.decorators import api_view
@@ -218,6 +218,41 @@ def addmarksinfo(request):
     else:
         response_data['message'] = "fail"
         errors.append("Permission: You don't have permissions to create/update exam entry.")
+        response_data['errors'] = errors
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@api_view(['POST'])
+def add_review(request):
+    response_data = {}
+    errors = []
+    var = request.session.get('group_name')
+    if var is not None:
+        if request.method == 'POST':
+            stu_roll = request.POST.get('stu_roll')
+            if (stu_roll is None) or (len(stu_roll) == 0):
+                errors.append("stu_roll: Enter Student Roll Number")
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',stu_roll) is None:
+                errors.append("stu_roll: Invalid Student Roll Number")
+            comment = request.POST.get('comment')
+            if (comment is None) or (len(comment)==0):
+                errors.append("comment: Enter Comment")
+            user = request.session.get('user')
+            if len(errors) == 0:
+                new_review = SubmitReview()
+                new_review.student = stu_roll
+                new_review.comment = comment
+                new_review.user = user
+                new_review.save()
+                response_data['message'] = 'success'
+            else:
+                response_data['errors'] = errors
+                response_data['message'] = 'fail'
+        else:
+            response_data['message'] = 'fail'
+    else:
+        response_data['message'] = "fail"
+        errors.append("Permission: You don't have permissions to create a review.")
         response_data['errors'] = errors
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
