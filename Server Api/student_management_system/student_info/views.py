@@ -36,9 +36,9 @@ class Student_Detail(generics.RetrieveAPIView):
 @api_view(['POST'])
 def addstudent(request):
     response_data = {}
+    errors = []
     var = request.session.get('group_name')
     if (var is not None) and (request.session['group_name'] == 'STAD' or request.session['group_name'] == 'OAD'):
-        errors = []
         if request.method == 'POST':
             full_name = request.POST.get('full_name')
             if (full_name is None) or (len(full_name)==0):
@@ -102,16 +102,18 @@ def addstudent(request):
         else:
             response_data['message'] = 'fail'
     else:
-        response_data['message'] = "You don't have permissions to create a new student entry."
+        errors.append("Permission: You don't have permissions to create a new user entry.")
+        response_data['errors'] = errors
+        response_data['message'] = "fail"
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 @api_view(['POST'])
 def addhostelinfo(request):
     response_data = {}
+    errors = []
     var = request.session.get('group_name')
     if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
-        errors = []
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
             if (roll_num is None) or (len(roll_num)==0):
@@ -148,16 +150,18 @@ def addhostelinfo(request):
         else:
             response_data['message'] = 'fail'
     else:
-        response_data['message'] = "You don't have permissions to create/update hostel entry."
+        response_data['message'] = "fail."
+        errors.append("Permission: You don't have permissions to create a new hostel entry.")
+        response_data['errors'] = errors
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 @api_view(['POST'])
 def addmarksinfo(request):
     response_data = {}
+    errors = []
     var = request.session.get('group_name')
     if (var is not None) and (request.session['group_name'] == 'MAD' or request.session['group_name'] == 'OAD'):
-        errors = []
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
             if (roll_num is None) or (len(roll_num)==0):
@@ -212,7 +216,9 @@ def addmarksinfo(request):
         else:
             response_data['message'] = 'fail'
     else:
-        response_data['message'] = "You don't have permissions to create/update exam entry."
+        response_data['message'] = "fail"
+        errors.append("Permission: You don't have permissions to create/update exam entry.")
+        response_data['errors'] = errors
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 

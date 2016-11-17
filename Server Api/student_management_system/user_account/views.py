@@ -89,9 +89,9 @@ def new_user_registration(request):
 @api_view(['POST'])
 def new_usergroup(request):
     response_data = {}
+    errors = []
     var = request.session.get('group_name')
     if (var is not None) and (request.session['group_name'] == 'OAD'):
-        errors = []
         if request.method == 'POST':
             group_name = request.POST.get('group_name')
             if (group_name is None) or (len(group_name)==0):
@@ -116,6 +116,8 @@ def new_usergroup(request):
         else:
             response_data['message'] = 'fail'
     else:
-        response_data['message'] = "You don't have permissions to create a new usergroup."
+        errors.append("Permission: You don't have permissions to create a new usergroup.")
+        response_data['errors'] = errors
+        response_data['message'] = 'fail'
 
     return HttpResponse(json.dumps(response_data), content_type="application/json")
