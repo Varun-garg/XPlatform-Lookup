@@ -45,6 +45,27 @@ public class MenuController implements Initializable {
 
     private int semester=6;
 
+    @FXML // fx:id="exams"
+    private TableView<Exams> exams;
+
+    @FXML // fx:id="subjectcode"
+    private TableColumn<ExamsResult, String> subjectcode;
+
+    @FXML // fx:id="grade"
+    private TableColumn<ExamsResult, String> grade;
+
+    @FXML
+    private Label l1;
+
+    @FXML
+    private Label l2;
+
+    @FXML
+    private Label l3;
+
+    @FXML
+    private ChoiceBox<String> cb;
+
     public String getRollNo() {
         return RollNo;
     }
@@ -184,7 +205,7 @@ public class MenuController implements Initializable {
             System.out.print("Student with roll no" + roll_no.getText() + "successfully added");
 
             this.setRollNo(roll_no.getText());
-            tab_plane.getSelectionModel().select(0);
+            //tab_plane.getSelectionModel().select(0);
             this.Display();
         } else {
             System.out.print("Error: Student with roll no" + roll_no.getText() + "couold not be added");
@@ -215,27 +236,58 @@ public class MenuController implements Initializable {
         }
 
     }
-
-    @FXML // fx:id="exams"
-    private TableView<Exams> exams;
-
-    @FXML // fx:id="subjectcode"
-    private TableColumn<ExamsResult, String> subjectcode;
-
-    @FXML // fx:id="grade"
-    private TableColumn<ExamsResult, String> grade;
-
     @FXML
-    private Label l1;
-
+    private JFXTextField roll_no1;
     @FXML
-    private Label l2;
-
+    private JFXTextField hostel_name;
     @FXML
-    private Label l3;
+    private JFXTextField room_num;
+    @FXML
+    private JFXTextField warden_name;
+    @FXML
+    private JFXTextField warden_mob;
+    @FXML
+    private JFXTextField caretaker_name;
+    @FXML
+    private JFXTextField caretaker_num;
+    @FXML
 
-        @FXML
-        private ChoiceBox<String> cb;
+    public void addHostel(ActionEvent event) throws IOException {
+
+        Form newHostelForm = new Form();
+
+        newHostelForm.param("roll_no", roll_no1.getText());
+        newHostelForm.param("hostel_name", hostel_name.getText());
+        newHostelForm.param("room_num",  room_num.getText());
+        newHostelForm.param("warden_name", warden_name.getText());
+        newHostelForm.param("warden_mob", warden_mob.getText());
+        newHostelForm.param("caretaker_name", caretaker_name.getText());
+        newHostelForm.param("caretaker_num", caretaker_num.getText());
+
+
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        clientTarget = client.target(Configuration.API_HOST + "data/student/new_entry_hostel/");
+
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").
+                post(Entity.entity(newHostelForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+        String response = rawResponse.readEntity(String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        LoginResponse addHostelResponse = mapper.readValue(response, LoginResponse.class);
+
+        System.out.println("got message " + addHostelResponse.getMessage());
+        if (addHostelResponse.getMessage().equals("success")) {
+            System.out.print("Student with roll no" + roll_no1.getText() + "successfully added");
+
+            this.setRollNo(roll_no1.getText());
+            tab_plane.getSelectionModel().select(0);
+            this.Display();
+        } else {
+            System.out.print("Error: Student with roll no" + roll_no1.getText() + "could not be added");
+        }
+    }
+
 
 
     public void choicebox(){
@@ -313,7 +365,7 @@ public class MenuController implements Initializable {
         this.DisplayPersonalInfo();
         this.DisplayStudents();
         this.displayHostelInfo();
-        this.displayExamsInfo("6");
+        this.displayExamsInfo("7");
         this.choicebox();
     }
 }

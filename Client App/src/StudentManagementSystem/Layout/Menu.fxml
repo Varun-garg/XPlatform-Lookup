@@ -39,12 +39,48 @@
         </Tab>
         <Tab text="Hostel">
             <content>
+                <HBox spacing="10">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
                         <VBox fx:id="hostel_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0"
                               prefWidth="582.0"/>
                     </children>
                 </AnchorPane>
+
+
+                <VBox fx:id="students_list_vbox1"/>
+                <GridPane fx:id="new_student_form_grid1" vgap="10" hgap="10">
+                    <Text GridPane.rowIndex="0" GridPane.columnIndex="7">Roll Number:</Text>
+                    <JFXTextField GridPane.rowIndex="0" GridPane.columnIndex="8" fx:id="roll_no1"/>
+
+                    <Text GridPane.rowIndex="1" GridPane.columnIndex="7">Hostel Name:</Text>
+                    <JFXTextField GridPane.rowIndex="1" GridPane.columnIndex="8" fx:id="hostel_name"/>
+
+                    <Text GridPane.rowIndex="2" GridPane.columnIndex="7">Room Number:</Text>
+                    <JFXTextField GridPane.rowIndex="2" GridPane.columnIndex="8" fx:id="room_num"/>
+
+                    <Text GridPane.rowIndex="3" GridPane.columnIndex="7">Warden Name:</Text>
+                    <JFXTextField GridPane.rowIndex="3" GridPane.columnIndex="8" fx:id="warden_name"/>
+
+                    <Text GridPane.rowIndex="4" GridPane.columnIndex="7">Warden Mobile:</Text>
+                    <JFXTextField GridPane.rowIndex="4" GridPane.columnIndex="8" fx:id="warden_mob"/>
+
+                    <Text GridPane.rowIndex="5" GridPane.columnIndex="7">Caretaker Name:</Text>
+                    <JFXTextField GridPane.rowIndex="5" GridPane.columnIndex="8" fx:id="caretaker_name"/>
+
+                    <Text GridPane.rowIndex="6" GridPane.columnIndex="7">Caretaker Number:</Text>
+                    <JFXTextField GridPane.rowIndex="6" GridPane.columnIndex="8" fx:id="caretaker_num"/>
+
+
+
+                    <JFXButton fx:id="button1" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="TOP"
+                               mnemonicParsing="false" onAction="#addHostel" styleClass="button_green" text="Add Hostel"
+                               GridPane.rowIndex="7" GridPane.columnIndex="8">
+                    </JFXButton>
+
+                </GridPane>
+
+            </HBox>
             </content>
         </Tab>
         <Tab text="Exams">
@@ -125,7 +161,7 @@
                                 <Separator prefHeight="20.0" prefWidth="600.0" />
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
-                                        <Label   prefHeight="35.0" prefWidth="535.0"  textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP" text="SELECT THE PREVIOUS YEAR SEMESTER TO VIEW PREVIOUS SEMESTER RESULT:">
+                                        <Label   prefHeight="35.0" prefWidth="535.0"  textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP" text="SELECT THE PREVIOUS YEAR SEMESTER NUMBER TO VIEW PREVIOUS SEMESTER RESULT:">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>

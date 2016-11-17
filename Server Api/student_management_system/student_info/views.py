@@ -33,7 +33,7 @@ class Student_Detail(generics.RetrieveAPIView):
     serializer_class = StudentSerializer
 
 
-@csrf_exempt
+@api_view[['POST']]
 def addstudent(request):
     response_data = {}
     var = request.session.get('group_name')
@@ -106,7 +106,7 @@ def addstudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view[['POST']]
 def addhostelinfo(request):
     response_data = {}
     var = request.session.get('group_name')
@@ -152,7 +152,7 @@ def addhostelinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view[['POST']]
 def addmarksinfo(request):
     response_data = {}
     var = request.session.get('group_name')
