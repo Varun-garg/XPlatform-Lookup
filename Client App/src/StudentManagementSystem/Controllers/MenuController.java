@@ -342,6 +342,17 @@ public class MenuController implements Initializable {
         }
     }
 
+    @FXML
+    private TextArea ta;
+    @FXML
+    private Label lab;
+
+    public void displayReview(){
+        //String s =ta.getText();
+        lab.setText("1) "+ta.getText());
+        //System.out.println(ta.getText());
+    }
+
 
 
     @Override
