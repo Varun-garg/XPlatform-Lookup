@@ -14,29 +14,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.ViewStudentExams">
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.ViewStudentExams">
     <content>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+        <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
 
             <children>
                 <HBox>
                     <children>
-                        <Label fx:id="l3" alignment="CENTER_RIGHT" prefHeight="35.0" textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP">
+                        <Label fx:id="l3" alignment="CENTER_RIGHT" prefWidth="330.0" prefHeight="35.0" textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>
                         </Label>
                     </children>
                 </HBox>
-                <TableView fx:id="exams" depthTest="DISABLE" prefHeight="210" prefWidth="462.0">
+                <TableView fx:id="exams" depthTest="DISABLE" prefHeight="210" prefWidth="532.0">
                     <columns>
-                        <TableColumn fx:id="subjectcode" prefWidth="400.0" text="SUBJECT-CODE" />
-                        <TableColumn fx:id="grade" minWidth="0.0" prefWidth="400.0" text="GRADE" />
+                        <TableColumn fx:id="subjectcode" prefWidth="266.0" text="SUBJECT-CODE" />
+                        <TableColumn fx:id="grade" minWidth="0.0" prefWidth="266.0" text="GRADE" />
                     </columns>
                 </TableView>
                 <HBox prefHeight="17.0" styleClass="hbox">
                     <children>
-                        <Label prefHeight="17.0" text="SGPA:">
+                        <Label prefHeight="17.0" prefWidth="250.0" text="SGPA:">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -46,7 +46,8 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <Label prefHeight="17.0" text="RESULT:">
+                        <Region prefHeight="17.0" prefWidth="1.0"  />
+                        <Label prefHeight="17.0" text=" RESULT:">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -88,7 +89,7 @@
                 <Separator prefHeight="20.0" />
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label prefHeight="35.0" prefWidth="535.0" text="SELECT THE PREVIOUS YEAR SEMESTER NUMBER TO VIEW PREVIOUS SEMESTER RESULT:" textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP">
+                        <Label prefHeight="35.0" prefWidth="535.0" text="SELECT THE PREVIOUS YEAR SEMESTER NUMBER TO VIEW PREVIOUS  RESULT:" textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -101,6 +102,9 @@
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
+         <padding>
+            <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
+         </padding>
         </VBox>
     </content>
 </ScrollPane>
