@@ -33,7 +33,7 @@ class Student_Detail(generics.RetrieveAPIView):
     serializer_class = StudentSerializer
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addstudent(request):
     response_data = {}
     errors = []
@@ -71,7 +71,7 @@ def addstudent(request):
             email = request.POST.get('email')
             if (email is None) or (len(email)==0):
                 errors.append("email: Enter email id")
-            else :
+            else:
                 try:
                     validate_email(email)
                 except forms.ValidationError:
@@ -102,13 +102,13 @@ def addstudent(request):
         else:
             response_data['message'] = 'fail'
     else:
-        errors.append("Permission: You don't have permissions to create a new user entry.")
+        errors.append("Permission: You don't have permissions to create a new student entry.")
         response_data['errors'] = errors
         response_data['message'] = "fail"
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addhostelinfo(request):
     response_data = {}
     errors = []
@@ -156,7 +156,7 @@ def addhostelinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addmarksinfo(request):
     response_data = {}
     errors = []
@@ -222,7 +222,7 @@ def addmarksinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def add_review(request):
     response_data = {}
     errors = []

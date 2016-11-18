@@ -4,47 +4,59 @@ from .models import UserSMS, UserGroup
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.query_utils import Q
 from rest_framework.decorators import api_view
+from django.core.validators import validate_email
+from django import forms
 
 
-@api_view(['POST'])
+@csrf_exempt
 def user_login(request):
     response_data = {}
+    errors = []
     if request.method == 'POST':
-        username = request.POST.get('email')
-        # client does not know if it is username or email, so it sends any data in email field
-        email = request.POST.get('email')
+        login = request.POST.get('email')
         password = request.POST.get('password')
-        try:  # to avoid error when no user exists
-            user = UserSMS.objects.get(Q(email=email) | Q(username=username))
-        except UserSMS.DoesNotExist:
-            user = None
-        # if user is None:
-        #     response_data['message'] = 'fail'
-        #     return HttpResponse(json.dumps(response_data), content_type="application/json")
-        if user is not None:
-            dbpass = user.password
-            if dbpass == password:
-                #setting session variables
-                #-------------------------------------------------
-                request.session['user'] = user.username
-                request.session['group_name'] = user.group_name
-                #-------------------------------------------------
-                response_data['group_name'] = user.group_name
-                response_data['email'] = user.email
-                response_data['username'] = user.username
-                response_data['roll_no'] = user.roll_no
-                response_data['message'] = 'success'
+        if (login is None) or (len(login) == 0):
+            errors.append("login: Enter Username or Email-Id")
+        if (password is None) or (len(password) == 0):
+            errors.append("password: Enter Password")
+        if len(errors) == 0:
+            username = request.POST.get('email')
+            # client does not know if it is username or email, so it sends any data in email field
+            email = request.POST.get('email')
+            try:  # to avoid error when no user exists
+                user = UserSMS.objects.get(Q(email=email) | Q(username=username))
+            except UserSMS.DoesNotExist:
+                user = None
+            # if user is None:
+            #     response_data['message'] = 'fail'
+            #     return HttpResponse(json.dumps(response_data), content_type="application/json")
+            if user is not None:
+                dbpass = user.password
+                if dbpass == password:
+                    #setting session variables
+                    #-------------------------------------------------
+                    request.session['user'] = user.username
+                    request.session['group_name'] = user.group_name
+                    #-------------------------------------------------
+                    response_data['group_name'] = user.group_name
+                    response_data['email'] = user.email
+                    response_data['username'] = user.username
+                    response_data['roll_no'] = user.roll_no
+                    response_data['message'] = 'success'
 
+                else:
+                    response_data['message'] = 'fail'
             else:
                 response_data['message'] = 'fail'
         else:
+            response_data['errors'] = errors
             response_data['message'] = 'fail'
     else:
         response_data['message'] = 'fail'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def new_user_registration(request):
     response_data = {}
     var = request.session.get('group_name')
@@ -52,18 +64,22 @@ def new_user_registration(request):
         errors = []
         if request.method == 'POST':
             username = request.POST.get('username')
-            print(username)
-            if username is None:
+            if (username is None) or (len(username)==0):
                 errors.append("username: Enter Username")
             email = request.POST.get('email')
-            if email is None:
+            if (email is None) or (len(email)==0):
                 errors.append("email: Enter Email")
+            else:
+                try:
+                    validate_email(email)
+                except forms.ValidationError:
+                    errors.append("email: Invalid email id")
             group_name = request.POST.get('group_name')
-            if group_name is None:
+            if (group_name is None) or (len(group_name)==0):
                 errors.append("group_name: Enter User Group")
             roll_no = request.POST.get('roll_no', '')
             password = request.POST.get('password')
-            if password is None:
+            if (password is None) or (len(password)==0):
                 errors.append("password: Enter Password")
 
             if len(errors) == 0:
