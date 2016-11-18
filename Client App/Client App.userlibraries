@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<eclipse-userlibraries>
-  <library name="libs">
-    <archive path="D:/projects/Projects/Student Management System/Client App/libs/jfoenix.jar" />
-  </library>
-</eclipse-userlibraries>
-

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity"  minWidth="190" prefHeight="610" prefWidth="190.0"
+      xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="244.0" fitWidth="190.0" pickOnBounds="true">
+            <image>
+                <Image url="@../Assets/user_background.jpg"/>
+            </image>
+        </ImageView>
+
+    </children>
+</VBox>

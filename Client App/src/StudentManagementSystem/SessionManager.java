@@ -1,8 +1,5 @@
 package StudentManagementSystem;
 
-import javax.ws.rs.core.NewCookie;
-import java.util.Map;
-
 /**
  * Created by varun on 27/09/2016.
  */
@@ -13,13 +10,14 @@ public class SessionManager {
         return ourInstance;
     }
 
-    public SessionManager() {
+    private SessionManager() {
     }
 
     private String Username;
     private String Password;
     private String UserType;
     private String FullName;
+    private static String cookie;
 
 
     public String getRollNumber() {
@@ -85,5 +83,5 @@ public class SessionManager {
     public void setCookie(String cookie) {
         this.cookie = cookie;
     }
-    private static String cookie;
+
 }

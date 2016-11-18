@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Client_App.jnlp">
+  <information>
+    <title>Client App</title>
+    <vendor>Unknown</vendor>
+    <description>Client App</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Client_App.jar" size="101996" download="eager" />
+    <jar href="dependencies\asm-all-repackaged-2.1.88.jar" size="325348" download="eager" />
+    <jar href="dependencies\cglib-2.1.88.jar" size="307599" download="eager" />
+    <jar href="dependencies\controlsfx-8.40.12.jar" size="996389" download="eager" />
+    <jar href="dependencies\guava-14.0.1.jar" size="2333755" download="eager" />
+    <jar href="dependencies\hk2-api-2.1.88.jar" size="125669" download="eager" />
+    <jar href="dependencies\hk2-locator-2.1.88.jar" size="134666" download="eager" />
+    <jar href="dependencies\hk2-utils-2.1.88.jar" size="57000" download="eager" />
+    <jar href="dependencies\jackson-annotations-2.8.1.jar" size="55783" download="eager" />
+    <jar href="dependencies\jackson-core-2.8.1.jar" size="280014" download="eager" />
+    <jar href="dependencies\jackson-databind-2.8.1.jar" size="1230290" download="eager" />
+    <jar href="dependencies\javax.annotation-api-1.2.jar" size="29814" download="eager" />
+    <jar href="dependencies\javax.inject-2.1.88.jar" size="8613" download="eager" />
+    <jar href="dependencies\javax.json-1.0.1.jar" size="87729" download="eager" />
+    <jar href="dependencies\javax.servlet-api-3.1.0.jar" size="106680" download="eager" />
+    <jar href="dependencies\javax.ws.rs-api-2.0.jar" size="125110" download="eager" />
+    <jar href="dependencies\jaxb-api-2.2.7.jar" size="112642" download="eager" />
+    <jar href="dependencies\jersey-client.jar" size="123941" download="eager" />
+    <jar href="dependencies\jersey-common.jar" size="620259" download="eager" />
+    <jar href="dependencies\jersey-container-servlet-core.jar" size="55519" download="eager" />
+    <jar href="dependencies\jersey-container-servlet.jar" size="17361" download="eager" />
+    <jar href="dependencies\jersey-media-json-processing-2.0.jar" size="8263" download="eager" />
+    <jar href="dependencies\jersey-server.jar" size="748819" download="eager" />
+    <jar href="dependencies\jfoenix.jar" size="2170154" download="eager" />
+    <jar href="dependencies\json-simple-1.1.jar" size="16046" download="eager" />
+    <jar href="dependencies\json-simple.jar" size="17628" download="eager" />
+    <jar href="dependencies\jsonp-jaxrs-1.0.jar" size="9479" download="eager" />
+    <jar href="dependencies\org.osgi.core-4.2.0.jar" size="260618" download="eager" />
+    <jar href="dependencies\osgi-resource-locator-1.0.1.jar" size="23071" download="eager" />
+    <jar href="dependencies\persistence-api-1.0.jar" size="62766" download="eager" />
+    <jar href="dependencies\validation-api-1.1.0.Final.jar" size="76343" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="StudentManagementSystem.MainApplication"  name="Client App" />
+  <update check="background"/>
+</jnlp>

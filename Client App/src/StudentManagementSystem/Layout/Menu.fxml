@@ -11,173 +11,26 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.Region?>
+
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.TextArea?>
 <TabPane fx:id="tab_plane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-         prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.112-ea"
+         tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.112-ea"
          xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.MenuController"
          stylesheets="@LayoutStyle.css">
     <tabs>
         <Tab text="Personal">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <VBox fx:id="personal_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0"
-                              prefWidth="582.0"/>
-                    </children>
-                </AnchorPane>
+                <fx:include source="ViewPersonal.fxml"></fx:include>
             </content>
         </Tab>
         <Tab text="Hostel">
             <content>
-                <HBox spacing="10">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <VBox fx:id="hostel_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="359.0"
-                              prefWidth="582.0"/>
-                    </children>
-                </AnchorPane>
-
-
-                <VBox fx:id="students_list_vbox1"/>
-                <GridPane fx:id="new_student_form_grid1" vgap="10" hgap="10">
-                    <Text GridPane.rowIndex="0" GridPane.columnIndex="7">Roll Number:</Text>
-                    <JFXTextField GridPane.rowIndex="0" GridPane.columnIndex="8" fx:id="roll_no1"/>
-
-                    <Text GridPane.rowIndex="1" GridPane.columnIndex="7">Hostel Name:</Text>
-                    <JFXTextField GridPane.rowIndex="1" GridPane.columnIndex="8" fx:id="hostel_name"/>
-
-                    <Text GridPane.rowIndex="2" GridPane.columnIndex="7">Room Number:</Text>
-                    <JFXTextField GridPane.rowIndex="2" GridPane.columnIndex="8" fx:id="room_num"/>
-
-                    <Text GridPane.rowIndex="3" GridPane.columnIndex="7">Warden Name:</Text>
-                    <JFXTextField GridPane.rowIndex="3" GridPane.columnIndex="8" fx:id="warden_name"/>
-
-                    <Text GridPane.rowIndex="4" GridPane.columnIndex="7">Warden Mobile:</Text>
-                    <JFXTextField GridPane.rowIndex="4" GridPane.columnIndex="8" fx:id="warden_mob"/>
-
-                    <Text GridPane.rowIndex="5" GridPane.columnIndex="7">Caretaker Name:</Text>
-                    <JFXTextField GridPane.rowIndex="5" GridPane.columnIndex="8" fx:id="caretaker_name"/>
-
-                    <Text GridPane.rowIndex="6" GridPane.columnIndex="7">Caretaker Number:</Text>
-                    <JFXTextField GridPane.rowIndex="6" GridPane.columnIndex="8" fx:id="caretaker_num"/>
-
-
-
-                    <JFXButton fx:id="button1" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="TOP"
-                               mnemonicParsing="false" onAction="#addHostel" styleClass="button_green" text="Add Hostel"
-                               GridPane.rowIndex="7" GridPane.columnIndex="8">
-                    </JFXButton>
-
-                </GridPane>
-
-            </HBox>
+                <fx:include source="ViewStudentHostel.fxml"></fx:include>
             </content>
         </Tab>
         <Tab text="Exams">
             <content>
-                <ScrollPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-                    <content>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-                            <padding>
-                                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                            </padding>
-                            <children>
-                                <HBox>
-                                    <children>
-                                        <Label fx:id="l3" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="450.0"  textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP">
-                                            <font>
-                                                <Font name="System Bold" size="24.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                                <TableView fx:id="exams" depthTest="DISABLE" prefHeight="210" prefWidth="800">
-                                    <columns>
-                                        <TableColumn fx:id="subjectcode" prefWidth="400.0" text="SUBJECT-CODE" />
-                                        <TableColumn fx:id="grade" minWidth="0.0" prefWidth="400.0" text="GRADE" />
-                                    </columns>
-                                </TableView>
-                                <HBox prefHeight="17.0" prefWidth="800.0"  styleClass="hbox">
-                                    <children>
-                                        <Label prefHeight="17.0" prefWidth="350.0" text="SGPA:">
-                                            <font>
-                                                <Font name="System Bold" size="12.0" />
-                                            </font>
-                                        </Label>
-                                        <Label  fx:id="l1" prefHeight="17.0" prefWidth="30.0" >
-                                            <font>
-                                                <Font name="System Bold" size="12.0" />
-                                            </font>
-                                        </Label>
-                                        <Label prefHeight="17.0" prefWidth="220.0" text="RESULT:">
-                                            <font>
-                                                <Font name="System Bold" size="12.0" />
-                                            </font>
-                                        </Label>
-                                        <Region prefHeight="17.0" prefWidth="30.0" HBox.hgrow="ALWAYS" />
-                                        <Label fx:id="l2" prefHeight="17.0" prefWidth="80.0" >
-                                            <font>
-                                                <Font name="System Bold" size="12.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                                <Separator prefHeight="20.0" prefWidth="600.0" />
-                                <HBox prefHeight="17.0" prefWidth="800.0" styleClass="hbox">
-                                    <children>
-                                        <TextField promptText="Subjectcode">
-                                            <HBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                            </HBox.margin>
-                                        </TextField>
-                                        <TextField layoutX="10.0" layoutY="10.0" promptText="Grade">
-                                            <HBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                            </HBox.margin>
-                                        </TextField>
-                                        <Region HBox.hgrow="ALWAYS" />
-                                        <Button mnemonicParsing="false" text="    ADD    ">
-                                            <HBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                            </HBox.margin>
-                                        </Button>
-                                        <Button layoutX="348.0" layoutY="10.0" mnemonicParsing="false" text="  DELETE  ">
-                                            <HBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                            </HBox.margin>
-                                        </Button>
-                                    </children>
-                                </HBox>
-                                <Separator prefHeight="20.0" prefWidth="600.0" />
-                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                    <children>
-                                        <Label   prefHeight="35.0" prefWidth="535.0"  textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP" text="SELECT THE PREVIOUS YEAR SEMESTER NUMBER TO VIEW PREVIOUS SEMESTER RESULT:">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <ChoiceBox fx:id="cb" prefWidth="150.0" value="SEMESTERS" />
-                                    </children>
-                                </HBox>
-                                <!--<Separator prefHeight="20.0" prefWidth="600.0" />-->
-                            </children>
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                        </VBox>
-                    </content>
-                </ScrollPane>
+                <fx:include source="ViewStudentExam.fxml"></fx:include>
             </content>
         </Tab>
         <Tab text="Students">
@@ -186,7 +39,6 @@
                     <padding>
                         <Insets bottom="25" left="25" right="25" top="25"/>
                     </padding>
-                    <VBox fx:id="students_list_vbox"/>
                     <GridPane fx:id="new_student_form_grid" vgap="10">
                         <Text GridPane.rowIndex="0" GridPane.columnIndex="0">Full name:</Text>
                         <JFXTextField GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="full_name"/>
@@ -223,7 +75,8 @@
 
 
                         <JFXButton fx:id="button" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="TOP"
-                                   mnemonicParsing="false" onAction="#AddStudent" styleClass="button_green" text="Add Student"
+                                   mnemonicParsing="false" onAction="#AddStudent" styleClass="button_green"
+                                   text="Add Student"
                                    textAlignment="CENTER" GridPane.rowIndex="11" GridPane.columnIndex="0"
                                    GridPane.columnSpan="2">
                             <opaqueInsets>
@@ -238,39 +91,7 @@
         </Tab>
         <Tab text="Submit Review">
             <content>
-
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-                    <children>
-                        <TextArea prefHeight="200.0" prefWidth="600.0" fx:id="ta">
-                            <VBox.margin>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </VBox.margin>
-                        </TextArea>
-                        <Button mnemonicParsing="false" text="Click to Submit" styleClass="button_green" onAction="#displayReview">
-                            <VBox.margin>
-                                <Insets bottom="30.0" left="30.0" right="30.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Separator prefWidth="200.0" />
-                        <Label text="USER COMMENTS :">
-                            <VBox.margin>
-                                <Insets bottom="20.0" left="30.0" right="20.0" top="10.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="lab" prefHeight="20.0" prefWidth="559.0" >
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="20.0" left="30.0" right="20.0" />
-                            </VBox.margin>
-                        </Label>
-                    </children>
-                </VBox>
-
+                <fx:include source="SubmitReview.fxml"></fx:include>
             </content>
         </Tab>
 

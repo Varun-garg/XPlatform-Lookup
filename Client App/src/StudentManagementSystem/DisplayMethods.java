@@ -1,10 +1,12 @@
 package StudentManagementSystem;
 
 
+import StudentManagementSystem.Controllers.MemberHome;
 import StudentManagementSystem.Controllers.MenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,8 +38,25 @@ public class DisplayMethods {
         menuController.setRollNo(sessionManager.getRollNumber());
 
         parentStage.setScene(new Scene(LoginLayout, 800, 600));
+        parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
         parentStage.show();
         menuController.Display();
+    }
+
+    public void MemberHome(Stage parentStage) throws IOException
+    {
+        if (parentStage == null) parentStage = new Stage();
+        SessionManager sessionManager = SessionManager.getInstance();
+        parentStage.setTitle("Welcome " + sessionManager.getFullName()) ;
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/MemberHome.fxml"));
+        Parent LoginLayout = fxmlLoader.load();
+
+        MemberHome memberHome = fxmlLoader.<MemberHome>getController();
+
+        parentStage.setScene(new Scene(LoginLayout, 800, 600));
+        parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
+        parentStage.show();
     }
 
     public void LoginDisplay(Stage parentStage) throws Exception {
@@ -46,6 +65,7 @@ public class DisplayMethods {
         parentStage.setTitle("Login to Student Management System");
         Parent LoginLayout = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Login.fxml"));
         parentStage.setScene(new Scene(LoginLayout, 400, 400));
+        parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
         parentStage.show();
     }
 }

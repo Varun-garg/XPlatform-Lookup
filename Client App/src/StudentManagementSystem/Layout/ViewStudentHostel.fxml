@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.112-ea"
+            fx:controller="StudentManagementSystem.Controllers.ViewStudentHostel">
+    <children>
+        <HBox>
+            <VBox fx:id="hostel_info_vbox" layoutX="8.0" layoutY="6.0" prefHeight="312.0" prefWidth="127.0">
+                <padding>
+                    <Insets bottom="25" left="25" right="25" top="25"/>
+                </padding>
+            </VBox>
+            <VBox fx:id="students_list_vbox1"/>
+            <GridPane fx:id="new_student_form_grid1" hgap="10" vgap="10">
+                <Text GridPane.columnIndex="1" GridPane.rowIndex="0">Roll Number:</Text>
+                <JFXTextField fx:id="roll_no1" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+
+                <Text GridPane.columnIndex="1" GridPane.rowIndex="1">Hostel Name:</Text>
+                <JFXTextField fx:id="hostel_name" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+                <Text GridPane.columnIndex="1" GridPane.rowIndex="2">Room Number:</Text>
+                <JFXTextField fx:id="room_num" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+
+                <Text GridPane.columnIndex="1" GridPane.rowIndex="3">Warden Name:</Text>
+                <JFXTextField fx:id="warden_name" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+
+                <Text GridPane.columnIndex="1" GridPane.rowIndex="4">Warden Mobile:</Text>
+                <JFXTextField fx:id="warden_mob" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+
+                <Text GridPane.columnIndex="1" GridPane.rowIndex="5">Caretaker Name:</Text>
+                <JFXTextField fx:id="caretaker_name" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+
+                <Text GridPane.columnIndex="1" GridPane.rowIndex="6">Caretaker Number:</Text>
+                <JFXTextField fx:id="caretaker_num" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+
+
+                <JFXButton fx:id="button1" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="TOP"
+                           mnemonicParsing="false" onAction="#addHostel" styleClass="button_green" text="Add Hostel"
+                           GridPane.columnIndex="2" GridPane.rowIndex="7">
+                </JFXButton>
+                <columnConstraints>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+
+            </GridPane>
+        </HBox>
+    </children>
+</AnchorPane>

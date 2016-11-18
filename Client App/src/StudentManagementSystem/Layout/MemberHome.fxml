@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchor_pane" prefHeight="600" prefWidth="800.0" maxHeight="600" maxWidth="800"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="StudentManagementSystem.Controllers.MemberHome">
+    <fx:include source="NavigationDrawer.fxml" fx:id="NavigationVBox"></fx:include>
+
+    <JFXDrawer fx:id="students_drawer" defaultDrawerSize="380.0" layoutX="190.0" layoutY="0.0"
+               prefWidth="0.0">
+    </JFXDrawer>
+
+    <fx:include source="Menu.fxml" fx:id="menu_fx" layoutX="190.0"></fx:include>
+
+</AnchorPane>

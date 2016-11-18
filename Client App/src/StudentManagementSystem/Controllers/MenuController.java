@@ -1,83 +1,40 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
-import StudentManagementSystem.Model.*;
-import StudentManagementSystem.SessionManager;
+import StudentManagementSystem.Model.Hostel;
+import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.Model.Student;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import  java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
-import java.util.Map;
-
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 
 public class MenuController implements Initializable {
 
     @FXML
-    private VBox personal_info_vbox;
-
-    @FXML
-    private VBox students_list_vbox;
-
-    @FXML
-    private VBox hostel_info_vbox;
-
-    @FXML
     private TabPane tab_plane;
 
+    @FXML
+    private GridPane new_student_form_grid;
+
     private String RollNo; // roll_no for personal,hostel & exams info
-
-    private String cookie;
-
-    @FXML // fx:id="exams"
-    private TableView<Exams> exams;
-
-    @FXML // fx:id="subjectcode"
-    private TableColumn<ExamsResult, String> subjectcode;
-
-    @FXML // fx:id="grade"
-    private TableColumn<ExamsResult, String> grade;
-
-    @FXML
-    private Label l1;
-
-    @FXML
-    private Label l2;
-
-    @FXML
-    private Label l3;
-
-    @FXML
-    private ChoiceBox<String> cb;
-
-    private String sid=getCookie();
-
-
-    public String getCookie(){
-        return SessionManager.getCookie();
-    }
 
     public String getRollNo() {
         return RollNo;
@@ -87,83 +44,6 @@ public class MenuController implements Initializable {
         System.out.println("got roll number " + RollNo);
         this.RollNo = RollNo;
     }
-
-    TextFlow generateTextFlow(String field1, String field2) {
-        TextFlow flow = new TextFlow();
-
-        Text text1 = new Text(field1);
-        text1.setStyle("-fx-font-weight: bold");
-
-        Text text2 = new Text(field2);
-        text2.setStyle("-fx-font-weight: regular");
-
-        flow.getChildren().addAll(text1, text2);
-        return flow;
-    }
-
-    private void DisplayStudents() {
-
-
-        WebTarget clientTarget;
-        Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/admin" + "/?format=json");
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
-        String response = rawResponse.readEntity(String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Student[] students = mapper.readValue(response, Student[].class);
-            for (int i = 0; i < students.length; i++) {
-                System.out.println(students[i].getFullName() + " " + students[i].getRollNo());
-                if (students[i].getRollNo() == null || students[i].getRollNo().length() == 0) continue;
-
-                Button button = new Button(students[i].getFullName());
-                button.setMinWidth(150);
-                button.setPadding(new Insets(5, 5, 5, 5));//(top/right/bottom/left)
-                final int final_iterator = i;
-                button.setOnAction(e -> {
-                    this.setRollNo(students[final_iterator].getRollNo());
-                    tab_plane.getSelectionModel().select(0);
-                    this.Display();
-                });
-                students_list_vbox.getChildren().add(button);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void DisplayPersonalInfo() {
-        WebTarget clientTarget;
-        Client client = ClientBuilder.newClient();
-        // client.register(MenuController.class);
-
-        clientTarget = client.target(Configuration.API_HOST + "data/admin/" + RollNo + "/?format=json");
-
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
-
-        String response = rawResponse.readEntity(String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Student student = mapper.readValue(response, Student.class);
-
-            personal_info_vbox.getChildren().add(generateTextFlow("Student Name     :", student.getFullName()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Enrollment           :", student.getEnrollNo()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Roll number         :", student.getRollNo()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Email                     :", student.getEmail()));
-            personal_info_vbox.getChildren().add(generateTextFlow("School                  :", student.getSchool()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Mobile number   :", student.getPhone()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Course                  :", student.getProgramName()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Date of Birth       :", student.getDob()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Gender                 :", student.getSex()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Father's Name     :", student.getFatherName()));
-            personal_info_vbox.getChildren().add(generateTextFlow("Mother's Name   :", student.getMotherName()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @FXML
     private JFXTextField full_name;
@@ -188,10 +68,7 @@ public class MenuController implements Initializable {
     @FXML
     private JFXTextField phone;
 
-
-
-    public void AddStudent(ActionEvent event) throws IOException{
-
+    public void AddStudent(ActionEvent event) throws IOException {
         Form newStudentForm = new Form();
         newStudentForm.param("full_name", full_name.getText());
         newStudentForm.param("enroll_no", enroll_no.getText());
@@ -209,7 +86,7 @@ public class MenuController implements Initializable {
         Client client = ClientBuilder.newClient();
         clientTarget = client.target(Configuration.API_HOST + "data/student/new/");
 
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie",sid).
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").
                 post(Entity.entity(newStudentForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
         String response = rawResponse.readEntity(String.class);
@@ -218,184 +95,23 @@ public class MenuController implements Initializable {
 
         System.out.println("got message " + AddStudentResponse.getMessage());
         if (AddStudentResponse.getMessage().equals("success")) {
-            System.out.print("Student with roll no" + roll_no.getText() + "successfully added");
+            System.out.print("Student with roll no " + roll_no.getText() + " successfully added");
 
             this.setRollNo(roll_no.getText());
-            //tab_plane.getSelectionModel().select(0);
-            this.Display();
-        } else {
-            System.out.print("Error: Student with roll no" + roll_no.getText() + "could not be added");
-        }
-    }
-
-    private void displayHostelInfo() {
-
-        WebTarget clientTarget;
-
-        Client client = ClientBuilder.newClient();
-        clientTarget= client.target(Configuration.API_HOST + "data/student/hostel/" + RollNo + "/?format=json");
-
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
-        String response = rawResponse.readEntity(String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Hostel hos = mapper.readValue(response, Hostel.class);
-
-            hostel_info_vbox.getChildren().add(generateTextFlow("Roll No                         :", hos.getRollNum()));
-            hostel_info_vbox.getChildren().add(generateTextFlow("Room No                      :", hos.getRoomNum()));
-            hostel_info_vbox.getChildren().add(generateTextFlow("Warden Name              :", hos.getWardenName()));
-            hostel_info_vbox.getChildren().add(generateTextFlow("Warden Mobile No.     :", hos.getWardenMob()));
-            hostel_info_vbox.getChildren().add(generateTextFlow("Caretaker Name           :", hos.getCaretakerName()));
-            hostel_info_vbox.getChildren().add(generateTextFlow("Caretaker Mobile No.  :", hos.getCaretakerNum()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-    @FXML
-    private JFXTextField roll_no1;
-    @FXML
-    private JFXTextField hostel_name;
-    @FXML
-    private JFXTextField room_num;
-    @FXML
-    private JFXTextField warden_name;
-    @FXML
-    private JFXTextField warden_mob;
-    @FXML
-    private JFXTextField caretaker_name;
-    @FXML
-    private JFXTextField caretaker_num;
-    @FXML
-
-
-
-    public void addHostel(ActionEvent event) throws IOException {
-
-
-        Form newHostelForm = new Form();
-
-        newHostelForm.param("roll_no", roll_no1.getText());
-        newHostelForm.param("hostel_name", hostel_name.getText());
-        newHostelForm.param("room_num",  room_num.getText());
-        newHostelForm.param("warden_name", warden_name.getText());
-        newHostelForm.param("warden_mob", warden_mob.getText());
-        newHostelForm.param("caretaker_name", caretaker_name.getText());
-        newHostelForm.param("caretaker_num", caretaker_num.getText());
-
-
-        WebTarget clientTarget;
-        Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/new/hostel/");
-
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie",sid).
-                post(Entity.entity(newHostelForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
-
-        String response = rawResponse.readEntity(String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        LoginResponse addHostelResponse = mapper.readValue(response, LoginResponse.class);
-
-        System.out.println("got message " + addHostelResponse.getMessage());
-        if (addHostelResponse.getMessage().equals("success")) {
-            System.out.print("Student with roll no" + roll_no1.getText() + "successfully added");
-
-            this.setRollNo(roll_no1.getText());
             tab_plane.getSelectionModel().select(0);
             this.Display();
         } else {
-            System.out.print("Error: Student with roll no" + roll_no1.getText() + "could not be added");
+            System.out.print("Error: Student with roll no " + roll_no.getText() + " could not be added");
+            System.out.print(response);
         }
-    }
-
-
-
-    public void choicebox(){
-        for(int i=1;i<=7;i++)
-            cb.getItems().add(""+i);
-        cb.setValue("7");
-    }
-
-
-    public void displayExamsInfo(String n){
-        WebTarget clientTarget;
-        Client client = ClientBuilder.newClient();
-        //clientTarget = client.target("http://studentmanagementsystem.pythonanywhere.com/data/student/exam/13ICS047"+"/"+7+"/");
-        //clientTarget = client.target("http://127.0.0.1:8000/data/student/exam/13ICS047/"+n);
-        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/13ICS047"+"/"+n);
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
-        String response = rawResponse.readEntity(String.class);
-        System.out.println(response);
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Exams e = mapper.readValue(response,Exams.class);
-
-            List<OverallResult> o = e.getOverallResult();
-            List<MarksSummary> m=e.getMarksSummary();
-
-            l3.setText(String.valueOf("SEMESTER-"+o.get(0).getSemester()));
-
-            PropertyValueFactory<ExamsResult, String> subjectcodeProperty =
-                    new PropertyValueFactory<ExamsResult, String>("subjectcode");
-
-            PropertyValueFactory<ExamsResult, String> gradeProperty =
-                    new PropertyValueFactory<ExamsResult, String>("grade");
-
-            subjectcode.setCellValueFactory( subjectcodeProperty );
-            grade.setCellValueFactory( gradeProperty );
-
-            ObservableList<Exams> data =
-                    FXCollections.observableArrayList();
-            for(int i=0;i<7;i++){
-                data.add(new ExamsResult(m.get(i).getSubjectCode(),m.get(i).getGrade()));
-            }
-            exams.setItems( data );
-            l1.setText(String.valueOf(o.get(0).getSgpa()));
-            String l2=String.valueOf(o.get(0).getResult());
-            this.l2.setText(l2.toUpperCase(Locale.forLanguageTag(l2)));
-
-            //cb = new ChoiceBox<String>();
-
-            cb.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)->this.displayExamsInfo(newValue));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private TextArea ta;
-    @FXML
-    private Label lab;
-
-    public void displayReview(){
-
-        lab.setText("1) "+ta.getText());
 
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        personal_info_vbox.setSpacing(10);
-        students_list_vbox.setSpacing(10);
-        hostel_info_vbox.setSpacing(10);
-
     }
 
     public void Display() {
-
-        personal_info_vbox.getChildren().clear(); //clear previous data
-        students_list_vbox.getChildren().clear();
-        hostel_info_vbox.getChildren().clear();
-
         if (RollNo == null) return; // empty info????
-
-        this.DisplayPersonalInfo();
-        this.DisplayStudents();
-        this.displayHostelInfo();
-        this.displayExamsInfo("7");
-        this.choicebox();
     }
 }
