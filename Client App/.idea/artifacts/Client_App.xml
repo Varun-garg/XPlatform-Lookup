@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" build-on-make="true" name="Client App">
+  <artifact type="javafx" name="Client App">
     <output-path>$PROJECT_DIR$/../../sms_client_builds</output-path>
     <properties id="javafx-properties">
       <options>

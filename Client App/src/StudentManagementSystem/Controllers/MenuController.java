@@ -207,7 +207,7 @@ public class MenuController implements Initializable {
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/new_entry/");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/new/");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie",sid).
                 post(Entity.entity(newStudentForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
@@ -287,7 +287,7 @@ public class MenuController implements Initializable {
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/new_entry_hostel/");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/new/hostel/");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie",sid).
                 post(Entity.entity(newHostelForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
@@ -320,11 +320,12 @@ public class MenuController implements Initializable {
     public void displayExamsInfo(String n){
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        //clientTarget = client.target("http://studentmanagementsystem.pythonanywhere.com/data/student/exams/13ICS047/6");
-        clientTarget = client.target("http://127.0.0.1:8000/data/student/exams/13ICS047/"+n);
-        //clientTarget = client.target(Configuration.API_HOST + "data/student/exams/13ICS047"+"/"+semester+ "/");
+        //clientTarget = client.target("http://studentmanagementsystem.pythonanywhere.com/data/student/exam/13ICS047"+"/"+7+"/");
+        //clientTarget = client.target("http://127.0.0.1:8000/data/student/exam/13ICS047/"+n);
+        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/13ICS047"+"/"+n);
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
+        System.out.println(response);
         ObjectMapper mapper = new ObjectMapper();
         try {
             Exams e = mapper.readValue(response,Exams.class);
