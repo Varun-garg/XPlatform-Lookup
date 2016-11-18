@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import studentdb, hostel_info, marks_status, marks_subjects
+from .models import studentdb, hostel_info, marks_status, marks_subjects, SubmitReview
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -30,4 +30,10 @@ class MarksSubjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = marks_subjects
         fields = ('subject_code', 'grade')
+
+
+class SubmitReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubmitReview
+        fields = ('student', 'comment', 'user')
 

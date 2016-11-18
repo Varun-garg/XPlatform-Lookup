@@ -8,7 +8,7 @@ from django.core.validators import validate_email
 from django import forms
 
 
-@csrf_exempt
+@api_view(['POST'])
 def user_login(request):
     response_data = {}
     errors = []
@@ -56,7 +56,7 @@ def user_login(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def new_user_registration(request):
     response_data = {}
     var = request.session.get('group_name')

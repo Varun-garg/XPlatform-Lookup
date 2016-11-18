@@ -1,4 +1,4 @@
-from .serializer import AdminSerializer, StudentSerializer, HostelSerializer, MarksStatusSerializer, MarksSubjectsSerializer
+from .serializer import AdminSerializer, StudentSerializer, HostelSerializer, MarksStatusSerializer, MarksSubjectsSerializer, SubmitReviewSerializer
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -33,7 +33,30 @@ class Student_Detail(generics.RetrieveAPIView):
     serializer_class = StudentSerializer
 
 
-@csrf_exempt
+class Review(generics.RetrieveAPIView):
+    lookup_field = 'student'
+    queryset = SubmitReview.objects.all()
+    serializer_class = SubmitReviewSerializer
+
+
+class Hostel_Detail(generics.RetrieveAPIView):
+    queryset = hostel_info.objects.all()
+    lookup_field = 'roll_num'
+    serializer_class = HostelSerializer
+
+
+class Student_Exams(APIView):
+
+    def get(self, request, **kwargs):
+        subjects = marks_subjects.objects.filter(roll_num=kwargs['roll_num'], semester=kwargs['semester'])
+        status = marks_status.objects.filter(roll_num=kwargs['roll_num'], semester=kwargs['semester'])
+        subjects_serializer = MarksSubjectsSerializer(subjects, many=True)
+        status_serializer = MarksStatusSerializer(status, many=True)
+
+        return Response({'Marks Summary': subjects_serializer.data, 'Overall Result': status_serializer.data,})
+
+
+@api_view(['POST'])
 def addstudent(request):
     response_data = {}
     errors = []
@@ -108,7 +131,7 @@ def addstudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def addhostelinfo(request):
     response_data = {}
     errors = []
@@ -156,7 +179,7 @@ def addhostelinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def addmarksinfo(request):
     response_data = {}
     errors = []
@@ -222,7 +245,7 @@ def addmarksinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def add_review(request):
     response_data = {}
     errors = []
@@ -255,23 +278,4 @@ def add_review(request):
         errors.append("Permission: You don't have permissions to create a review.")
         response_data['errors'] = errors
     return HttpResponse(json.dumps(response_data), content_type="application/json")
-
-
-class Hostel_Detail(generics.RetrieveAPIView):
-    queryset = hostel_info.objects.all()
-    lookup_field = 'roll_num'
-    serializer_class = HostelSerializer
-
-
-class Student_Exams(APIView):
-
-    def get(self, request, **kwargs):
-        subjects = marks_subjects.objects.filter(roll_num=kwargs['roll_num'], semester=kwargs['semester'])
-        status = marks_status.objects.filter(roll_num=kwargs['roll_num'], semester=kwargs['semester'])
-        subjects_serializer = MarksSubjectsSerializer(subjects, many=True)
-        status_serializer = MarksStatusSerializer(status, many=True)
-
-        return Response({'Marks Summary': subjects_serializer.data, 'Overall Result': status_serializer.data,})
-
-
 
