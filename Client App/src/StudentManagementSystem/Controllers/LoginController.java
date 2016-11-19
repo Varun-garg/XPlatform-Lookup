@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
@@ -46,6 +47,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 public class LoginController  implements Initializable {
@@ -109,6 +111,11 @@ public class LoginController  implements Initializable {
                             sessionManager.setRollNumber(loginResponse.getRollNo());
                         sessionManager.setUserType(loginResponse.getType());
 
+                        Map<String, NewCookie> tempCookie =rawResponse.getCookies();
+                        String responseCookie=tempCookie.toString();
+                        responseCookie=responseCookie.substring(11,54);
+                        sessionManager.setCookie(responseCookie);
+
                         updateMessage("Authentication successful");
                         return LOGIN_SUCCESS;
                     } else {
@@ -134,7 +141,7 @@ public class LoginController  implements Initializable {
                 Stage CurrentStage = (Stage) fxml_root.getScene().getWindow();
                 DisplayMethods displayMethods = DisplayMethods.getInstance();
                 try {
-                    displayMethods.MenuDisplay(CurrentStage);
+                    displayMethods.MemberHome(CurrentStage);
                 } catch (IOException ioException) {
                     throw new UncheckedIOException(ioException);
                 }

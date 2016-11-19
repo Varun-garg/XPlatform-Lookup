@@ -4,6 +4,7 @@ import StudentManagementSystem.Configuration;
 import StudentManagementSystem.Model.Hostel;
 import StudentManagementSystem.Model.LoginResponse;
 import StudentManagementSystem.Model.Student;
+import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -86,8 +87,8 @@ public class MenuController implements Initializable {
         Client client = ClientBuilder.newClient();
         clientTarget = client.target(Configuration.API_HOST + "data/student/new/");
 
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").
-                post(Entity.entity(newStudentForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie())
+                .post(Entity.entity(newStudentForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();

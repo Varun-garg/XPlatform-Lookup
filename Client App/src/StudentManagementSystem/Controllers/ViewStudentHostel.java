@@ -103,7 +103,8 @@ public class ViewStudentHostel implements Initializable {
          //   tab_plane.getSelectionModel().select(0);
          //   this.Display();
         } else {
-            System.out.print("Error: Student with roll no" + roll_no1.getText() + "could not be added");
+            System.out.println("Error: Student with roll no" + roll_no1.getText() + "could not be added");
+            System.out.println(response);
         }
     }
 

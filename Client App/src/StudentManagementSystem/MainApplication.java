@@ -16,20 +16,24 @@ public class MainApplication extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(e->{
+            e.consume();
+            closeProgram();
+        });
         DisplayMethods displayMethods = DisplayMethods.getInstance();
-        //displayMethods.LoginDisplay(primaryStage);
+        displayMethods.LoginDisplay(primaryStage);
 
-        SessionManager sessionManager = SessionManager.getInstance();
+        /*SessionManager sessionManager = SessionManager.getInstance();
         sessionManager.setUserType("admin");
         sessionManager.setFullName("Varun Garg");
         sessionManager.setLoginStatus(1);
         sessionManager.setUsername("varun");
         sessionManager.setRollNumber("13ICS057");
 
-        displayMethods.MemberHome(primaryStage);
+        displayMethods.MemberHome(primaryStage);*/
     }
-    public void closeProgram(){
-        boolean value = ConfirmationBox.display("CONFIRMATION","Are you sure you want to exit?");
+    public static void closeProgram(){
+        boolean value = ConfirmationBox.display("Student Management System","Are you sure you want to exit?");
         if(value){
             Platform.exit();
         }

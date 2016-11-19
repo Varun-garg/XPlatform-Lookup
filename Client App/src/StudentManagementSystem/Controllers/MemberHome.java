@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import StudentManagementSystem.MainApplication;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -119,7 +120,7 @@ public class MemberHome implements Initializable {
         logoutButton.setPrefWidth(190);
         logoutButton.setPrefHeight(44);
         logoutButton.setOnAction(e -> {
-            Platform.exit();
+           MainApplication.closeProgram();
         });
         NavigationVBox.getChildren().add(logoutButton);
 
