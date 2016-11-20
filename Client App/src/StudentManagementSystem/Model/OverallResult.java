@@ -1,15 +1,10 @@
-
 package StudentManagementSystem.Model;
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -39,9 +34,7 @@ public class OverallResult {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The rollNum
+     * @return The rollNum
      */
     @JsonProperty("roll_num")
     public String getRollNum() {
@@ -49,9 +42,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @param rollNum
-     * The roll_num
+     * @param rollNum The roll_num
      */
     @JsonProperty("roll_num")
     public void setRollNum(String rollNum) {
@@ -59,9 +50,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @return
-     * The tc
+     * @return The tc
      */
     @JsonProperty("tc")
     public Integer getTc() {
@@ -69,9 +58,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @param tc
-     * The tc
+     * @param tc The tc
      */
     @JsonProperty("tc")
     public void setTc(Integer tc) {
@@ -79,9 +66,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @return
-     * The tgp
+     * @return The tgp
      */
     @JsonProperty("tgp")
     public Integer getTgp() {
@@ -89,9 +74,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @param tgp
-     * The tgp
+     * @param tgp The tgp
      */
     @JsonProperty("tgp")
     public void setTgp(Integer tgp) {
@@ -99,9 +82,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @return
-     * The sgpa
+     * @return The sgpa
      */
     @JsonProperty("sgpa")
     public Double getSgpa() {
@@ -109,9 +90,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @param sgpa
-     * The sgpa
+     * @param sgpa The sgpa
      */
     @JsonProperty("sgpa")
     public void setSgpa(Double sgpa) {
@@ -119,9 +98,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @return
-     * The result
+     * @return The result
      */
     @JsonProperty("result")
     public String getResult() {
@@ -129,9 +106,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @param result
-     * The result
+     * @param result The result
      */
     @JsonProperty("result")
     public void setResult(String result) {
@@ -139,9 +114,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @return
-     * The semester
+     * @return The semester
      */
     @JsonProperty("semester")
     public Integer getSemester() {
@@ -149,9 +122,7 @@ public class OverallResult {
     }
 
     /**
-     *
-     * @param semester
-     * The semester
+     * @param semester The semester
      */
     @JsonProperty("semester")
     public void setSemester(Integer semester) {
@@ -169,9 +140,8 @@ public class OverallResult {
     }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [result = "+getResult()+", sgpa = "+getSgpa()+", tgp = "+getTgp()+", tc = "+getTc()+", roll_num = "+getRollNum()+", semester = "+getSemester()+"]";
+    public String toString() {
+        return "ClassPojo [result = " + getResult() + ", sgpa = " + getSgpa() + ", tgp = " + getTgp() + ", tc = " + getTc() + ", roll_num = " + getRollNum() + ", semester = " + getSemester() + "]";
     }
 
 }

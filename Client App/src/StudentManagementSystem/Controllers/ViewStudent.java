@@ -6,7 +6,6 @@ import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 
 import javax.ws.rs.client.Client;

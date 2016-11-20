@@ -53,26 +53,26 @@ public class ViewStudentExams implements Initializable {
     @FXML
     private ChoiceBox<String> cb;
 
-    private String sid=getCookie();
+    private String sid = getCookie();
 
-    public String getCookie(){
+    public String getCookie() {
         return SessionManager.getCookie();
     }
 
-    public void displayExamsInfo(String n){
+    public void displayExamsInfo(String n) {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/13ICS047"+"/"+n+ "");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/13ICS047" + "/" + n + "");
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Exams e = mapper.readValue(response,Exams.class);
+            Exams e = mapper.readValue(response, Exams.class);
 
             List<OverallResult> overallResult = e.getOverallResult();
-            List<MarksSummary> marksSummary=e.getMarksSummary();
+            List<MarksSummary> marksSummary = e.getMarksSummary();
 
-            l3.setText(String.valueOf("SEMESTER-"+overallResult.get(0).getSemester()));
+            l3.setText(String.valueOf("SEMESTER-" + overallResult.get(0).getSemester()));
 
             PropertyValueFactory<ExamsResult, String> subjectcodeProperty =
                     new PropertyValueFactory<ExamsResult, String>("subjectcode");
@@ -80,28 +80,27 @@ public class ViewStudentExams implements Initializable {
             PropertyValueFactory<ExamsResult, String> gradeProperty =
                     new PropertyValueFactory<ExamsResult, String>("grade");
 
-            subjectcode.setCellValueFactory( subjectcodeProperty );
-            grade.setCellValueFactory( gradeProperty );
+            subjectcode.setCellValueFactory(subjectcodeProperty);
+            grade.setCellValueFactory(gradeProperty);
 
             ObservableList<Exams> data =
                     FXCollections.observableArrayList();
-            for(int i=0;i<marksSummary.size();i++){
-                data.add(new ExamsResult(marksSummary.get(i).getSubjectCode(),marksSummary.get(i).getGrade()));
+            for (int i = 0; i < marksSummary.size(); i++) {
+                data.add(new ExamsResult(marksSummary.get(i).getSubjectCode(), marksSummary.get(i).getGrade()));
             }
-            exams.setItems( data );
+            exams.setItems(data);
             l1.setText(String.valueOf(overallResult.get(0).getSgpa()));
-            String l2=String.valueOf(overallResult.get(0).getResult());
+            String l2 = String.valueOf(overallResult.get(0).getResult());
             this.l2.setText(l2.toUpperCase(Locale.forLanguageTag(l2)));
-            cb.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)->this.displayExamsInfo(newValue));
-        }
-        catch (Exception e) {
+            cb.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> this.displayExamsInfo(newValue));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void choicebox(){
-        for(int i=1;i<=7;i++)
-            cb.getItems().add(""+i);
+    public void choicebox() {
+        for (int i = 1; i <= 7; i++)
+            cb.getItems().add("" + i);
         cb.setValue("7");
     }
 

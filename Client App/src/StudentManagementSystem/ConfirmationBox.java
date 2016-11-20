@@ -17,35 +17,35 @@ public class ConfirmationBox {
 
     public static boolean answer;
 
-    public static boolean display(String title,String message){
+    public static boolean display(String title, String message) {
         Stage window = new Stage();
         window.setTitle(title);
         window.initModality(Modality.APPLICATION_MODAL);
 
         Label l = new Label(message);
-        l.setFont(Font.font ("Bold", 20));
+        l.setFont(Font.font("Bold", 20));
 
         Button b1 = new Button("   Yes   ");
-        b1.setOnAction(e1->{
-            answer=true;
+        b1.setOnAction(e1 -> {
+            answer = true;
             window.close();
         });
 
         Button b2 = new Button("   No   ");
-        b2.setOnAction(e2->{
-            answer=false;
+        b2.setOnAction(e2 -> {
+            answer = false;
             window.close();
         });
 
         VBox v = new VBox(20);
         HBox h = new HBox(20);
-        h.getChildren().addAll(b1,b2);
+        h.getChildren().addAll(b1, b2);
         h.setAlignment(Pos.CENTER);
-        v.getChildren().addAll(l,h);
+        v.getChildren().addAll(l, h);
 
         v.setAlignment(Pos.CENTER);
 
-        Scene s = new Scene(v,300,150);
+        Scene s = new Scene(v, 300, 150);
         window.setScene(s);
         window.showAndWait();
 

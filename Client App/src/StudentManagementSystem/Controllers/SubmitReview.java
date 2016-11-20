@@ -18,9 +18,9 @@ public class SubmitReview implements Initializable {
     @FXML
     private Label lab;
 
-    public void displayReview(){
+    public void displayReview() {
 
-        lab.setText("1) "+ta.getText());
+        lab.setText("1) " + ta.getText());
 
     }
 

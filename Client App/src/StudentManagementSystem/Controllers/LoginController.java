@@ -1,45 +1,20 @@
 package StudentManagementSystem.Controllers;
 
-import java.io.BufferedReader;
-
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UncheckedIOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.DisplayMethods;
 import StudentManagementSystem.Model.LoginResponse;
-import StudentManagementSystem.Model.Student;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import com.jfoenix.controls.JFXTextField;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import sun.rmi.runtime.Log;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -48,28 +23,27 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.URL;
+import java.util.Map;
+import java.util.ResourceBundle;
 
-public class LoginController  implements Initializable {
-
-    @FXML
-    private JFXTextField usernameField;
-
-    @FXML
-    private JFXPasswordField passwordField;
-
-    @FXML
-    private VBox fxml_root, vbox_auth_options, vbox_auth_details;
-
-    @FXML
-    private Label current_status;
-
-    @FXML
-    private JFXButton login_button;
+public class LoginController implements Initializable {
 
     final static String LOGIN_SUCCESS = "succeeded";
     final static String LOGIN_FAIL = "failed";
     final static String LOGIN_EXCEPTION = "exception_error";
+    @FXML
+    private JFXTextField usernameField;
+    @FXML
+    private JFXPasswordField passwordField;
+    @FXML
+    private VBox fxml_root, vbox_auth_options, vbox_auth_details;
+    @FXML
+    private Label current_status;
+    @FXML
+    private JFXButton login_button;
 
     public void LoginEvent(ActionEvent event) {
 
@@ -111,10 +85,11 @@ public class LoginController  implements Initializable {
                             sessionManager.setRollNumber(loginResponse.getRollNo());
                         sessionManager.setUserType(loginResponse.getType());
 
-                        Map<String, NewCookie> tempCookie =rawResponse.getCookies();
-                        String responseCookie=tempCookie.toString();
-                        responseCookie=responseCookie.substring(11,54);
+                        Map<String, NewCookie> tempCookie = rawResponse.getCookies();
+                        String responseCookie = tempCookie.toString();
+                        responseCookie = responseCookie.substring(11, 54);
                         sessionManager.setCookie(responseCookie);
+                        sessionManager.setStudentRollNo(null);
 
                         updateMessage("Authentication successful");
                         return LOGIN_SUCCESS;

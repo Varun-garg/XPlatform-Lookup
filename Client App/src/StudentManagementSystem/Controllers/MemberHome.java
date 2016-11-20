@@ -1,38 +1,23 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
-import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.MainApplication;
 import StudentManagementSystem.Model.Student;
-import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import StudentManagementSystem.MainApplication;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -40,23 +25,17 @@ import java.util.ResourceBundle;
  */
 public class MemberHome implements Initializable {
 
-    @FXML
-    AnchorPane anchor_pane;
-
-    @FXML
-    JFXDrawer navigation_drawer, students_drawer;
-
-    @FXML
-    TabPane menu_fx;
-
-    @FXML
-    VBox NavigationVBox;
-
-    Student students[];
-
     static final String FETCH_SUCCESS = "success";
     static final String FETCH_FAIL = "fail";
-
+    @FXML
+    AnchorPane anchor_pane;
+    @FXML
+    JFXDrawer navigation_drawer, students_drawer;
+    @FXML
+    TabPane menu_fx;
+    @FXML
+    VBox NavigationVBox;
+    Student students[];
     Task fetchStudentsTask = new Task() {
         @Override
         protected String call() throws Exception {
@@ -120,7 +99,7 @@ public class MemberHome implements Initializable {
         logoutButton.setPrefWidth(190);
         logoutButton.setPrefHeight(44);
         logoutButton.setOnAction(e -> {
-           MainApplication.closeProgram();
+            MainApplication.closeProgram();
         });
         NavigationVBox.getChildren().add(logoutButton);
 
@@ -145,7 +124,7 @@ public class MemberHome implements Initializable {
 
         fetchStudentsTask.setOnSucceeded(e -> {
 
-            for(int i = 0 ; i < students.length; i++) {
+            for (int i = 0; i < students.length; i++) {
                 JFXButton student_button = new JFXButton();
                 student_button.setText(students[i].getFullName());
                 student_button.setPrefWidth(190);

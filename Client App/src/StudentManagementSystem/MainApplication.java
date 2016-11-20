@@ -1,22 +1,27 @@
 package StudentManagementSystem;
 
-import StudentManagementSystem.Controllers.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class MainApplication extends Application {
 
+    public static void closeProgram() {
+        boolean value = ConfirmationBox.display("Student Management System", "Are you sure you want to exit?");
+        if (value) {
+            Platform.exit();
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setResizable(false);
-        primaryStage.setOnCloseRequest(e->{
+        primaryStage.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();
         });
@@ -31,14 +36,5 @@ public class MainApplication extends Application {
         sessionManager.setRollNumber("13ICS057");
 
         displayMethods.MemberHome(primaryStage);*/
-    }
-    public static void closeProgram(){
-        boolean value = ConfirmationBox.display("Student Management System","Are you sure you want to exit?");
-        if(value){
-            Platform.exit();
-        }
-    }
-    public static void main(String[] args) {
-        launch(args);
     }
 }

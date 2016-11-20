@@ -2,15 +2,11 @@ package StudentManagementSystem.Model;
 
 //credits http://www.jsonschema2pojo.org/
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -37,9 +33,7 @@ public class LoginResponse {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The username
+     * @return The username
      */
     @JsonProperty("username")
     public String getUsername() {
@@ -47,9 +41,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @param username
-     * The username
+     * @param username The username
      */
     @JsonProperty("username")
     public void setUsername(String username) {
@@ -57,9 +49,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @return
-     * The message
+     * @return The message
      */
     @JsonProperty("message")
     public String getMessage() {
@@ -67,9 +57,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @param message
-     * The message
+     * @param message The message
      */
     @JsonProperty("message")
     public void setMessage(String message) {
@@ -77,9 +65,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @return
-     * The type
+     * @return The type
      */
     @JsonProperty("type")
     public String getType() {
@@ -87,9 +73,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @param type
-     * The type
+     * @param type The type
      */
     @JsonProperty("type")
     public void setType(String type) {
@@ -97,9 +81,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @return
-     * The email
+     * @return The email
      */
     @JsonProperty("email")
     public String getEmail() {
@@ -107,9 +89,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @param email
-     * The email
+     * @param email The email
      */
     @JsonProperty("email")
     public void setEmail(String email) {
@@ -117,9 +97,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @return
-     * The rollNo
+     * @return The rollNo
      */
     @JsonProperty("roll_no")
     public String getRollNo() {
@@ -127,9 +105,7 @@ public class LoginResponse {
     }
 
     /**
-     *
-     * @param rollNo
-     * The roll_no
+     * @param rollNo The roll_no
      */
     @JsonProperty("roll_no")
     public void setRollNo(String rollNo) {

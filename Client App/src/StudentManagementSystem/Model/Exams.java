@@ -1,16 +1,12 @@
 package StudentManagementSystem.Model;
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -28,9 +24,7 @@ public class Exams {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The overallResult
+     * @return The overallResult
      */
     @JsonProperty("Overall Result")
     public List<OverallResult> getOverallResult() {
@@ -38,9 +32,7 @@ public class Exams {
     }
 
     /**
-     *
-     * @param overallResult
-     * The Overall Result
+     * @param overallResult The Overall Result
      */
     @JsonProperty("Overall Result")
     public void setOverallResult(List<OverallResult> overallResult) {
@@ -48,9 +40,7 @@ public class Exams {
     }
 
     /**
-     *
-     * @return
-     * The marksSummary
+     * @return The marksSummary
      */
     @JsonProperty("Marks Summary")
     public List<MarksSummary> getMarksSummary() {
@@ -58,9 +48,7 @@ public class Exams {
     }
 
     /**
-     *
-     * @param marksSummary
-     * The Marks Summary
+     * @param marksSummary The Marks Summary
      */
     @JsonProperty("Marks Summary")
     public void setMarksSummary(List<MarksSummary> marksSummary) {

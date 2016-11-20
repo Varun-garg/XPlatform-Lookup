@@ -4,15 +4,15 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.control.Button?>
-<VBox fx:id="fxml_root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="login" stylesheets="@Buttons.css,@LayoutStyle.css"
-      xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="fxml_root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+      styleClass="login"
+      stylesheets="@Buttons.css,@LayoutStyle.css" xmlns="http://javafx.com/javafx/8.0.76-ea"
       fx:controller="StudentManagementSystem.Controllers.LoginController">
     <children>
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -25,13 +25,13 @@
                 <Insets bottom="25" left="25" right="25" top="25"/>
             </padding>
             <Button blendMode="SRC_ATOP" contentDisplay="TOP"
-                       mnemonicParsing="false"
-                       onAction="#show_details" prefHeight="25.0" prefWidth="150" styleClass="green" text="Management"
-                       textAlignment="CENTER"></Button>
+                    mnemonicParsing="false"
+                    onAction="#show_details" prefHeight="25.0" prefWidth="150" styleClass="green" text="Management"
+                    textAlignment="CENTER"></Button>
             <Button blendMode="SRC_ATOP" contentDisplay="TOP"
-                       mnemonicParsing="false"
-                       onAction="#LoginEvent" prefHeight="25.0" prefWidth="150" styleClass="green" text="Students"
-                       textAlignment="CENTER"></Button>
+                    mnemonicParsing="false"
+                    onAction="#LoginEvent" prefHeight="25.0" prefWidth="150" styleClass="green" text="Students"
+                    textAlignment="CENTER"></Button>
         </VBox>
         <VBox fx:id="vbox_auth_details" alignment="CENTER">
             <JFXTextField fx:id="usernameField" maxWidth="200" minWidth="200" prefHeight="31.0" prefWidth="200"

@@ -4,21 +4,40 @@ package StudentManagementSystem;
  * Created by varun on 27/09/2016.
  */
 public class SessionManager {
+    public static final int LOGGED_IN = 1;
+    public static final int LOGGED_OUT = 0;
     private static SessionManager ourInstance = new SessionManager();
+    private static String cookie;
+    private String Username;
+    private String Password;
+    private String UserType;
+    private String FullName;
+    private String StudentRollNo;
+    private String RollNumber;
+    private int LoginStatus = 0;
+
+    private SessionManager() {
+    }
 
     public static SessionManager getInstance() {
         return ourInstance;
     }
 
-    private SessionManager() {
+    public static String getCookie() {
+        return cookie;
     }
 
-    private String Username;
-    private String Password;
-    private String UserType;
-    private String FullName;
-    private static String cookie;
+    public void setCookie(String cookie) {
+        this.cookie = cookie;
+    }
 
+    public String getStudentRollNo() {
+        return StudentRollNo;
+    }
+
+    public void setStudentRollNo(String studentRollNo) {
+        StudentRollNo = studentRollNo;
+    }
 
     public String getRollNumber() {
         return RollNumber;
@@ -27,12 +46,6 @@ public class SessionManager {
     public void setRollNumber(String rollNumber) {
         RollNumber = rollNumber;
     }
-
-    private String RollNumber;
-
-    private int LoginStatus = 0;
-    public static final int LOGGED_IN = 1;
-    public static final int LOGGED_OUT = 0;
 
     public String getUsername() {
         return Username;
@@ -66,22 +79,12 @@ public class SessionManager {
         FullName = fullName;
     }
 
-
-    public int getLoginStatus()
-    {
+    public int getLoginStatus() {
         return LoginStatus;
     }
 
     public void setLoginStatus(int loginStatus) {
         LoginStatus = loginStatus;
-    }
-
-    public static String getCookie() {
-        return cookie;
-    }
-
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
     }
 
 }

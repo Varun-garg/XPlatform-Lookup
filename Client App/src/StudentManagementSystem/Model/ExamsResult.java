@@ -10,37 +10,29 @@ public class ExamsResult extends Exams {
     private final SimpleStringProperty grade;
 
 
-    public ExamsResult(String subjectcode, String grade)
-    {
-        this.subjectcode = new SimpleStringProperty( subjectcode );
-        this.grade = new SimpleStringProperty( grade );
+    public ExamsResult(String subjectcode, String grade) {
+        this.subjectcode = new SimpleStringProperty(subjectcode);
+        this.grade = new SimpleStringProperty(grade);
 
     }
 
 
-    public String getSubjectcode()
-    {
+    public String getSubjectcode() {
         return subjectcode.get();
     }
 
-    public void setSubjectcode(String subjectcode)
-    {
-        this.subjectcode.set( subjectcode );
+    public void setSubjectcode(String subjectcode) {
+        this.subjectcode.set(subjectcode);
     }
 
 
-
-    public String getGrade()
-    {
+    public String getGrade() {
         return grade.get();
     }
 
-    public void setGrade(String grade)
-    {
-        this.grade.set( grade );
+    public void setGrade(String grade) {
+        this.grade.set(grade);
     }
-
-
 
 
 }

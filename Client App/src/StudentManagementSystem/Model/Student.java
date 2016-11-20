@@ -2,16 +2,11 @@ package StudentManagementSystem.Model;
 
 //credits http://www.jsonschema2pojo.org/
 
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.*;
 
-import java.util.Map;
 import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -56,9 +51,7 @@ public class Student {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The fullName
+     * @return The fullName
      */
     @JsonProperty("full_name")
     public String getFullName() {
@@ -66,9 +59,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param fullName
-     * The full_name
+     * @param fullName The full_name
      */
     @JsonProperty("full_name")
     public void setFullName(String fullName) {
@@ -76,9 +67,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The enrollNo
+     * @return The enrollNo
      */
     @JsonProperty("enroll_no")
     public String getEnrollNo() {
@@ -86,9 +75,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param enrollNo
-     * The enroll_no
+     * @param enrollNo The enroll_no
      */
     @JsonProperty("enroll_no")
     public void setEnrollNo(String enrollNo) {
@@ -96,9 +83,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The programName
+     * @return The programName
      */
     @JsonProperty("program_name")
     public String getProgramName() {
@@ -106,9 +91,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param programName
-     * The program_name
+     * @param programName The program_name
      */
     @JsonProperty("program_name")
     public void setProgramName(String programName) {
@@ -116,9 +99,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The school
+     * @return The school
      */
     @JsonProperty("school")
     public String getSchool() {
@@ -126,9 +107,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param school
-     * The school
+     * @param school The school
      */
     @JsonProperty("school")
     public void setSchool(String school) {
@@ -136,9 +115,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The rollNo
+     * @return The rollNo
      */
     @JsonProperty("roll_no")
     public String getRollNo() {
@@ -146,9 +123,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param rollNo
-     * The roll_no
+     * @param rollNo The roll_no
      */
     @JsonProperty("roll_no")
     public void setRollNo(String rollNo) {
@@ -156,9 +131,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The fatherName
+     * @return The fatherName
      */
     @JsonProperty("father_name")
     public String getFatherName() {
@@ -166,9 +139,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param fatherName
-     * The father_name
+     * @param fatherName The father_name
      */
     @JsonProperty("father_name")
     public void setFatherName(String fatherName) {
@@ -176,9 +147,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The motherName
+     * @return The motherName
      */
     @JsonProperty("mother_name")
     public String getMotherName() {
@@ -186,9 +155,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param motherName
-     * The mother_name
+     * @param motherName The mother_name
      */
     @JsonProperty("mother_name")
     public void setMotherName(String motherName) {
@@ -196,9 +163,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The dob
+     * @return The dob
      */
     @JsonProperty("dob")
     public String getDob() {
@@ -206,9 +171,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param dob
-     * The dob
+     * @param dob The dob
      */
     @JsonProperty("dob")
     public void setDob(String dob) {
@@ -216,9 +179,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The sex
+     * @return The sex
      */
     @JsonProperty("sex")
     public String getSex() {
@@ -226,9 +187,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param sex
-     * The sex
+     * @param sex The sex
      */
     @JsonProperty("sex")
     public void setSex(String sex) {
@@ -236,9 +195,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The email
+     * @return The email
      */
     @JsonProperty("email")
     public String getEmail() {
@@ -246,9 +203,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param email
-     * The email
+     * @param email The email
      */
     @JsonProperty("email")
     public void setEmail(String email) {
@@ -256,9 +211,7 @@ public class Student {
     }
 
     /**
-     *
-     * @return
-     * The phone
+     * @return The phone
      */
     @JsonProperty("phone")
     public String getPhone() {
@@ -266,9 +219,7 @@ public class Student {
     }
 
     /**
-     *
-     * @param phone
-     * The phone
+     * @param phone The phone
      */
     @JsonProperty("phone")
     public void setPhone(String phone) {

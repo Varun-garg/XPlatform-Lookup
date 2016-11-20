@@ -18,18 +18,17 @@ public class DisplayMethods {
 
     private static DisplayMethods singleDisplayMethods = new DisplayMethods();
 
-    private DisplayMethods(){}
+    private DisplayMethods() {
+    }
 
-    public static DisplayMethods getInstance()
-    {
+    public static DisplayMethods getInstance() {
         return singleDisplayMethods;
     }
 
-    public void MenuDisplay(Stage parentStage) throws IOException
-    {
+    public void MenuDisplay(Stage parentStage) throws IOException {
         if (parentStage == null) parentStage = new Stage();
         SessionManager sessionManager = SessionManager.getInstance();
-        parentStage.setTitle("Welcome " + sessionManager.getFullName()) ;
+        parentStage.setTitle("Welcome " + sessionManager.getFullName());
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
         Parent LoginLayout = fxmlLoader.load();
@@ -43,11 +42,10 @@ public class DisplayMethods {
         menuController.Display();
     }
 
-    public void MemberHome(Stage parentStage) throws IOException
-    {
+    public void MemberHome(Stage parentStage) throws IOException {
         if (parentStage == null) parentStage = new Stage();
         SessionManager sessionManager = SessionManager.getInstance();
-        parentStage.setTitle("Welcome " + sessionManager.getFullName()) ;
+        parentStage.setTitle("Welcome " + sessionManager.getFullName());
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/MemberHome.fxml"));
         Parent LoginLayout = fxmlLoader.load();

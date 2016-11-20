@@ -1,25 +1,20 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
-import StudentManagementSystem.Model.Hostel;
 import StudentManagementSystem.Model.LoginResponse;
-import StudentManagementSystem.Model.Student;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.layout.GridPane;
 
-import javax.ws.rs.client.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -36,16 +31,6 @@ public class MenuController implements Initializable {
     private GridPane new_student_form_grid;
 
     private String RollNo; // roll_no for personal,hostel & exams info
-
-    public String getRollNo() {
-        return RollNo;
-    }
-
-    public void setRollNo(String RollNo) {
-        System.out.println("got roll number " + RollNo);
-        this.RollNo = RollNo;
-    }
-
     @FXML
     private JFXTextField full_name;
     @FXML
@@ -68,6 +53,15 @@ public class MenuController implements Initializable {
     private JFXTextField email;
     @FXML
     private JFXTextField phone;
+
+    public String getRollNo() {
+        return RollNo;
+    }
+
+    public void setRollNo(String RollNo) {
+        System.out.println("got roll number " + RollNo);
+        this.RollNo = RollNo;
+    }
 
     public void AddStudent(ActionEvent event) throws IOException {
         Form newStudentForm = new Form();
