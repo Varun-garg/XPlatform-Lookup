@@ -82,9 +82,10 @@ def addstudent(request):
                 errors.append("roll_no: Enter Roll Number")
             elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
                 errors.append("roll_no: Invalid Roll Number")
-            existing_entry = studentdb.objects.filter(roll_no = roll_no)
-            if existing_entry.count() > 0:
-                errors.append("roll_no: Entry corresponding to this roll number already exists")
+            else:
+                existing_entry = studentdb.objects.filter(roll_no = roll_no)
+                if existing_entry.count() > 0:
+                    errors.append("roll_no: Entry corresponding to this roll number already exists")
             father_name = request.POST.get('father_name', '')
             mother_name = request.POST.get('mother_name', '')
             dob = request.POST.get('dob')
@@ -143,9 +144,10 @@ def addhostelinfo(request):
                 errors.append("roll_no: Enter Roll Number")
             elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_num) is None:
                 errors.append("roll_no: Invalid Roll Number")
-            existing_entry = studentdb.objects.filter(roll_no = roll_num)
-            if existing_entry.count() is 0:
-                errors.append("roll_no: No student with this roll number exists")
+            else:
+                existing_entry = studentdb.objects.filter(roll_no = roll_num)
+                if existing_entry.count() is 0:
+                    errors.append("roll_no: No student with this roll number exists")
             hostel_name = request.POST.get('hostel_name')
             if (hostel_name is None) or (len(hostel_name)==0):
                 errors.append("hostel_name: Enter Hostel Name")
@@ -191,9 +193,10 @@ def addmarksinfo(request):
                 errors.append("roll_no: Enter Roll Number")
             elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_num) is None:
                 errors.append("roll_no: Invalid Roll Number")
-            existing_entry = studentdb.objects.filter(roll_no = roll_num)
-            if existing_entry.count() is 0:
-                errors.append("roll_no: No student with this roll number exists")
+            else:
+                existing_entry = studentdb.objects.filter(roll_no = roll_num)
+                if existing_entry.count() is 0:
+                    errors.append("roll_no: No student with this roll number exists")
             subject_code = request.POST.get('subject_code')
             if (subject_code is None) or (len(subject_code)==0):
                 errors.append("subject_code: Enter Subject Code")
@@ -257,6 +260,10 @@ def add_review(request):
                 errors.append("stu_roll: Enter Student Roll Number")
             elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',stu_roll) is None:
                 errors.append("stu_roll: Invalid Student Roll Number")
+            else:
+                existing_entry = studentdb.objects.filter(roll_no = stu_roll)
+                if existing_entry.count() is 0:
+                    errors.append("stu_roll: No student with this roll number exists")
             comment = request.POST.get('comment')
             if (comment is None) or (len(comment)==0):
                 errors.append("comment: Enter Comment")
