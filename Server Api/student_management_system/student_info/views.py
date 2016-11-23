@@ -33,12 +33,6 @@ class Student_Detail(generics.RetrieveAPIView):
     serializer_class = StudentSerializer
 
 
-class Review(generics.RetrieveAPIView):
-    lookup_field = 'student'
-    queryset = SubmitReview.objects.all()
-    serializer_class = SubmitReviewSerializer
-
-
 class Hostel_Detail(generics.RetrieveAPIView):
     queryset = hostel_info.objects.all()
     lookup_field = 'roll_num'
@@ -54,6 +48,13 @@ class Student_Exams(APIView):
         status_serializer = MarksStatusSerializer(status, many=True)
 
         return Response({'Marks Summary': subjects_serializer.data, 'Overall Result': status_serializer.data,})
+
+
+class Review(APIView):
+    def get(self, request, **kwargs):
+        reviews = SubmitReview.objects.filter(student = kwargs['student'])
+        review_result = SubmitReviewSerializer(reviews, many=True)
+        return Response({'Review': review_result.data,})
 
 
 @api_view(['POST'])
@@ -175,7 +176,7 @@ def addhostelinfo(request):
         else:
             response_data['message'] = 'fail'
     else:
-        response_data['message'] = "fail."
+        response_data['message'] = "fail"
         errors.append("Permission: You don't have permissions to create a new hostel entry.")
         response_data['errors'] = errors
     return HttpResponse(json.dumps(response_data), content_type="application/json")

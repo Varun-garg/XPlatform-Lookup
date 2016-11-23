@@ -9,6 +9,15 @@ from django import forms
 
 
 @api_view(['POST'])
+def user_logout(request):
+    del request.session['user']
+    del request.session['group_name']
+    response_data = {}
+    response_data['message'] = 'success'
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@api_view(['POST'])
 def user_login(request):
     response_data = {}
     errors = []
