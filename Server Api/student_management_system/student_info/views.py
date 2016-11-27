@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.validators import validate_email
 from django import forms
 import re
+from django.db.models.query_utils import Q
+
 # These will be used in the admin section
 
 
@@ -46,7 +48,6 @@ class Student_Exams(APIView):
         status = marks_status.objects.filter(roll_num=kwargs['roll_num'], semester=kwargs['semester'])
         subjects_serializer = MarksSubjectsSerializer(subjects, many=True)
         status_serializer = MarksStatusSerializer(status, many=True)
-
         return Response({'Marks Summary': subjects_serializer.data, 'Overall Result': status_serializer.data,})
 
 
@@ -57,7 +58,20 @@ class Review(APIView):
         return Response({'Review': review_result.data,})
 
 
-@api_view(['POST'])
+def studentSearch(request):
+    response_data = {}
+    search = []
+    query = request.GET.get('query')
+    if (query is not None) and (len(query) > 0):
+        output = studentdb.objects.filter(Q(full_name__icontains=query) | Q(enroll_no__icontains=query) | Q(program_name__icontains=query) | Q(school__icontains=query) | Q(roll_no__icontains=query) | Q(dob__icontains=query) | Q(email__icontains=query) | Q(phone__icontains=query) )
+        for n in output:
+            result = {'full_name': n.full_name, 'roll_no' : n.roll_no}
+            search.append(result)
+        response_data['search'] = search
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@csrf_exempt
 def addstudent(request):
     response_data = {}
     errors = []
@@ -133,7 +147,7 @@ def addstudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addhostelinfo(request):
     response_data = {}
     errors = []
@@ -182,7 +196,7 @@ def addhostelinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addmarksinfo(request):
     response_data = {}
     errors = []

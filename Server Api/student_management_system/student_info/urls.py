@@ -4,6 +4,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
+    url(r'^student/search/$', views.studentSearch),
     url(r'^student/new/$', views.addstudent),
     url(r'^student/new/hostel/$', views.addhostelinfo),
     url(r'^student/new/exam/$', views.addmarksinfo),

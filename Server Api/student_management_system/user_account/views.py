@@ -17,21 +17,20 @@ def user_logout(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def user_login(request):
     response_data = {}
     errors = []
     if request.method == 'POST':
-        login = request.POST.get('email')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-        if (login is None) or (len(login) == 0):
-            errors.append("email: Enter Username or Email-Id")
+        if (email is None) or (len(email) == 0):
+            errors.append("email: Enter Email-Id or Username")
         if (password is None) or (len(password) == 0):
             errors.append("password: Enter Password")
         if len(errors) == 0:
-            username = request.POST.get('email')
             # client does not know if it is username or email, so it sends any data in email field
-            email = request.POST.get('email')
+            username = request.POST.get('email')
             try:  # to avoid error when no user exists
                 user = UserSMS.objects.get(Q(email=email) | Q(username=username))
             except UserSMS.DoesNotExist:
