@@ -265,6 +265,11 @@ def add_review(request):
                 existing_entry = studentdb.objects.filter(roll_no = stu_roll)
                 if existing_entry.count() is 0:
                     errors.append("stu_roll: No student with this roll number exists")
+            section = request.POST.get('section')
+            if (section is None) or (len(section)==0):
+                errors.append("section: Enter Section")
+            elif (section != 'personal') and (section != 'hostel') and (section != 'exam'):
+                errors.append("section: No such Section")
             comment = request.POST.get('comment')
             if (comment is None) or (len(comment)==0):
                 errors.append("comment: Enter Comment")
@@ -272,6 +277,7 @@ def add_review(request):
             if len(errors) == 0:
                 new_review = SubmitReview()
                 new_review.student = stu_roll
+                new_review.section = section
                 new_review.comment = comment
                 new_review.user = user
                 new_review.save()

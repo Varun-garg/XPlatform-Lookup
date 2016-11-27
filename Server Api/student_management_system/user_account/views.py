@@ -25,7 +25,7 @@ def user_login(request):
         login = request.POST.get('email')
         password = request.POST.get('password')
         if (login is None) or (len(login) == 0):
-            errors.append("login: Enter Username or Email-Id")
+            errors.append("email: Enter Username or Email-Id")
         if (password is None) or (len(password) == 0):
             errors.append("password: Enter Password")
         if len(errors) == 0:

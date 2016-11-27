@@ -35,5 +35,5 @@ class MarksSubjectsSerializer(serializers.ModelSerializer):
 class SubmitReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubmitReview
-        fields = ('student', 'comment', 'user', 'date')
+        fields = ('student', 'section', 'comment', 'user', 'date')
 
