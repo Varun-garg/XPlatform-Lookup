@@ -17,7 +17,7 @@ def user_logout(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def user_login(request):
     response_data = {}
     errors = []
@@ -74,6 +74,9 @@ def new_user_registration(request):
             username = request.POST.get('username')
             if (username is None) or (len(username)==0):
                 errors.append("username: Enter Username")
+            existing = UserSMS.objects.get(username = username)
+            if existing is not None:
+                errors.append("User with this username already exists.")
             email = request.POST.get('email')
             if (email is None) or (len(email)==0):
                 errors.append("email: Enter Email")

@@ -58,6 +58,7 @@ class Review(APIView):
         return Response({'Review': review_result.data,})
 
 
+@api_view(['GET'])
 def studentSearch(request):
     response_data = {}
     search = []
@@ -71,7 +72,7 @@ def studentSearch(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def addstudent(request):
     response_data = {}
     errors = []
@@ -147,7 +148,7 @@ def addstudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def addhostelinfo(request):
     response_data = {}
     errors = []
@@ -196,7 +197,7 @@ def addhostelinfo(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def addmarksinfo(request):
     response_data = {}
     errors = []
