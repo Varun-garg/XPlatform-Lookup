@@ -142,6 +142,16 @@ public class MemberHome implements Initializable {
         });
         NavigationVBox.getChildren().add(newStudentButton);
 
+        JFXButton ReviewButton = new JFXButton();
+        ReviewButton.setText("Submit Review");
+        ReviewButton.setPrefWidth(190);
+        ReviewButton.setPrefHeight(44);
+        ReviewButton.setOnAction(e ->
+        {
+            Utility.DisplayForm("New Student", "SubmitReview.fxml");
+        });
+        NavigationVBox.getChildren().add(ReviewButton);
+
         JFXButton logoutButton = new JFXButton();
         logoutButton.setText("Log Out");
         logoutButton.setPrefWidth(190);

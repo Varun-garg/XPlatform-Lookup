@@ -22,11 +22,6 @@
                 <fx:include source="ViewStudentExam.fxml"></fx:include>
             </content>
         </Tab>
-        <Tab text="Submit Review">
-            <content>
-                <fx:include source="SubmitReview.fxml"></fx:include>
-            </content>
-        </Tab>
 
     </tabs>
 </TabPane>
