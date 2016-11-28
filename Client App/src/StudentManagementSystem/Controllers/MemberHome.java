@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -35,12 +36,13 @@ public class MemberHome implements Initializable {
 
     static final String FETCH_SUCCESS = "success";
     static final String FETCH_FAIL = "fail";
+
     @FXML
     AnchorPane anchor_pane;
+
     @FXML
-    JFXDrawer navigation_drawer, students_drawer;
-    //@FXML
-    //TabPane menu_fx;
+    JFXDrawer students_drawer;
+
     @FXML
     VBox NavigationVBox;
     @FXML
@@ -49,6 +51,7 @@ public class MemberHome implements Initializable {
     TabPane tabPane = null;
 
     Student students[];
+
     Task fetchStudentsTask = new Task() {
         @Override
         protected String call() throws Exception {
@@ -77,12 +80,8 @@ public class MemberHome implements Initializable {
 
         VBox StudentsVBox;
         try {
-            //NavigationVBox = FXMLLoader.load(getClass().getResource("../Layout/NavigationDrawer.fxml"));
             StudentsVBox = FXMLLoader.load(getClass().getResource("../Layout/StudentsDrawer.fxml"));
-            //navigation_drawer.setSidePane(NavigationVBox);
-//            navigation_drawer.open();
             students_drawer.setSidePane(StudentsVBox);
-            //    students_drawer.open();
         } catch (Exception e) {
             System.out.println("caught exception in " + this.getClass().getSimpleName());
             e.printStackTrace();
@@ -90,23 +89,30 @@ public class MemberHome implements Initializable {
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
-        MenuController menuController;
 
-        try {
+        if (SessionManager.getInstance().getStudentRollNo() != null) {
+            try {
+                content.getChildren().clear();
+                tabPane = fxmlLoader.load();
+                content.getChildren().setAll(tabPane);
+            } catch (Exception e) {
+                System.out.println(getClass().getSimpleName());
+                e.printStackTrace();
+            }
+        } else {
             content.getChildren().clear();
-            tabPane = fxmlLoader.load();
-            content.getChildren().setAll(tabPane);
-            //   menuController = fxmlLoader.getController();
-        } catch (Exception e) {
-            System.out.println(getClass().getSimpleName());
-            e.printStackTrace();
+            VBox NoStudentMessage = Utility.WarningLabel("Select a student first", 0);
+            NoStudentMessage.setLayoutX( (content.getMinWidth() - Utility.HBoxWidth) / 2);
+            NoStudentMessage.setLayoutY( (content.getMinHeight()) / 2);
+            content.getChildren().add(NoStudentMessage);
         }
 
-//        navigation_drawer.toFront();
         NavigationVBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");
         students_drawer.toBack();
         StudentsVBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-        tabPane.toBack();
+
+        if (tabPane != null)
+            tabPane.toBack();
 
         JFXButton studentsButton = new JFXButton();
         studentsButton.setText("Students");
@@ -115,12 +121,13 @@ public class MemberHome implements Initializable {
         studentsButton.setOnAction(e -> {
             if (students_drawer.isShown()) {
                 students_drawer.close();
-
-                tabPane.toFront();
+                if (tabPane != null)
+                    tabPane.toFront();
             } else {
                 students_drawer.open();
                 students_drawer.toFront();
-                tabPane.toBack();
+                if (tabPane != null)
+                    tabPane.toBack();
             }
         });
         NavigationVBox.getChildren().add(studentsButton);
@@ -186,25 +193,6 @@ public class MemberHome implements Initializable {
         });
         NavigationVBox.getChildren().add(logoutButton);
 
-
-
-        /*HamburgerBackArrowBasicTransition burgerTask = new HamburgerBackArrowBasicTransition(hamburger);
-        burgerTask.setRate(-1);
-
-        hamburger.addEventFilter(MouseEvent.MOUSE_PRESSED, (e) -> {
-            burgerTask.setRate(burgerTask.getRate() * -1);
-            burgerTask.play();
-
-            if (navigation_drawer.isShown()) {
-                navigation_drawer.close();
-                students_drawer.close();
-                menu_fx.toFront();
-            } else {
-                navigation_drawer.open();
-                menu_fx.toBack();
-            }
-        }); */
-
         fetchStudentsTask.setOnSucceeded(e -> {
 
             for (int i = 0; i < students.length; i++) {
@@ -215,8 +203,8 @@ public class MemberHome implements Initializable {
                 final int CurrentIndex = i;
                 student_button.setOnAction(f -> {
                     try {
-                        SessionManager.getInstance().setFullName(students[CurrentIndex].getFullName());
-                        SessionManager.getInstance().setRollNumber(students[CurrentIndex].getRollNo());
+                        SessionManager.getInstance().setStudentFullName(students[CurrentIndex].getFullName());
+                        SessionManager.getInstance().setStudentRollNo(students[CurrentIndex].getRollNo());
                         content.getChildren().clear();
                         FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
                         tabPane = fxmlLoader2.load();

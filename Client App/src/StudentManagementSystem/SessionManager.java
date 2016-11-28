@@ -6,17 +6,30 @@ package StudentManagementSystem;
 public class SessionManager {
     public static final int LOGGED_IN = 1;
     public static final int LOGGED_OUT = 0;
+
     private static SessionManager ourInstance = new SessionManager();
+
     private static String cookie;
     private String Username;
     private String Password;
     private String UserType;
     private String FullName;
-    private String StudentRollNo;
     private String RollNumber;
+    private String StudentRollNo;
+    private String StudentFullName;
     private int LoginStatus = 0;
 
     private SessionManager() {
+        LoginStatus = LOGGED_OUT;
+        StudentRollNo = null;
+    }
+
+    public int getLoginStatus() {
+        return LoginStatus;
+    }
+
+    public void setLoginStatus(int loginStatus) {
+        LoginStatus = loginStatus;
     }
 
     public static SessionManager getInstance() {
@@ -29,14 +42,6 @@ public class SessionManager {
 
     public void setCookie(String cookie) {
         SessionManager.cookie = cookie;
-    }
-
-    public String getStudentRollNo() {
-        return StudentRollNo;
-    }
-
-    public void setStudentRollNo(String studentRollNo) {
-        StudentRollNo = studentRollNo;
     }
 
     public String getRollNumber() {
@@ -79,12 +84,19 @@ public class SessionManager {
         FullName = fullName;
     }
 
-    public int getLoginStatus() {
-        return LoginStatus;
+    public String getStudentRollNo() {
+        return StudentRollNo;
     }
 
-    public void setLoginStatus(int loginStatus) {
-        LoginStatus = loginStatus;
+    public void setStudentRollNo(String studentRollNo) {
+        StudentRollNo = studentRollNo;
     }
 
+    public String getStudentFullName() {
+        return StudentFullName;
+    }
+
+    public void setStudentFullName(String studentFullName) {
+        StudentFullName = studentFullName;
+    }
 }

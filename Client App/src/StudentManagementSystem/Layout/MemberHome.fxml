@@ -12,5 +12,5 @@
     </JFXDrawer>
 
     <!-- <fx:include source="Menu.fxml" fx:id="menu_fx" layoutX="190.0"></fx:include> -->
-    <AnchorPane fx:id="content" layoutX="190.0"/>
+    <AnchorPane fx:id="content" layoutX="190.0" minWidth="600" minHeight="600"/>
 </AnchorPane>

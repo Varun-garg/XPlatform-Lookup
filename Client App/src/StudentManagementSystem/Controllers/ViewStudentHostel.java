@@ -46,14 +46,7 @@ public class ViewStudentHostel implements Initializable {
     private void DisplayHostelInfo() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-
-        String rollNo;
-
-        if (SessionManager.getInstance().getStudentRollNo() != null)
-            rollNo = SessionManager.getInstance().getStudentRollNo();
-        else
-            rollNo = SessionManager.getInstance().getRollNumber();
-
+        String rollNo = SessionManager.getInstance().getStudentRollNo();
         clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/" + rollNo + "/?format=json");
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);

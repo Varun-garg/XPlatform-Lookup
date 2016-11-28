@@ -34,7 +34,7 @@ public class ViewStudent implements Initializable {
         Client client = ClientBuilder.newClient();
         // client.register(MenuController.class);
 
-        clientTarget = client.target(Configuration.API_HOST + "data/admin/" + SessionManager.getInstance().getRollNumber() + "/?format=json");
+        clientTarget = client.target(Configuration.API_HOST + "data/admin/" + SessionManager.getInstance().getStudentRollNo() + "/?format=json");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
 

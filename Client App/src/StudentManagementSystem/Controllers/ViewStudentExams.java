@@ -62,7 +62,7 @@ public class ViewStudentExams implements Initializable {
     public void displayExamsInfo(String n) {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/" + SessionManager.getInstance().getRollNumber() + "/" + n + "");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/" + SessionManager.getInstance().getStudentRollNo() + "/" + n + "");
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
