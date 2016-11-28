@@ -160,6 +160,24 @@ def addstudent(request):
 
 
 @api_view(['POST'])
+def deleteStudent(request):
+    response_data = {}
+    errors = []
+    var = request.session.get('group_name')
+    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+        if request.method == 'POST':
+            roll_no = request.POST.get('roll_no')
+            existing_entry = studentdb.objects.get(roll_no = roll_no)
+            existing_entry.delete()
+            response_data['message'] = "success"
+    else:
+        errors.append("Permission: You don't have permissions to delete a student entry.")
+        response_data['message'] = 'fail'
+        response_data['errors'] = errors
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@api_view(['POST'])
 def addhostelinfo(request):
     response_data = {}
     errors = []
@@ -204,6 +222,24 @@ def addhostelinfo(request):
     else:
         response_data['message'] = "fail"
         errors.append("Permission: You don't have permissions to create a new hostel entry.")
+        response_data['errors'] = errors
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@api_view(['POST'])
+def deleteHostelStudent(request):
+    response_data = {}
+    errors = []
+    var = request.session.get('group_name')
+    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+        if request.method == 'POST':
+            roll_no = request.POST.get('roll_no')
+            existing_entry = hostel_info.objects.get(roll_no = roll_no)
+            existing_entry.delete()
+            response_data['message'] = "success"
+    else:
+        errors.append("Permission: You don't have permissions to delete a hostel entry.")
+        response_data['message'] = 'fail'
         response_data['errors'] = errors
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 

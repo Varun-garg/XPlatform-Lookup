@@ -17,7 +17,7 @@ class AdminSerializer(serializers.ModelSerializer):
 class HostelSerializer(serializers.ModelSerializer):
     class Meta:
         model = hostel_info
-        fields = ('roll_num', 'room_num', 'warden_name', 'warden_mob', 'caretaker_name', 'caretaker_num')
+        fields = ('roll_num', 'room_num', 'warden_name', 'warden_mob', 'caretaker_name', 'caretaker_num', 'hostel_name')
 
 
 class MarksStatusSerializer(serializers.ModelSerializer):
