@@ -26,7 +26,7 @@ public class MainApplication extends Application {
             closeProgram();
         });
         DisplayMethods displayMethods = DisplayMethods.getInstance();
-        displayMethods.LoginDisplay(primaryStage);
+        displayMethods.SplashScreenDisplay(primaryStage);
 
         /*SessionManager sessionManager = SessionManager.getInstance();
         sessionManager.setUserType("admin");

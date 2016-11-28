@@ -57,6 +57,15 @@ public class DisplayMethods {
         parentStage.show();
     }
 
+    public void SplashScreenDisplay(Stage parentStage) throws Exception {
+
+        if (parentStage == null) parentStage = new Stage();
+        parentStage.setTitle("Login to Student Management System");
+        Parent LoginLayout = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/SplashFXML.fxml"));
+        parentStage.setScene(new Scene(LoginLayout, 400, 400));
+        parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
+        parentStage.show();
+    }
     public void LoginDisplay(Stage parentStage) throws Exception {
 
         if (parentStage == null) parentStage = new Stage();
