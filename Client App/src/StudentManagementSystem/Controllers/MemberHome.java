@@ -1,8 +1,11 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
+import StudentManagementSystem.DisplayMethods;
 import StudentManagementSystem.MainApplication;
+import StudentManagementSystem.Model.LoginResponse;
 import StudentManagementSystem.Model.Student;
+import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -13,10 +16,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -99,7 +107,44 @@ public class MemberHome implements Initializable {
         logoutButton.setPrefWidth(190);
         logoutButton.setPrefHeight(44);
         logoutButton.setOnAction(e -> {
-            MainApplication.closeProgram();
+            Form form = new Form();
+            WebTarget clientTarget;
+            Client client = ClientBuilder.newClient();
+            clientTarget = client.target(Configuration.API_HOST + "user/logout/");
+
+            javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+            String response = rawResponse.readEntity(String.class);
+            ObjectMapper mapper = new ObjectMapper();
+            LoginResponse addResponse = null;
+            try {
+                addResponse = mapper.readValue(response, LoginResponse.class);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            System.out.println("got message " + addResponse.getMessage());
+            if (addResponse.getMessage().equals("success")) {
+                SessionManager sessionManager = SessionManager.getInstance();
+                sessionManager.setFullName(null);
+                sessionManager.setLoginStatus(0);
+                sessionManager.setPassword(null);
+                sessionManager.setRollNumber(null);
+                sessionManager.setStudentRollNo(null);
+                sessionManager.setUserType(null);
+                sessionManager.setUsername(null);
+                Stage CurrentStage = (Stage) anchor_pane.getScene().getWindow();
+                DisplayMethods displayMethods = DisplayMethods.getInstance();
+                try {
+                    displayMethods.LoginDisplay(CurrentStage);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+            } else {
+                System.out.println("Cannot Logout at this stage");
+                System.out.println(response);
+            }
         });
         NavigationVBox.getChildren().add(logoutButton);
 

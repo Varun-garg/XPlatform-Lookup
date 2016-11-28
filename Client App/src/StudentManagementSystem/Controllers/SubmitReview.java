@@ -86,7 +86,7 @@ public class SubmitReview implements Initializable {
             System.out.println(response);
         }
     }
-    public void print(){
+    /*public void print(){
 
         String message="";
         if(rb1.isSelected()){
@@ -101,7 +101,7 @@ public class SubmitReview implements Initializable {
         System.out.println(message);
 
 
-    }
+    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
