@@ -234,7 +234,7 @@ def deleteHostelStudent(request):
     if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
-            existing_entry = hostel_info.objects.get(roll_no = roll_no)
+            existing_entry = hostel_info.objects.get(roll_num = roll_no)
             existing_entry.delete()
             response_data['message'] = "success"
     else:
