@@ -83,7 +83,7 @@
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
                         <Label prefHeight="35.0" prefWidth="535.0"
-                               text="SELECT THE PREVIOUS YEAR SEMESTER NUMBER TO VIEW PREVIOUS  RESULT:"
+                               text="SELECT THE PREVIOUS YEAR SEMESTER NUMBER TO VIEW RESULT:"
                                textAlignment="CENTER" textFill="#1b0680" textOverrun="CLIP">
                             <font>
                                 <Font name="System Bold" size="14.0"/>

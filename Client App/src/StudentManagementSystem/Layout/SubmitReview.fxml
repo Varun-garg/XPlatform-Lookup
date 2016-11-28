@@ -2,17 +2,18 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" prefWidth="650.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.SubmitReview">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.SubmitReview">
     <children>
         <HBox prefHeight="31.0" prefWidth="200.0">
             <children>
@@ -23,7 +24,7 @@
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font></Label>
-                <TextField />
+                <TextField fx:id="rollnum" />
             </children>
         </HBox>
 
@@ -35,15 +36,18 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Label>
-        <CheckBox mnemonicParsing="false" prefHeight="30.0" prefWidth="103.0" text="Personal" />
-        <CheckBox mnemonicParsing="false" prefHeight="29.0" prefWidth="73.0" text="Hostel" />
-        <CheckBox mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" text="Exams" />
-        <TextArea fx:id="ta" prefHeight="200.0" prefWidth="200.0">
+        <RadioButton fx:id="rb1" mnemonicParsing="false" prefHeight="30.0" prefWidth="103.0" text="personal">
+         <toggleGroup>
+            <ToggleGroup fx:id="MyGroup" />
+         </toggleGroup></RadioButton>
+        <RadioButton fx:id="rb2" mnemonicParsing="false" prefHeight="29.0" prefWidth="73.0" text="hostel" toggleGroup="$MyGroup" />
+        <RadioButton fx:id="rb3" mnemonicParsing="false" prefHeight="35.0" prefWidth="73.0" text="exam" toggleGroup="$MyGroup" />
+        <TextArea fx:id="comment" prefHeight="200.0" prefWidth="200.0">
             <VBox.margin>
                 <Insets right="30.0" />
             </VBox.margin>
         </TextArea>
-        <Button mnemonicParsing="false" onAction="#displayReview" styleClass="button_green" text="Click to Submit">
+        <Button mnemonicParsing="false" onAction="#addReview" styleClass="button_green" text="Click to Submit">
             <VBox.margin>
                 <Insets bottom="30.0" right="30.0" top="30.0" />
             </VBox.margin>
