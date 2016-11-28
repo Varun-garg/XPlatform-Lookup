@@ -3,13 +3,12 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import studentdb, hostel_info, marks_status, marks_subjects, SubmitReview
-import json
+import json, re, datetime
 from django.shortcuts import HttpResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.core.validators import validate_email
 from django import forms
-import re
 from django.db.models.query_utils import Q
 
 # These will be used in the admin section
@@ -104,7 +103,7 @@ def addstudent(request):
             if (roll_no is None) or (len(roll_no)==0):
                 errors.append("roll_no: Enter Roll Number")
             elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
-                errors.append("roll_no: Invalid Roll Number")
+                errors.append("roll_no: Wrong format of Roll Number, expecting like 13ICS029")
             else:
                 existing_entry = studentdb.objects.filter(roll_no = roll_no)
                 if existing_entry.count() > 0:
@@ -114,6 +113,11 @@ def addstudent(request):
             dob = request.POST.get('dob')
             if (dob is None) or (len(dob)==0):
                 errors.append("dob: Enter Date Of Birth")
+            else:
+                try:
+                    datetime.datetime.strptime(dob, '%Y-%m-%d')
+                except ValueError:
+                    errors.append("dob: Wrong format of Date Of Birth, expecting YYYY-MM-DD")
             sex = request.POST.get('sex', '')
             email = request.POST.get('email')
             if (email is None) or (len(email)==0):
