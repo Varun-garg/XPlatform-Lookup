@@ -13,6 +13,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -39,10 +40,15 @@ public class MemberHome implements Initializable {
     AnchorPane anchor_pane;
     @FXML
     JFXDrawer navigation_drawer, students_drawer;
-    @FXML
-    TabPane menu_fx;
+    //@FXML
+    //TabPane menu_fx;
     @FXML
     VBox NavigationVBox;
+    @FXML
+    AnchorPane content;
+
+    TabPane tabPane = null;
+
     Student students[];
     Task fetchStudentsTask = new Task() {
         @Override
@@ -84,21 +90,39 @@ public class MemberHome implements Initializable {
             return;
         }
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
+        MenuController menuController;
+
+        try {
+            content.getChildren().clear();
+            tabPane = fxmlLoader.load();
+            content.getChildren().setAll(tabPane);
+            //   menuController = fxmlLoader.getController();
+        } catch (Exception e) {
+            System.out.println(getClass().getSimpleName());
+            e.printStackTrace();
+        }
+
 //        navigation_drawer.toFront();
         NavigationVBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");
         students_drawer.toBack();
         StudentsVBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-        menu_fx.toBack();
+        tabPane.toBack();
 
         JFXButton studentsButton = new JFXButton();
         studentsButton.setText("Students");
         studentsButton.setPrefWidth(190);
         studentsButton.setPrefHeight(44);
         studentsButton.setOnAction(e -> {
-            if (students_drawer.isShown())
+            if (students_drawer.isShown()) {
                 students_drawer.close();
-            else
+
+                tabPane.toFront();
+            } else {
                 students_drawer.open();
+                students_drawer.toFront();
+                tabPane.toBack();
+            }
         });
         NavigationVBox.getChildren().add(studentsButton);
 
@@ -174,6 +198,22 @@ public class MemberHome implements Initializable {
                 student_button.setText(students[i].getFullName());
                 student_button.setPrefWidth(190);
                 student_button.setPrefHeight(44);
+                final int CurrentIndex = i;
+                student_button.setOnAction(f -> {
+                    try {
+                        SessionManager.getInstance().setFullName(students[CurrentIndex].getFullName());
+                        SessionManager.getInstance().setRollNumber(students[CurrentIndex].getRollNo());
+                        content.getChildren().clear();
+                        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
+                        tabPane = fxmlLoader2.load();
+                        content.getChildren().setAll(tabPane);
+                        studentsButton.fire();
+                    } catch (Exception exception) {
+                        System.out.println(getClass().getSimpleName());
+                        exception.printStackTrace();
+                    }
+                });
+
                 StudentsVBox.getChildren().add(student_button);
             }
         });
