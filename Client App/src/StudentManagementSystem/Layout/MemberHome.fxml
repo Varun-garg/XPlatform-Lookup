@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.Node?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:id="anchor_pane" prefHeight="600" prefWidth="800.0" maxHeight="600"
             maxWidth="800"
             fx:controller="StudentManagementSystem.Controllers.MemberHome">
@@ -13,5 +12,5 @@
     </JFXDrawer>
 
     <!-- <fx:include source="Menu.fxml" fx:id="menu_fx" layoutX="190.0"></fx:include> -->
-    <AnchorPane fx:id="content" layoutX="190.0" />
+    <AnchorPane fx:id="content" layoutX="190.0"/>
 </AnchorPane>

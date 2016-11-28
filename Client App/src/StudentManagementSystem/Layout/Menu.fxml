@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<TabPane xmlns:fx="http://javafx.com/fxml/1" fx:id="tab_plane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<TabPane xmlns:fx="http://javafx.com/fxml/1" fx:id="tab_plane" maxHeight="-Infinity" maxWidth="-Infinity"
+         minHeight="-Infinity"
          minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE"
          xmlns="http://javafx.com/javafx/8.0.112-ea" fx:controller="StudentManagementSystem.Controllers.MenuController"
          stylesheets="@LayoutStyle.css">

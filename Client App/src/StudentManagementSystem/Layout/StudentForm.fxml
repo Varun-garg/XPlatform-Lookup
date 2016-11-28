@@ -2,12 +2,10 @@
 
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<HBox spacing="10"
-      xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60"
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10" xmlns="http://javafx.com/javafx/8.0.60"
       fx:controller="StudentManagementSystem.Controllers.StudentForm" stylesheets="@Buttons.css,@LayoutStyle.css">
     <padding>
         <Insets bottom="25" left="25" right="25" top="25"/>

@@ -40,19 +40,19 @@ public class SubmitReview implements Initializable {
     private RadioButton rb3;
 
 
-    public void addReview(ActionEvent event)  throws IOException {
+    public void addReview(ActionEvent event) throws IOException {
 
         Form newReview = new Form();
 
-        String message="";
-        if(rb1.isSelected()){
-            message +=rb1.getText();
+        String message = "";
+        if (rb1.isSelected()) {
+            message += rb1.getText();
         }
-        if(rb2.isSelected()){
-            message +=rb2.getText();
+        if (rb2.isSelected()) {
+            message += rb2.getText();
         }
-        if(rb3.isSelected()){
-            message +=rb3.getText();
+        if (rb3.isSelected()) {
+            message += rb3.getText();
         }
         System.out.println(message);
 
@@ -72,7 +72,7 @@ public class SubmitReview implements Initializable {
 
         System.out.println("got message " + addReviewResponse.getMessage());
         if (addReviewResponse.getMessage().equals("success")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION );
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Message Here...");
             alert.setContentText("Review has been successfully added");
             alert.showAndWait().ifPresent(rs -> {

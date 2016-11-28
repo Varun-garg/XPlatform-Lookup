@@ -79,7 +79,7 @@ public class LoginController implements Initializable {
                     if (loginResponse.getMessage().equals("success")) {
                         SessionManager sessionManager = SessionManager.getInstance();
                         sessionManager.setFullName(username);
-                        sessionManager.setLoginStatus(sessionManager.LOGGED_IN);
+                        sessionManager.setLoginStatus(SessionManager.LOGGED_IN);
                         sessionManager.setPassword(password);
                         if (loginResponse.getRollNo().length() > 0)
                             sessionManager.setRollNumber(loginResponse.getRollNo());

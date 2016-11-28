@@ -48,17 +48,15 @@ public class Utility {
 
         return hBox;
     }
-    public static void DisplayForm(String title,String fxmlFileName)
-    {
+
+    public static void DisplayForm(String title, String fxmlFileName) {
         Stage window = new Stage();
         window.setTitle(title);
         window.initModality(Modality.APPLICATION_MODAL);
         try {
             Parent parent = FXMLLoader.load(Utility.class.getClassLoader().getResource("StudentManagementSystem/Layout/" + fxmlFileName));
             window.setScene(new Scene(parent, 600, 600));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(Utility.class.getSimpleName());
             e.printStackTrace();
         }

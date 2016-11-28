@@ -107,8 +107,7 @@ public class ViewStudentHostel implements Initializable {
         }
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         System.out.println("refresh called");
     }
 

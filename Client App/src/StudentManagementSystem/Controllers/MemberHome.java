@@ -1,8 +1,8 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
+import StudentManagementSystem.ConfirmationBox;
 import StudentManagementSystem.DisplayMethods;
-import StudentManagementSystem.MainApplication;
 import StudentManagementSystem.Model.LoginResponse;
 import StudentManagementSystem.Model.Student;
 import StudentManagementSystem.SessionManager;
@@ -13,8 +13,6 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -142,6 +140,11 @@ public class MemberHome implements Initializable {
         logoutButton.setPrefWidth(190);
         logoutButton.setPrefHeight(44);
         logoutButton.setOnAction(e -> {
+
+            boolean userChoice = ConfirmationBox.display("Logout", "Are you sure");
+            if (userChoice == false)
+                return;
+
             Form form = new Form();
             WebTarget clientTarget;
             Client client = ClientBuilder.newClient();
@@ -162,7 +165,7 @@ public class MemberHome implements Initializable {
             if (addResponse.getMessage().equals("success")) {
                 SessionManager sessionManager = SessionManager.getInstance();
                 sessionManager.setFullName(null);
-                sessionManager.setLoginStatus(0);
+                sessionManager.setLoginStatus(SessionManager.LOGGED_OUT);
                 sessionManager.setPassword(null);
                 sessionManager.setRollNumber(null);
                 sessionManager.setStudentRollNo(null);

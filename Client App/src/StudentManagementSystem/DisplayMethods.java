@@ -33,7 +33,7 @@ public class DisplayMethods {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
         Parent LoginLayout = fxmlLoader.load();
 
-        MenuController menuController = fxmlLoader.<MenuController>getController();
+        MenuController menuController = fxmlLoader.getController();
         menuController.setRollNo(sessionManager.getRollNumber());
 
         parentStage.setScene(new Scene(LoginLayout, 800, 600));
@@ -50,7 +50,7 @@ public class DisplayMethods {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/MemberHome.fxml"));
         Parent LoginLayout = fxmlLoader.load();
 
-        MemberHome memberHome = fxmlLoader.<MemberHome>getController();
+        MemberHome memberHome = fxmlLoader.getController();
 
         parentStage.setScene(new Scene(LoginLayout, 800, 600));
         parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));

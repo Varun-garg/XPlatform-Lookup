@@ -28,7 +28,7 @@ public class SessionManager {
     }
 
     public void setCookie(String cookie) {
-        this.cookie = cookie;
+        SessionManager.cookie = cookie;
     }
 
     public String getStudentRollNo() {
