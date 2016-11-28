@@ -51,12 +51,19 @@ class Student_Exams(APIView):
         return Response({'Marks Summary': subjects_serializer.data, 'Overall Result': status_serializer.data,})
 
 
+class Review(generics.ListAPIView):
+    queryset = SubmitReview.objects.all()
+    serializer_class = SubmitReviewSerializer
+
+
+#student centric reviews
+"""
 class Review(APIView):
     def get(self, request, **kwargs):
         reviews = SubmitReview.objects.filter(student = kwargs['student'])
         review_result = SubmitReviewSerializer(reviews, many=True)
         return Response({'Review': review_result.data,})
-
+"""
 
 @api_view(['GET'])
 def studentSearch(request):
@@ -89,7 +96,7 @@ def addstudent(request):
                 errors.append("enroll_no: Enter Enrollment Number")
             program_name = request.POST.get('program_name')
             if (program_name is None) or (len(program_name)==0):
-                errors.append("program_name: Enter program_name")
+                errors.append("program_name: Enter Program Name")
             school = request.POST.get('school')
             if (school is None) or (len(school)==0):
                 errors.append("school: Enter School Name")
@@ -110,17 +117,17 @@ def addstudent(request):
             sex = request.POST.get('sex', '')
             email = request.POST.get('email')
             if (email is None) or (len(email)==0):
-                errors.append("email: Enter email id")
+                errors.append("email: Enter Email Id")
             else:
                 try:
                     validate_email(email)
                 except forms.ValidationError:
-                    errors.append("email: Invalid email id")
+                    errors.append("email: Invalid Email Id")
             phone = request.POST.get('phone')
             if (phone is None) or (len(phone)==0):
-                errors.append("phone: Enter phone Number")
+                errors.append("phone: Enter Phone Number")
             elif not phone.isdigit():
-                errors.append("phone: Invalid phone Number")
+                errors.append("phone: Invalid Phone Number")
             if len(errors) == 0:
                 new_student = studentdb()
                 new_student.full_name = full_name
