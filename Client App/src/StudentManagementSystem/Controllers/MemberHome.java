@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -125,6 +126,16 @@ public class MemberHome implements Initializable {
             }
         });
         NavigationVBox.getChildren().add(studentsButton);
+
+        JFXButton newStudentButton = new JFXButton();
+        newStudentButton.setText("New Student");
+        newStudentButton.setPrefWidth(190);
+        newStudentButton.setPrefHeight(44);
+        newStudentButton.setOnAction(e ->
+        {
+            Utility.DisplayForm("New Student", "StudentForm.fxml");
+        });
+        NavigationVBox.getChildren().add(newStudentButton);
 
         JFXButton logoutButton = new JFXButton();
         logoutButton.setText("Log Out");
