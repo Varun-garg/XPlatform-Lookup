@@ -2,12 +2,14 @@ package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.Model.Review;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -86,6 +88,57 @@ public class SubmitReview implements Initializable {
             System.out.println(response);
         }
     }
+    @FXML
+    private VBox personal_info_vb;
+    public void displayReview() {
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        clientTarget = client.target(Configuration.API_HOST + "data/student/review/all");
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+        String response = rawResponse.readEntity(String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println(response);
+            Review reviews[] = mapper.readValue(response, Review[].class);
+            for(int i=0;i<reviews.length;i++) {
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Name", reviews[i].getStudent(), i,600));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Section", reviews[i].getSection(), i,600));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Comment", reviews[i].getComment(), i,600));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Date", reviews[i].getDate(), i,600));
+                Separator separator = new Separator();
+                personal_info_vb.getChildren().add(separator);
+
+
+            }
+            /*PropertyValueFactory<Review, String> studentProperty =
+                    new PropertyValueFactory<Review, String>("student");
+
+            PropertyValueFactory<Review, String> sectionProperty =
+                    new PropertyValueFactory<Review, String>("section");
+
+            PropertyValueFactory<Review, String> comentProperty =
+                    new PropertyValueFactory<Review, String>("coment");
+
+            PropertyValueFactory<Review, String> dateProperty =
+                    new PropertyValueFactory<Review, String>("date");
+
+            studentColumn.setCellValueFactory(studentProperty);
+            sectionColumn.setCellValueFactory(sectionProperty);
+            comentColumn.setCellValueFactory(comentProperty);
+            dateColumn.setCellValueFactory(dateProperty);
+
+            ObservableList<Review> data =
+                    FXCollections.observableArrayList();
+
+            for(int i=0;i<reviews.length;i++) {
+                data.add(new ReviewData(reviews[i].getStudent(), reviews[i].getSection(), reviews[i].getComment(), reviews[i].getDate()));
+            }
+            reviewtable.setItems(data);*/
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /*public void print(){
 
         String message="";
@@ -105,5 +158,7 @@ public class SubmitReview implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        displayReview();
     }
+
 }
