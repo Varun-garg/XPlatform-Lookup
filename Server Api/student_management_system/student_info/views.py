@@ -79,7 +79,7 @@ def studentSearch(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def addstudent(request):
     response_data = {}
     errors = []
@@ -94,6 +94,8 @@ def addstudent(request):
             enroll_no = request.POST.get('enroll_no')
             if (enroll_no is None) or (len(enroll_no)==0):
                 errors.append("enroll_no: Enter Enrollment Number")
+            elif not enroll_no.isdigit():
+                errors.append("enroll_no: Enter numeric values only.")
             program_name = request.POST.get('program_name')
             if (program_name is None) or (len(program_name)==0):
                 errors.append("program_name: Enter Program Name")
@@ -285,6 +287,11 @@ def addhostelinfo(request):
                 existing_entry = studentdb.objects.filter(roll_no = roll_num)
                 if existing_entry.count() is 0:
                     errors.append("roll_no: No student with this roll number exists")
+                else:
+                    existing_hostel = hostel_info.objects.filter(roll_num = roll_num)
+                    if existing_hostel.count() > 0:
+                        errors.append("roll_no: Student already exists.")
+
             hostel_name = request.POST.get('hostel_name')
             if (hostel_name is None) or (len(hostel_name)==0):
                 errors.append("hostel_name: Enter Hostel Name")

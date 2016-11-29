@@ -11,7 +11,7 @@ from .serializer import LogsSerializer
 from rest_framework import generics
 
 
-@csrf_exempt
+@api_view(['POST'])
 def user_logout(request):
     action = "Logged-Out"
     generateLogs(request, action)
@@ -23,7 +23,7 @@ def user_logout(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def user_login(request):
     response_data = {}
     errors = []
