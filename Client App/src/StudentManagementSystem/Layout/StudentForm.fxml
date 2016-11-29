@@ -1,59 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       spacing="10" xmlns="http://javafx.com/javafx/8.0.60"
       fx:controller="StudentManagementSystem.Controllers.StudentForm" stylesheets="@Buttons.css,@LayoutStyle.css">
     <padding>
         <Insets bottom="25" left="25" right="25" top="25"/>
     </padding>
-    <GridPane fx:id="new_student_form_grid" vgap="10">
-        <Text GridPane.rowIndex="0" GridPane.columnIndex="0">Full name:</Text>
-        <JFXTextField GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="full_name"/>
-
-        <Text GridPane.rowIndex="1" GridPane.columnIndex="0">Enrollment Number:</Text>
-        <JFXTextField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="enroll_no"/>
-
-        <Text GridPane.rowIndex="2" GridPane.columnIndex="0">Roll Number:</Text>
-        <JFXTextField GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="roll_no"/>
-
-        <Text GridPane.rowIndex="3" GridPane.columnIndex="0">Program Name:</Text>
-        <JFXTextField GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="program_name"/>
-
-        <Text GridPane.rowIndex="4" GridPane.columnIndex="0">School:</Text>
-        <JFXTextField GridPane.rowIndex="4" GridPane.columnIndex="1" fx:id="school"/>
-
-        <Text GridPane.rowIndex="5" GridPane.columnIndex="0">Father's Name:</Text>
-        <JFXTextField GridPane.rowIndex="5" GridPane.columnIndex="1" fx:id="father_name"/>
-
-        <Text GridPane.rowIndex="6" GridPane.columnIndex="0">Mother's Name :</Text>
-        <JFXTextField GridPane.rowIndex="6" GridPane.columnIndex="1" fx:id="mother_name"/>
-
-        <Text GridPane.rowIndex="7" GridPane.columnIndex="0">DOB (YYYY-MM-DD):</Text>
-        <JFXTextField GridPane.rowIndex="7" GridPane.columnIndex="1" fx:id="dob"/>
-
-        <Text GridPane.rowIndex="8" GridPane.columnIndex="0">Sex:</Text>
-        <JFXTextField GridPane.rowIndex="8" GridPane.columnIndex="1" fx:id="sex"/>
-
-        <Text GridPane.rowIndex="9" GridPane.columnIndex="0">Email:</Text>
-        <JFXTextField GridPane.rowIndex="9" GridPane.columnIndex="1" fx:id="email"/>
-
-        <Text GridPane.rowIndex="10" GridPane.columnIndex="0">Phone Number:</Text>
-        <JFXTextField GridPane.rowIndex="10" GridPane.columnIndex="1" fx:id="phone"/>
-
-
-        <JFXButton fx:id="button" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="TOP"
-                   mnemonicParsing="false" onAction="#AddStudent" styleClass="button_green"
-                   text="Add Student"
-                   textAlignment="CENTER" GridPane.rowIndex="11" GridPane.columnIndex="0"
-                   GridPane.columnSpan="2">
-            <opaqueInsets>
-                <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
-            </opaqueInsets>
-        </JFXButton>
+    <GridPane fx:id="StudentFormGridPane" vgap="10" hgap="10">
 
     </GridPane>
 

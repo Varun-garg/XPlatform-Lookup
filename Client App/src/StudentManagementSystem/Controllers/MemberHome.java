@@ -148,7 +148,7 @@ public class MemberHome implements Initializable {
         ReviewButton.setPrefHeight(44);
         ReviewButton.setOnAction(e ->
         {
-            Utility.DisplayForm("New Student", "SubmitReview.fxml",700,650);
+            Utility.DisplayForm("Reviews", "SubmitReview.fxml",700,650);
         });
         NavigationVBox.getChildren().add(ReviewButton);
 

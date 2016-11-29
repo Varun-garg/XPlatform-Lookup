@@ -33,7 +33,7 @@ public class SplashFXMLController implements Initializable {
         public void run(){
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(2000);
 
                 Platform.runLater(new Runnable() {
                     @Override

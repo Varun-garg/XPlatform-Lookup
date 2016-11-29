@@ -1,13 +1,24 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
-import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.Model.PostResponse;
+import StudentManagementSystem.Model.Field;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -15,51 +26,30 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Created by varun on 28/11/2016.
  */
-public class StudentForm {
+public class StudentForm implements Initializable {
+    ArrayList<Field> studentFields = new ArrayList<>();
+    Label OtherErrorsLabel;
 
     @FXML
-    private GridPane new_student_form_grid;
-    @FXML
-    private JFXTextField full_name;
-    @FXML
-    private JFXTextField enroll_no;
-    @FXML
-    private JFXTextField program_name;
-    @FXML
-    private JFXTextField school;
-    @FXML
-    private JFXTextField roll_no;
-    @FXML
-    private JFXTextField father_name;
-    @FXML
-    private JFXTextField mother_name;
-    @FXML
-    private JFXTextField dob;
-    @FXML
-    private JFXTextField sex;
-    @FXML
-    private JFXTextField email;
-    @FXML
-    private JFXTextField phone;
+    private GridPane StudentFormGridPane;
 
-    public void AddStudent(ActionEvent event) throws IOException {
+
+    public void AddStudent(ActionEvent event) {
+
         Form newStudentForm = new Form();
-        newStudentForm.param("full_name", full_name.getText());
-        newStudentForm.param("enroll_no", enroll_no.getText());
-        newStudentForm.param("program_name", program_name.getText());
-        newStudentForm.param("school", school.getText());
-        newStudentForm.param("roll_no", roll_no.getText());
-        newStudentForm.param("father_name", father_name.getText());
-        newStudentForm.param("mother_name", mother_name.getText());
-        newStudentForm.param("dob", dob.getText());
-        newStudentForm.param("sex", sex.getText());
-        newStudentForm.param("email", email.getText());
-        newStudentForm.param("phone", phone.getText());
+
+        OtherErrorsLabel.setText(""); //clear previous errors
+        for (int i = 0; i < studentFields.size(); i++) {
+            studentFields.get(i).errorLabel.setText(""); //clear previous errors
+            newStudentForm.param(studentFields.get(i).name, studentFields.get(i).textField.getText());
+        }
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
@@ -70,16 +60,66 @@ public class StudentForm {
 
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
-        LoginResponse AddStudentResponse = mapper.readValue(response, LoginResponse.class);
 
-        System.out.println("got message " + AddStudentResponse.getMessage());
-        if (AddStudentResponse.getMessage().equals("success")) {
-            System.out.print("Student with roll no " + roll_no.getText() + " successfully added");
-        } else {
-            System.out.print("Error: Student with roll no " + roll_no.getText() + " could not be added");
-            System.out.print(response);
+        try {
+            PostResponse AddStudentResponse = mapper.readValue(response, PostResponse.class);
+
+            System.out.println("got message " + AddStudentResponse.getMessage());
+            if (AddStudentResponse.getMessage().equals("success")) {
+                System.out.print("Student with roll no " + " successfully added");
+            } else {
+                System.out.println("Error: Student with roll no " + " could not be added");
+                System.out.println(AddStudentResponse.getErrors());
+
+                for (String error : AddStudentResponse.getErrors()) {
+                    String name = error.replaceFirst("(.*)(:)(.*)", "$1").trim();
+                    String message = error.replaceFirst("(.*)(:)(.*)", "$3").trim();
+                    Field errorField = studentFields.stream().filter(o -> o.name.equals(name)).findFirst().orElse(null);
+                    if (errorField == null) {
+                        OtherErrorsLabel.setText(OtherErrorsLabel.getText() + message + "\n");
+                        continue;
+                    }
+                    errorField.errorLabel.setText(message);
+                }
+
+                System.out.println(response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        studentFields.add(new Field("Full name:", "full_name", "text"));
+        studentFields.add(new Field("Enrollment Number:", "enroll_no", "text"));
+        studentFields.add(new Field("Roll Number:", "roll_no", "text"));
+        studentFields.add(new Field("Program Name:", "program_name", "text"));
+        studentFields.add(new Field("School:", "school", "text"));
+        studentFields.add(new Field("Father's Name:", "father_name", "text"));
+        studentFields.add(new Field("Mother's Name :", "mother_name", "text"));
+        studentFields.add(new Field("DOB (YYYY-MM-DD):", "dob", "date"));
+        studentFields.add(new Field("Sex:", "sex", "text"));
+        studentFields.add(new Field("Email:", "email", "text"));
+        studentFields.add(new Field("Phone no:", "phone", "text"));
 
+
+        for (int i = 0; i < studentFields.size(); i++) {
+            FormHelper.insertField(studentFields.get(i),StudentFormGridPane);
+        }
+
+        OtherErrorsLabel = new Label();
+        OtherErrorsLabel.setTextFill(Color.web("#9d4024"));
+        OtherErrorsLabel.setFont(Font.font(null, FontWeight.BOLD, 14));
+        StudentFormGridPane.add(OtherErrorsLabel, 0, FormHelper.getRowCount(StudentFormGridPane));
+
+
+        JFXButton button = new JFXButton("Add Student");
+        button.setAlignment(Pos.CENTER);
+        button.setBlendMode(BlendMode.SRC_ATOP);
+        button.getStyleClass().add("rich-blue");
+        button.setOnAction(e -> AddStudent(e));
+        StudentFormGridPane.add(button, 0, FormHelper.getRowCount(StudentFormGridPane));
+    }
 }
