@@ -4,6 +4,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
+    url(r'excelUpload/$', views.upload_excel),
     url(r'^student/search/$', views.studentSearch),
     url(r'^student/new/$', views.addstudent),
     url(r'^student/update/$', views.updateStudent),
