@@ -20,3 +20,16 @@ class UserGroup(models.Model):
 
     def __str__(self):
         return self.group_name + ' ' + str(self.permissions)
+
+
+class Logs(models.Model):
+    uname = models.CharField(max_length = 50, null = True)
+    ugroup = models.CharField(max_length = 50, null = True)
+    action = models.CharField(max_length = 200, null = True)
+    datetime = models.DateTimeField()
+    ipAddress = models.CharField(max_length=200, null=True)
+    system = models.CharField(max_length=500, null=True)
+
+    def __str__(self):
+        return self.uname + '  =  ' + self.action
+

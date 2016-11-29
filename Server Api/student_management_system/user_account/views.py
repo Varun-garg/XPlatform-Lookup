@@ -1,23 +1,29 @@
 from django.shortcuts import HttpResponse
 import json
-from .models import UserSMS, UserGroup
+from datetime import datetime
+from .models import UserSMS, UserGroup, Logs
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.query_utils import Q
 from rest_framework.decorators import api_view
 from django.core.validators import validate_email
 from django import forms
+from .serializer import LogsSerializer
+from rest_framework import generics
 
 
-@api_view(['POST'])
+@csrf_exempt
 def user_logout(request):
+    action = "Logged-Out"
+    generateLogs(request, action)
     del request.session['user']
     del request.session['permissions']
+    del request.session['usergroup']
     response_data = {}
     response_data['message'] = 'success'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def user_login(request):
     response_data = {}
     errors = []
@@ -47,13 +53,15 @@ def user_login(request):
                     group = user.group_name
                     permissions = UserGroup.objects.get(group_name=group).permissions
                     request.session['permissions'] = permissions
+                    request.session['usergroup'] = group
                     #-------------------------------------------------
                     response_data['group_name'] = user.group_name
                     response_data['email'] = user.email
                     response_data['username'] = user.username
                     response_data['message'] = 'success'
-
-                else:
+                    action = "Logged-In"
+                    generateLogs(request,action)
+                else :
                     response_data['message'] = 'fail'
             else:
                 response_data['message'] = 'fail'
@@ -103,6 +111,8 @@ def new_user_registration(request):
                 new_user.roll_no = roll_no
                 new_user.save()
                 response_data['message'] = 'success'
+                action = "Created New User"
+                generateLogs(request, action)
             else:
                 response_data['errors'] = errors
                 response_data['message'] = 'fail'
@@ -138,6 +148,8 @@ def new_usergroup(request):
                 new_group.permissions = permissions
                 new_group.save()
                 response_data['message'] = 'success'
+                action = "Created New User-Group"
+                generateLogs(request, action)
             else:
                 response_data['errors'] = errors
                 response_data['message'] = 'fail'
@@ -149,3 +161,28 @@ def new_usergroup(request):
         response_data['message'] = 'fail'
 
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+class LogsList(generics.ListAPIView):
+    queryset = Logs.objects.all()
+    serializer_class = LogsSerializer
+
+
+def generateLogs(request,action):
+    logEntry = Logs()
+    logEntry.uname = request.session.get('user')
+    logEntry.ugroup = request.session.get('usergroup')
+    logEntry.action = action
+    logEntry.datetime = datetime.now()
+    logEntry.ipAddress = get_client_ip(request)
+    logEntry.system = request.META.get('HTTP_USER_AGENT', '')
+    logEntry.save()
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

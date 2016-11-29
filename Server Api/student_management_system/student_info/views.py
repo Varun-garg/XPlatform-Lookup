@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.validators import validate_email
 from django import forms
 from django.db.models.query_utils import Q
+from user_account.views import generateLogs
 
 # These will be used in the admin section
 
@@ -78,7 +79,7 @@ def studentSearch(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def addstudent(request):
     response_data = {}
     errors = []
@@ -147,6 +148,8 @@ def addstudent(request):
                 new_student.phone = phone
                 new_student.save()
                 response_data['message'] = 'success'
+                action = "Added Student"
+                generateLogs(request, action)
             else:
                 response_data['errors'] = errors
                 response_data['message'] = 'fail'
@@ -231,6 +234,8 @@ def updateStudent(request):
                         existing_entry.phone = phone
                         existing_entry.save()
                         response_data['message'] = 'success'
+                        action = "Updated Student"
+                        generateLogs(request, action)
                     else:
                         response_data['errors'] = errors
                         response_data['message'] = 'fail'
@@ -255,6 +260,8 @@ def deleteStudent(request):
             existing_entry = studentdb.objects.get(roll_no = roll_no)
             existing_entry.delete()
             response_data['message'] = "success"
+            action = "Deleted Student"
+            generateLogs(request, action)
     else:
         errors.append("Permission: You don't have permissions to delete a student entry.")
         response_data['message'] = 'fail'
@@ -299,6 +306,8 @@ def addhostelinfo(request):
                 new_hostel_info.caretaker_num = caretaker_num
                 new_hostel_info.save()
                 response_data['message'] = 'success'
+                action = "Added Hostel Info"
+                generateLogs(request, action)
             else:
                 response_data['errors'] = errors
                 response_data['message'] = 'fail'
@@ -350,6 +359,8 @@ def updateStudentHostel(request):
                         existing_entry.caretaker_num = caretaker_num
                         existing_entry.save()
                         response_data['message'] = 'success'
+                        action = "Updated Hostel Info"
+                        generateLogs(request, action)
                     else:
                         response_data['errors'] = errors
                         response_data['message'] = 'fail'
@@ -374,6 +385,8 @@ def deleteHostelStudent(request):
             existing_entry = hostel_info.objects.get(roll_num = roll_no)
             existing_entry.delete()
             response_data['message'] = "success"
+            action = "Deleted Hostel Info"
+            generateLogs(request, action)
     else:
         errors.append("Permission: You don't have permissions to delete a hostel entry.")
         response_data['message'] = 'fail'
@@ -392,7 +405,6 @@ def returnSemesters(request, **kwargs):
     sems = list(set(sems))
     response_data['semesters'] = sems
     response_data['message'] = "success"
-
     return HttpResponse(json.dumps(response_data), content_type="application.json")
 
 
@@ -451,6 +463,8 @@ def addmarksinfo(request):
                 new_marks_status.save()
                 new_marks_subjects.save()
                 response_data['message'] = 'success'
+                action = "Added Exams Info"
+                generateLogs(request, action)
             else:
                 response_data['errors'] = errors
                 response_data['message'] = 'fail'
@@ -496,6 +510,8 @@ def add_review(request):
                 new_review.user = user
                 new_review.save()
                 response_data['message'] = 'success'
+                action = "Added Review"
+                generateLogs(request, action)
             else:
                 response_data['errors'] = errors
                 response_data['message'] = 'fail'

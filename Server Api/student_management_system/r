@@ -1,124 +1,413 @@
 diff --git a/Server Api/student_management_system/db.sqlite3 b/Server Api/student_management_system/db.sqlite3
-index 10609ac..8a36a5c 100644
+index e6df14d..f954e66 100644
 Binary files a/Server Api/student_management_system/db.sqlite3 and b/Server Api/student_management_system/db.sqlite3 differ
+diff --git a/Server Api/student_management_system/r b/Server Api/student_management_system/r
+index b80cdec..e69de29 100644
+--- a/Server Api/student_management_system/r	
++++ b/Server Api/student_management_system/r	
+@@ -1,124 +0,0 @@
+-diff --git a/Server Api/student_management_system/db.sqlite3 b/Server Api/student_management_system/db.sqlite3
+-index 10609ac..8a36a5c 100644
+-Binary files a/Server Api/student_management_system/db.sqlite3 and b/Server Api/student_management_system/db.sqlite3 differ
+-diff --git a/Server Api/student_management_system/student_info/views.py b/Server Api/student_management_system/student_info/views.py
+-index 0c9196c..41dc000 100644
+---- a/Server Api/student_management_system/student_info/views.py	
+-+++ b/Server Api/student_management_system/student_info/views.py	
+-@@ -82,8 +82,8 @@ def studentSearch(request):
+- def addstudent(request):
+-     response_data = {}
+-     errors = []
+--    var = request.session.get('group_name')
+--    if (var is not None) and (request.session['group_name'] == 'STAD' or request.session['group_name'] == 'OAD'):
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[5] == '1'):
+-         if request.method == 'POST':
+-             full_name = request.POST.get('full_name')
+-             if (full_name is None) or (len(full_name)==0):
+-@@ -163,8 +163,8 @@ def addstudent(request):
+- def deleteStudent(request):
+-     response_data = {}
+-     errors = []
+--    var = request.session.get('group_name')
+--    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[5]=='1'):
+-         if request.method == 'POST':
+-             roll_no = request.POST.get('roll_no')
+-             existing_entry = studentdb.objects.get(roll_no = roll_no)
+-@@ -181,8 +181,8 @@ def deleteStudent(request):
+- def addhostelinfo(request):
+-     response_data = {}
+-     errors = []
+--    var = request.session.get('group_name')
+--    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[6]=='1'):
+-         if request.method == 'POST':
+-             roll_num = request.POST.get('roll_no')
+-             if (roll_num is None) or (len(roll_num)==0):
+-@@ -230,8 +230,8 @@ def addhostelinfo(request):
+- def deleteHostelStudent(request):
+-     response_data = {}
+-     errors = []
+--    var = request.session.get('group_name')
+--    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[6]=='1'):
+-         if request.method == 'POST':
+-             roll_no = request.POST.get('roll_no')
+-             existing_entry = hostel_info.objects.get(roll_num = roll_no)
+-@@ -263,8 +263,8 @@ def returnSemesters(request, **kwargs):
+- def addmarksinfo(request):
+-     response_data = {}
+-     errors = []
+--    var = request.session.get('group_name')
+--    if (var is not None) and (request.session['group_name'] == 'MAD' or request.session['group_name'] == 'OAD'):
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[7]=='1'):
+-         if request.method == 'POST':
+-             roll_num = request.POST.get('roll_no')
+-             if (roll_num is None) or (len(roll_num)==0):
+-@@ -330,8 +330,8 @@ def addmarksinfo(request):
+- def add_review(request):
+-     response_data = {}
+-     errors = []
+--    var = request.session.get('group_name')
+--    if var is not None:
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[8]=='1'):
+-         if request.method == 'POST':
+-             stu_roll = request.POST.get('stu_roll')
+-             if (stu_roll is None) or (len(stu_roll) == 0):
+-diff --git a/Server Api/student_management_system/user_account/views.py b/Server Api/student_management_system/user_account/views.py
+-index 4305323..326e3ca 100644
+---- a/Server Api/student_management_system/user_account/views.py	
+-+++ b/Server Api/student_management_system/user_account/views.py	
+-@@ -11,7 +11,7 @@ from django import forms
+- @api_view(['POST'])
+- def user_logout(request):
+-     del request.session['user']
+--    del request.session['group_name']
+-+    del request.session['permissions']
+-     response_data = {}
+-     response_data['message'] = 'success'
+-     return HttpResponse(json.dumps(response_data), content_type="application/json")
+-@@ -44,12 +44,13 @@ def user_login(request):
+-                     #setting session variables
+-                     #-------------------------------------------------
+-                     request.session['user'] = user.username
+--                    request.session['group_name'] = user.group_name
+-+                    group = user.group_name
+-+                    permissions = UserGroup.objects.get(group_name=group).permissions
+-+                    request.session['permissions'] = permissions
+-                     #-------------------------------------------------
+-                     response_data['group_name'] = user.group_name
+-                     response_data['email'] = user.email
+-                     response_data['username'] = user.username
+--                    response_data['roll_no'] = user.roll_no
+-                     response_data['message'] = 'success'
+- 
+-                 else:
+-@@ -67,8 +68,8 @@ def user_login(request):
+- @api_view(['POST'])
+- def new_user_registration(request):
+-     response_data = {}
+--    var = request.session.get('group_name')
+--    if (var is not None) and (request.session['group_name'] == 'OAD'):
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[10] == '1'):
+-         errors = []
+-         if request.method == 'POST':
+-             username = request.POST.get('username')
+-@@ -117,8 +118,8 @@ def new_user_registration(request):
+- def new_usergroup(request):
+-     response_data = {}
+-     errors = []
+--    var = request.session.get('group_name')
+--    if (var is not None) and (request.session['group_name'] == 'OAD'):
+-+    var = request.session.get('permissions')
+-+    if (var is not None) and (var[10] == '1'):
+-         if request.method == 'POST':
+-             group_name = request.POST.get('group_name')
+-             if (group_name is None) or (len(group_name)==0):
 diff --git a/Server Api/student_management_system/student_info/views.py b/Server Api/student_management_system/student_info/views.py
-index 0c9196c..41dc000 100644
+index 219695c..de1d637 100644
 --- a/Server Api/student_management_system/student_info/views.py	
 +++ b/Server Api/student_management_system/student_info/views.py	
-@@ -82,8 +82,8 @@ def studentSearch(request):
+@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
+ from django.core.validators import validate_email
+ from django import forms
+ from django.db.models.query_utils import Q
++from user_account.views import generateLogs
+ 
+ # These will be used in the admin section
+ 
+@@ -78,7 +79,7 @@ def studentSearch(request):
+     return HttpResponse(json.dumps(response_data), content_type="application/json")
+ 
+ 
+-@api_view(['POST'])
++@csrf_exempt
  def addstudent(request):
      response_data = {}
      errors = []
--    var = request.session.get('group_name')
--    if (var is not None) and (request.session['group_name'] == 'STAD' or request.session['group_name'] == 'OAD'):
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[5] == '1'):
-         if request.method == 'POST':
-             full_name = request.POST.get('full_name')
-             if (full_name is None) or (len(full_name)==0):
-@@ -163,8 +163,8 @@ def addstudent(request):
- def deleteStudent(request):
-     response_data = {}
-     errors = []
--    var = request.session.get('group_name')
--    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[5]=='1'):
-         if request.method == 'POST':
-             roll_no = request.POST.get('roll_no')
+@@ -147,6 +148,8 @@ def addstudent(request):
+                 new_student.phone = phone
+                 new_student.save()
+                 response_data['message'] = 'success'
++                action = "Added Student"
++                generateLogs(request, action)
+             else:
+                 response_data['errors'] = errors
+                 response_data['message'] = 'fail'
+@@ -231,6 +234,8 @@ def updateStudent(request):
+                         existing_entry.phone = phone
+                         existing_entry.save()
+                         response_data['message'] = 'success'
++                        action = "Updated Student"
++                        generateLogs(request, action)
+                     else:
+                         response_data['errors'] = errors
+                         response_data['message'] = 'fail'
+@@ -255,6 +260,8 @@ def deleteStudent(request):
              existing_entry = studentdb.objects.get(roll_no = roll_no)
-@@ -181,8 +181,8 @@ def deleteStudent(request):
- def addhostelinfo(request):
-     response_data = {}
-     errors = []
--    var = request.session.get('group_name')
--    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[6]=='1'):
-         if request.method == 'POST':
-             roll_num = request.POST.get('roll_no')
-             if (roll_num is None) or (len(roll_num)==0):
-@@ -230,8 +230,8 @@ def addhostelinfo(request):
- def deleteHostelStudent(request):
-     response_data = {}
-     errors = []
--    var = request.session.get('group_name')
--    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[6]=='1'):
-         if request.method == 'POST':
-             roll_no = request.POST.get('roll_no')
+             existing_entry.delete()
+             response_data['message'] = "success"
++            action = "Deleted Student"
++            generateLogs(request, action)
+     else:
+         errors.append("Permission: You don't have permissions to delete a student entry.")
+         response_data['message'] = 'fail'
+@@ -299,6 +306,8 @@ def addhostelinfo(request):
+                 new_hostel_info.caretaker_num = caretaker_num
+                 new_hostel_info.save()
+                 response_data['message'] = 'success'
++                action = "Added Hostel Info"
++                generateLogs(request, action)
+             else:
+                 response_data['errors'] = errors
+                 response_data['message'] = 'fail'
+@@ -350,6 +359,8 @@ def updateStudentHostel(request):
+                         existing_entry.caretaker_num = caretaker_num
+                         existing_entry.save()
+                         response_data['message'] = 'success'
++                        action = "Updated Hostel Info"
++                        generateLogs(request, action)
+                     else:
+                         response_data['errors'] = errors
+                         response_data['message'] = 'fail'
+@@ -374,6 +385,8 @@ def deleteHostelStudent(request):
              existing_entry = hostel_info.objects.get(roll_num = roll_no)
-@@ -263,8 +263,8 @@ def returnSemesters(request, **kwargs):
- def addmarksinfo(request):
-     response_data = {}
-     errors = []
--    var = request.session.get('group_name')
--    if (var is not None) and (request.session['group_name'] == 'MAD' or request.session['group_name'] == 'OAD'):
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[7]=='1'):
-         if request.method == 'POST':
-             roll_num = request.POST.get('roll_no')
-             if (roll_num is None) or (len(roll_num)==0):
-@@ -330,8 +330,8 @@ def addmarksinfo(request):
- def add_review(request):
-     response_data = {}
-     errors = []
--    var = request.session.get('group_name')
--    if var is not None:
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[8]=='1'):
-         if request.method == 'POST':
-             stu_roll = request.POST.get('stu_roll')
-             if (stu_roll is None) or (len(stu_roll) == 0):
+             existing_entry.delete()
+             response_data['message'] = "success"
++            action = "Deleted Hostel Info"
++            generateLogs(request, action)
+     else:
+         errors.append("Permission: You don't have permissions to delete a hostel entry.")
+         response_data['message'] = 'fail'
+@@ -392,7 +405,6 @@ def returnSemesters(request, **kwargs):
+     sems = list(set(sems))
+     response_data['semesters'] = sems
+     response_data['message'] = "success"
+-
+     return HttpResponse(json.dumps(response_data), content_type="application.json")
+ 
+ 
+@@ -451,6 +463,8 @@ def addmarksinfo(request):
+                 new_marks_status.save()
+                 new_marks_subjects.save()
+                 response_data['message'] = 'success'
++                action = "Added Exams Info"
++                generateLogs(request, action)
+             else:
+                 response_data['errors'] = errors
+                 response_data['message'] = 'fail'
+@@ -496,6 +510,8 @@ def add_review(request):
+                 new_review.user = user
+                 new_review.save()
+                 response_data['message'] = 'success'
++                action = "Added Review"
++                generateLogs(request, action)
+             else:
+                 response_data['errors'] = errors
+                 response_data['message'] = 'fail'
+diff --git a/Server Api/student_management_system/student_management_system/settings.py b/Server Api/student_management_system/student_management_system/settings.py
+index d7165c7..38ea112 100644
+--- a/Server Api/student_management_system/student_management_system/settings.py	
++++ b/Server Api/student_management_system/student_management_system/settings.py	
+@@ -96,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
+ 
+ LANGUAGE_CODE = 'en-us'
+ 
+-TIME_ZONE = 'UTC'
++TIME_ZONE = 'Asia/Kolkata'
+ 
+ USE_I18N = True
+ 
+diff --git a/Server Api/student_management_system/student_management_system/urls.py b/Server Api/student_management_system/student_management_system/urls.py
+index eef5f4e..1922dd3 100644
+--- a/Server Api/student_management_system/student_management_system/urls.py	
++++ b/Server Api/student_management_system/student_management_system/urls.py	
+@@ -1,8 +1,10 @@
+ from django.conf.urls import url, include
+ from django.contrib import admin
++from user_account import views
+ 
+ urlpatterns = [
+     url(r'^admin/', admin.site.urls),
+     url(r'^data/', include('student_info.urls')),
+     url(r'^user/', include('user_account.urls')),
++    url(r'^logs/', views.LogsList.as_view()),
+ ]
+diff --git a/Server Api/student_management_system/user_account/admin.py b/Server Api/student_management_system/user_account/admin.py
+index 1296bd9..eeb43e0 100644
+--- a/Server Api/student_management_system/user_account/admin.py	
++++ b/Server Api/student_management_system/user_account/admin.py	
+@@ -1,5 +1,5 @@
+ from django.contrib import admin
+-from .models import UserSMS, UserGroup
++from .models import UserSMS, UserGroup, Logs
+ 
+ 
+ class UserGroupAdmin(admin.ModelAdmin):
+@@ -10,5 +10,10 @@ class UserSMSAdmin(admin.ModelAdmin):
+     list_display = ('username', 'group_name')
+ 
+ 
++class LogsAdmin(admin.ModelAdmin):
++    list_display = ('uname', 'action', 'datetime')
++
++
+ admin.site.register(UserSMS, UserSMSAdmin)
+-admin.site.register(UserGroup, UserGroupAdmin)
+\ No newline at end of file
++admin.site.register(UserGroup, UserGroupAdmin)
++admin.site.register(Logs, LogsAdmin)
+\ No newline at end of file
+diff --git a/Server Api/student_management_system/user_account/models.py b/Server Api/student_management_system/user_account/models.py
+index 721d832..47855dc 100644
+--- a/Server Api/student_management_system/user_account/models.py	
++++ b/Server Api/student_management_system/user_account/models.py	
+@@ -20,3 +20,16 @@ class UserGroup(models.Model):
+ 
+     def __str__(self):
+         return self.group_name + ' ' + str(self.permissions)
++
++
++class Logs(models.Model):
++    uname = models.CharField(max_length = 50, null = True)
++    ugroup = models.CharField(max_length = 50, null = True)
++    action = models.CharField(max_length = 200, null = True)
++    datetime = models.DateTimeField()
++    ipAddress = models.CharField(max_length=200, null=True)
++    system = models.CharField(max_length=500, null=True)
++
++    def __str__(self):
++        return self.uname + '  =  ' + self.action
++
 diff --git a/Server Api/student_management_system/user_account/views.py b/Server Api/student_management_system/user_account/views.py
-index 4305323..326e3ca 100644
+index 326e3ca..70a56d3 100644
 --- a/Server Api/student_management_system/user_account/views.py	
 +++ b/Server Api/student_management_system/user_account/views.py	
-@@ -11,7 +11,7 @@ from django import forms
- @api_view(['POST'])
+@@ -1,23 +1,29 @@
+ from django.shortcuts import HttpResponse
+ import json
+-from .models import UserSMS, UserGroup
++from datetime import datetime
++from .models import UserSMS, UserGroup, Logs
+ from django.views.decorators.csrf import csrf_exempt
+ from django.db.models.query_utils import Q
+ from rest_framework.decorators import api_view
+ from django.core.validators import validate_email
+ from django import forms
++from .serializer import LogsSerializer
++from rest_framework import generics
+ 
+ 
+-@api_view(['POST'])
++@csrf_exempt
  def user_logout(request):
++    action = "Logged-Out"
++    generateLogs(request, action)
      del request.session['user']
--    del request.session['group_name']
-+    del request.session['permissions']
+     del request.session['permissions']
++    del request.session['usergroup']
      response_data = {}
      response_data['message'] = 'success'
      return HttpResponse(json.dumps(response_data), content_type="application/json")
-@@ -44,12 +44,13 @@ def user_login(request):
-                     #setting session variables
-                     #-------------------------------------------------
-                     request.session['user'] = user.username
--                    request.session['group_name'] = user.group_name
-+                    group = user.group_name
-+                    permissions = UserGroup.objects.get(group_name=group).permissions
-+                    request.session['permissions'] = permissions
+ 
+ 
+-@api_view(['POST'])
++@csrf_exempt
+ def user_login(request):
+     response_data = {}
+     errors = []
+@@ -47,13 +53,15 @@ def user_login(request):
+                     group = user.group_name
+                     permissions = UserGroup.objects.get(group_name=group).permissions
+                     request.session['permissions'] = permissions
++                    request.session['usergroup'] = group
                      #-------------------------------------------------
                      response_data['group_name'] = user.group_name
                      response_data['email'] = user.email
                      response_data['username'] = user.username
--                    response_data['roll_no'] = user.roll_no
                      response_data['message'] = 'success'
+-
+-                else:
++                    action = "Logged-In"
++                    generateLogs(request,action)
++                else :
+                     response_data['message'] = 'fail'
+             else:
+                 response_data['message'] = 'fail'
+@@ -103,6 +111,8 @@ def new_user_registration(request):
+                 new_user.roll_no = roll_no
+                 new_user.save()
+                 response_data['message'] = 'success'
++                action = "Created New User"
++                generateLogs(request, action)
+             else:
+                 response_data['errors'] = errors
+                 response_data['message'] = 'fail'
+@@ -138,6 +148,8 @@ def new_usergroup(request):
+                 new_group.permissions = permissions
+                 new_group.save()
+                 response_data['message'] = 'success'
++                action = "Created New User-Group"
++                generateLogs(request, action)
+             else:
+                 response_data['errors'] = errors
+                 response_data['message'] = 'fail'
+@@ -148,4 +160,29 @@ def new_usergroup(request):
+         response_data['errors'] = errors
+         response_data['message'] = 'fail'
  
-                 else:
-@@ -67,8 +68,8 @@ def user_login(request):
- @api_view(['POST'])
- def new_user_registration(request):
-     response_data = {}
--    var = request.session.get('group_name')
--    if (var is not None) and (request.session['group_name'] == 'OAD'):
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[10] == '1'):
-         errors = []
-         if request.method == 'POST':
-             username = request.POST.get('username')
-@@ -117,8 +118,8 @@ def new_user_registration(request):
- def new_usergroup(request):
-     response_data = {}
-     errors = []
--    var = request.session.get('group_name')
--    if (var is not None) and (request.session['group_name'] == 'OAD'):
-+    var = request.session.get('permissions')
-+    if (var is not None) and (var[10] == '1'):
-         if request.method == 'POST':
-             group_name = request.POST.get('group_name')
-             if (group_name is None) or (len(group_name)==0):
+-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+\ No newline at end of file
++    return HttpResponse(json.dumps(response_data), content_type="application/json")
++
++
++class LogsList(generics.ListAPIView):
++    queryset = Logs.objects.all()
++    serializer_class = LogsSerializer
++
++
++def generateLogs(request,action):
++    logEntry = Logs()
++    logEntry.uname = request.session.get('user')
++    logEntry.ugroup = request.session.get('usergroup')
++    logEntry.action = action
++    logEntry.datetime = datetime.now()
++    logEntry.ipAddress = get_client_ip(request)
++    logEntry.system = request.META.get('HTTP_USER_AGENT', '')
++    logEntry.save()
++
++
++def get_client_ip(request):
++    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
++    if x_forwarded_for:
++        ip = x_forwarded_for.split(',')[0]
++    else:
++        ip = request.META.get('REMOTE_ADDR')
++    return ip
+\ No newline at end of file
