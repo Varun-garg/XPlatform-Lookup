@@ -123,9 +123,9 @@ def new_usergroup(request):
             group_name = request.POST.get('group_name')
             if (group_name is None) or (len(group_name)==0):
                 errors.append("group_name: Enter Group Name")
-            section = request.POST.get('section')
-            if (section is None) or (len(section)==0):
-                errors.append("section: Enter Section")
+            description = request.POST.get('description')
+            if (description is None) or (len(description)==0):
+                errors.append("description: Enter description")
             permissions = request.POST.get('permissions')
             if (permissions is None) or (len(permissions)==0):
                 errors.append("permissions: Enter Permissions")
@@ -133,7 +133,7 @@ def new_usergroup(request):
             if len(errors) == 0:
                 new_group = UserGroup()
                 new_group.group_name = group_name
-                new_group.section = section
+                new_group.description = description
                 new_group.permissions = permissions
                 new_group.save()
                 response_data['message'] = 'success'
