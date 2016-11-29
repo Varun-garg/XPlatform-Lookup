@@ -1,0 +1,124 @@
+diff --git a/Server Api/student_management_system/db.sqlite3 b/Server Api/student_management_system/db.sqlite3
+index 10609ac..8a36a5c 100644
+Binary files a/Server Api/student_management_system/db.sqlite3 and b/Server Api/student_management_system/db.sqlite3 differ
+diff --git a/Server Api/student_management_system/student_info/views.py b/Server Api/student_management_system/student_info/views.py
+index 0c9196c..41dc000 100644
+--- a/Server Api/student_management_system/student_info/views.py	
++++ b/Server Api/student_management_system/student_info/views.py	
+@@ -82,8 +82,8 @@ def studentSearch(request):
+ def addstudent(request):
+     response_data = {}
+     errors = []
+-    var = request.session.get('group_name')
+-    if (var is not None) and (request.session['group_name'] == 'STAD' or request.session['group_name'] == 'OAD'):
++    var = request.session.get('permissions')
++    if (var is not None) and (var[5] == '1'):
+         if request.method == 'POST':
+             full_name = request.POST.get('full_name')
+             if (full_name is None) or (len(full_name)==0):
+@@ -163,8 +163,8 @@ def addstudent(request):
+ def deleteStudent(request):
+     response_data = {}
+     errors = []
+-    var = request.session.get('group_name')
+-    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
++    var = request.session.get('permissions')
++    if (var is not None) and (var[5]=='1'):
+         if request.method == 'POST':
+             roll_no = request.POST.get('roll_no')
+             existing_entry = studentdb.objects.get(roll_no = roll_no)
+@@ -181,8 +181,8 @@ def deleteStudent(request):
+ def addhostelinfo(request):
+     response_data = {}
+     errors = []
+-    var = request.session.get('group_name')
+-    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
++    var = request.session.get('permissions')
++    if (var is not None) and (var[6]=='1'):
+         if request.method == 'POST':
+             roll_num = request.POST.get('roll_no')
+             if (roll_num is None) or (len(roll_num)==0):
+@@ -230,8 +230,8 @@ def addhostelinfo(request):
+ def deleteHostelStudent(request):
+     response_data = {}
+     errors = []
+-    var = request.session.get('group_name')
+-    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
++    var = request.session.get('permissions')
++    if (var is not None) and (var[6]=='1'):
+         if request.method == 'POST':
+             roll_no = request.POST.get('roll_no')
+             existing_entry = hostel_info.objects.get(roll_num = roll_no)
+@@ -263,8 +263,8 @@ def returnSemesters(request, **kwargs):
+ def addmarksinfo(request):
+     response_data = {}
+     errors = []
+-    var = request.session.get('group_name')
+-    if (var is not None) and (request.session['group_name'] == 'MAD' or request.session['group_name'] == 'OAD'):
++    var = request.session.get('permissions')
++    if (var is not None) and (var[7]=='1'):
+         if request.method == 'POST':
+             roll_num = request.POST.get('roll_no')
+             if (roll_num is None) or (len(roll_num)==0):
+@@ -330,8 +330,8 @@ def addmarksinfo(request):
+ def add_review(request):
+     response_data = {}
+     errors = []
+-    var = request.session.get('group_name')
+-    if var is not None:
++    var = request.session.get('permissions')
++    if (var is not None) and (var[8]=='1'):
+         if request.method == 'POST':
+             stu_roll = request.POST.get('stu_roll')
+             if (stu_roll is None) or (len(stu_roll) == 0):
+diff --git a/Server Api/student_management_system/user_account/views.py b/Server Api/student_management_system/user_account/views.py
+index 4305323..326e3ca 100644
+--- a/Server Api/student_management_system/user_account/views.py	
++++ b/Server Api/student_management_system/user_account/views.py	
+@@ -11,7 +11,7 @@ from django import forms
+ @api_view(['POST'])
+ def user_logout(request):
+     del request.session['user']
+-    del request.session['group_name']
++    del request.session['permissions']
+     response_data = {}
+     response_data['message'] = 'success'
+     return HttpResponse(json.dumps(response_data), content_type="application/json")
+@@ -44,12 +44,13 @@ def user_login(request):
+                     #setting session variables
+                     #-------------------------------------------------
+                     request.session['user'] = user.username
+-                    request.session['group_name'] = user.group_name
++                    group = user.group_name
++                    permissions = UserGroup.objects.get(group_name=group).permissions
++                    request.session['permissions'] = permissions
+                     #-------------------------------------------------
+                     response_data['group_name'] = user.group_name
+                     response_data['email'] = user.email
+                     response_data['username'] = user.username
+-                    response_data['roll_no'] = user.roll_no
+                     response_data['message'] = 'success'
+ 
+                 else:
+@@ -67,8 +68,8 @@ def user_login(request):
+ @api_view(['POST'])
+ def new_user_registration(request):
+     response_data = {}
+-    var = request.session.get('group_name')
+-    if (var is not None) and (request.session['group_name'] == 'OAD'):
++    var = request.session.get('permissions')
++    if (var is not None) and (var[10] == '1'):
+         errors = []
+         if request.method == 'POST':
+             username = request.POST.get('username')
+@@ -117,8 +118,8 @@ def new_user_registration(request):
+ def new_usergroup(request):
+     response_data = {}
+     errors = []
+-    var = request.session.get('group_name')
+-    if (var is not None) and (request.session['group_name'] == 'OAD'):
++    var = request.session.get('permissions')
++    if (var is not None) and (var[10] == '1'):
+         if request.method == 'POST':
+             group_name = request.POST.get('group_name')
+             if (group_name is None) or (len(group_name)==0):

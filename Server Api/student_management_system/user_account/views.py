@@ -11,7 +11,7 @@ from django import forms
 @api_view(['POST'])
 def user_logout(request):
     del request.session['user']
-    del request.session['group_name']
+    del request.session['permissions']
     response_data = {}
     response_data['message'] = 'success'
     return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -44,12 +44,13 @@ def user_login(request):
                     #setting session variables
                     #-------------------------------------------------
                     request.session['user'] = user.username
-                    request.session['group_name'] = user.group_name
+                    group = user.group_name
+                    permissions = UserGroup.objects.get(group_name=group).permissions
+                    request.session['permissions'] = permissions
                     #-------------------------------------------------
                     response_data['group_name'] = user.group_name
                     response_data['email'] = user.email
                     response_data['username'] = user.username
-                    response_data['roll_no'] = user.roll_no
                     response_data['message'] = 'success'
 
                 else:
@@ -67,8 +68,8 @@ def user_login(request):
 @api_view(['POST'])
 def new_user_registration(request):
     response_data = {}
-    var = request.session.get('group_name')
-    if (var is not None) and (request.session['group_name'] == 'OAD'):
+    var = request.session.get('permissions')
+    if (var is not None) and (var[10] == '1'):
         errors = []
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -117,8 +118,8 @@ def new_user_registration(request):
 def new_usergroup(request):
     response_data = {}
     errors = []
-    var = request.session.get('group_name')
-    if (var is not None) and (request.session['group_name'] == 'OAD'):
+    var = request.session.get('permissions')
+    if (var is not None) and (var[10] == '1'):
         if request.method == 'POST':
             group_name = request.POST.get('group_name')
             if (group_name is None) or (len(group_name)==0):

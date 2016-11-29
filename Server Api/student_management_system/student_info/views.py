@@ -82,8 +82,8 @@ def studentSearch(request):
 def addstudent(request):
     response_data = {}
     errors = []
-    var = request.session.get('group_name')
-    if (var is not None) and (request.session['group_name'] == 'STAD' or request.session['group_name'] == 'OAD'):
+    var = request.session.get('permissions')
+    if (var is not None) and (var[5] == '1'):
         if request.method == 'POST':
             full_name = request.POST.get('full_name')
             if (full_name is None) or (len(full_name)==0):
@@ -163,8 +163,8 @@ def addstudent(request):
 def deleteStudent(request):
     response_data = {}
     errors = []
-    var = request.session.get('group_name')
-    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+    var = request.session.get('permissions')
+    if (var is not None) and (var[5]=='1'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
             existing_entry = studentdb.objects.get(roll_no = roll_no)
@@ -181,8 +181,8 @@ def deleteStudent(request):
 def addhostelinfo(request):
     response_data = {}
     errors = []
-    var = request.session.get('group_name')
-    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+    var = request.session.get('permissions')
+    if (var is not None) and (var[6]=='1'):
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
             if (roll_num is None) or (len(roll_num)==0):
@@ -230,8 +230,8 @@ def addhostelinfo(request):
 def deleteHostelStudent(request):
     response_data = {}
     errors = []
-    var = request.session.get('group_name')
-    if (var is not None) and (request.session['group_name'] == 'HAD' or request.session['group_name'] == 'OAD'):
+    var = request.session.get('permissions')
+    if (var is not None) and (var[6]=='1'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
             existing_entry = hostel_info.objects.get(roll_num = roll_no)
@@ -263,8 +263,8 @@ def returnSemesters(request, **kwargs):
 def addmarksinfo(request):
     response_data = {}
     errors = []
-    var = request.session.get('group_name')
-    if (var is not None) and (request.session['group_name'] == 'MAD' or request.session['group_name'] == 'OAD'):
+    var = request.session.get('permissions')
+    if (var is not None) and (var[7]=='1'):
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
             if (roll_num is None) or (len(roll_num)==0):
@@ -330,8 +330,8 @@ def addmarksinfo(request):
 def add_review(request):
     response_data = {}
     errors = []
-    var = request.session.get('group_name')
-    if var is not None:
+    var = request.session.get('permissions')
+    if (var is not None) and (var[8]=='1'):
         if request.method == 'POST':
             stu_roll = request.POST.get('stu_roll')
             if (stu_roll is None) or (len(stu_roll) == 0):
