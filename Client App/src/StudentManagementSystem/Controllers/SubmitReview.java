@@ -90,6 +90,7 @@ public class SubmitReview implements Initializable {
     }
     @FXML
     private VBox personal_info_vb;
+
     public void displayReview() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();

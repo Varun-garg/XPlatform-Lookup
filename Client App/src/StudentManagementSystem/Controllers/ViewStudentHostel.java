@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.VBox;
 
@@ -55,6 +57,38 @@ public class ViewStudentHostel implements Initializable {
             hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Mobile No:", hos.getCaretakerNum(), 5,300));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    @FXML
+    private Button delete;
+    @FXML
+    private TextField roll_no;
+
+
+
+    public void deleteStudentHostel(ActionEvent event) throws IOException {
+        Form newHostelForm = new Form();
+
+        newHostelForm.param("roll_no", roll_no.getText());
+
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/delete");
+
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).
+                post(Entity.entity(newHostelForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+        String response = rawResponse.readEntity(String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        LoginResponse deleteHostelResponse = mapper.readValue(response, LoginResponse.class);
+
+        System.out.println("got message " + deleteHostelResponse.getMessage());
+        if (deleteHostelResponse.getMessage().equals("success")) {
+            System.out.print("Student successfully deleted" );
+
+        } else {
+            System.out.println("Error: in deleting the student");
+            System.out.println(response);
         }
     }
 

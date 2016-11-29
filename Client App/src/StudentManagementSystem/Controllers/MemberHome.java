@@ -183,7 +183,7 @@ public class MemberHome implements Initializable {
         Logs.setPrefHeight(44);
         Logs.setOnAction(e ->
         {
-            Utility.DisplayForm("New Student", "Logs.fxml",700,650,this);
+            Utility.DisplayForm("Logs", "Logs.fxml",700,650,this);
         });
         NavigationVBox.getChildren().add(Logs);
 
