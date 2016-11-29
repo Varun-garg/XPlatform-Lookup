@@ -34,42 +34,44 @@ public class HostelForm implements Initializable {
     ArrayList<Field> studentFields = new ArrayList<>();
     Label OtherErrorsLabel;
 
-    MemberHome memberHome;
+    ViewStudentHostel hostelHome;
 
     @FXML
     private GridPane FormGridPane;
 
 
-    public void AddStudent(ActionEvent event) {
+    public void AddHostel(ActionEvent event) {
 
-        Form newStudentForm = new Form();
+        Form form = new Form();
 
         OtherErrorsLabel.setText(""); //clear previous errors
+
+        form.param("roll_no", SessionManager.getInstance().getStudentRollNo());
         for (int i = 0; i < studentFields.size(); i++) {
             studentFields.get(i).errorLabel.setText(""); //clear previous errors
-            newStudentForm.param(studentFields.get(i).name, studentFields.get(i).textField.getText());
+            form.param(studentFields.get(i).name, studentFields.get(i).textField.getText());
         }
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/new/");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/new/hostel/");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie())
-                .post(Entity.entity(newStudentForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            PostResponse AddStudentResponse = mapper.readValue(response, PostResponse.class);
+            PostResponse AddResponse = mapper.readValue(response, PostResponse.class);
 
-            if (AddStudentResponse.getMessage().equals("success")) {
-                memberHome.AddStudentToNavigationList(newStudentForm);
+            if (AddResponse.getMessage().equals("success")) {
+                hostelHome.DisplayHostelInfo();
                 FormGridPane.getScene().getWindow().hide();
             } else {
-                System.out.println(AddStudentResponse.getErrors());
+                System.out.println(AddResponse.getErrors());
 
-                for (String error : AddStudentResponse.getErrors()) {
+                for (String error : AddResponse.getErrors()) {
                     String name = error.replaceFirst("(.*)(:)(.*)", "$1").trim();
                     String message = error.replaceFirst("(.*)(:)(.*)", "$3").trim();
                     Field errorField = studentFields.stream().filter(o -> o.name.equals(name)).findFirst().orElse(null);
@@ -88,24 +90,18 @@ public class HostelForm implements Initializable {
 
     }
 
-    public void setMemberHome(MemberHome memberHome) {
-        this.memberHome = memberHome;
+    public void setHostelHome(ViewStudentHostel hostelHome) {
+        this.hostelHome = hostelHome;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        studentFields.add(new Field("Full name:", "full_name", "text"));
-        studentFields.add(new Field("Enrollment Number:", "enroll_no", "text"));
-        studentFields.add(new Field("Roll Number:", "roll_no", "text"));
-        studentFields.add(new Field("Program Name:", "program_name", "text"));
-        studentFields.add(new Field("School:", "school", "text"));
-        studentFields.add(new Field("Father's Name:", "father_name", "text"));
-        studentFields.add(new Field("Mother's Name :", "mother_name", "text"));
-        studentFields.add(new Field("DOB (YYYY-MM-DD):", "dob", "date"));
-        studentFields.add(new Field("Sex:", "sex", "text"));
-        studentFields.add(new Field("Email:", "email", "text"));
-        studentFields.add(new Field("Phone no:", "phone", "text"));
-
+        studentFields.add(new Field("Hostel Name:", "hostel_name", "text"));
+        studentFields.add(new Field("Room Number:", "room_num", "text"));
+        studentFields.add(new Field("Warden Name:", "warden_name", "text"));
+        studentFields.add(new Field("Warden mobile:", "warden_mob", "text"));
+        studentFields.add(new Field("Caretaker Name:", "caretaker_name", "text"));
+        studentFields.add(new Field("Caretaker Number :", "caretaker_num", "text"));
 
         for (int i = 0; i < studentFields.size(); i++) {
             FormHelper.insertField(studentFields.get(i), FormGridPane);
@@ -121,7 +117,7 @@ public class HostelForm implements Initializable {
         button.setAlignment(Pos.CENTER);
         button.setBlendMode(BlendMode.SRC_ATOP);
         button.getStyleClass().add("rich-blue");
-        button.setOnAction(e -> AddStudent(e));
+        button.setOnAction(e -> AddHostel(e));
         FormGridPane.add(button, 0, FormHelper.getRowCount(FormGridPane));
     }
 }

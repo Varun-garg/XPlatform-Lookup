@@ -92,6 +92,10 @@ public class Utility {
                 StudentForm studentForm = fxmlLoader.getController();
                 studentForm.setMemberHome((MemberHome) currentClass);
             }
+            if(fxmlFileName.equals("HostelForm.fxml")) {
+                HostelForm HostelForm = fxmlLoader.getController();
+                HostelForm.setHostelHome((ViewStudentHostel) currentClass);
+            }
 
             window.setScene(new Scene(parent, height, width));
         } catch (Exception e) {
