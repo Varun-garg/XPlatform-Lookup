@@ -160,6 +160,91 @@ def addstudent(request):
 
 
 @api_view(['POST'])
+def updateStudent(request):
+    response_data = {}
+    errors = []
+    var = request.session.get('permissions')
+    if (var is not None) and (var[5] == '1'):
+        if request.method == 'POST':
+            roll_no = request.POST.get('roll_no')
+            if (roll_no is None) or (len(roll_no)==0):
+                errors.append("roll_no: Enter Roll Number")
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
+                errors.append("roll_no: Wrong format of Roll Number, expecting like 13ICS029")
+            else:
+                try:
+                    existing_entry = studentdb.objects.get(roll_no = roll_no)
+                except studentdb.DoesNotExist:
+                    existing_entry=None
+                if existing_entry is None:
+                    errors.append("roll_no: Entry corresponding to this roll number does not exists")
+                else:
+                    full_name = request.POST.get('full_name')
+                    if (full_name is None) or (len(full_name)==0):
+                        errors.append("full_name: Enter Full Name")
+                    elif full_name.isdigit():
+                        errors.append("full_name: Invalid Full Name")
+                    enroll_no = request.POST.get('enroll_no')
+                    if (enroll_no is None) or (len(enroll_no)==0):
+                        errors.append("enroll_no: Enter Enrollment Number")
+                    program_name = request.POST.get('program_name')
+                    if (program_name is None) or (len(program_name)==0):
+                        errors.append("program_name: Enter Program Name")
+                    school = request.POST.get('school')
+                    if (school is None) or (len(school)==0):
+                        errors.append("school: Enter School Name")
+                    father_name = request.POST.get('father_name', '')
+                    mother_name = request.POST.get('mother_name', '')
+                    dob = request.POST.get('dob')
+                    if (dob is None) or (len(dob)==0):
+                        errors.append("dob: Enter Date Of Birth")
+                    else:
+                        try:
+                            datetime.datetime.strptime(dob, '%Y-%m-%d')
+                        except ValueError:
+                            errors.append("dob: Wrong format of Date Of Birth, expecting YYYY-MM-DD")
+                    sex = request.POST.get('sex', '')
+                    email = request.POST.get('email')
+                    if (email is None) or (len(email)==0):
+                        errors.append("email: Enter Email Id")
+                    else:
+                        try:
+                            validate_email(email)
+                        except forms.ValidationError:
+                            errors.append("email: Invalid Email Id")
+                    phone = request.POST.get('phone')
+                    if (phone is None) or (len(phone)==0):
+                        errors.append("phone: Enter Phone Number")
+                    elif not phone.isdigit():
+                        errors.append("phone: Invalid Phone Number")
+                    if len(errors) == 0:
+                        existing_entry.full_name = full_name
+                        existing_entry.enroll_no = enroll_no
+                        existing_entry.program_name = program_name
+                        existing_entry.school = school
+                        existing_entry.roll_no = roll_no
+                        existing_entry.father_name = father_name
+                        existing_entry.mother_name = mother_name
+                        existing_entry.dob = dob
+                        existing_entry.sex = sex
+                        existing_entry.email = email
+                        existing_entry.phone = phone
+                        existing_entry.save()
+                        response_data['message'] = 'success'
+                    else:
+                        response_data['errors'] = errors
+                        response_data['message'] = 'fail'
+                response_data['errors'] = errors
+        else:
+            response_data['message'] = 'fail'
+    else:
+        errors.append("Permission: You don't have permissions to update a student entry.")
+        response_data['errors'] = errors
+        response_data['message'] = "fail"
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@api_view(['POST'])
 def deleteStudent(request):
     response_data = {}
     errors = []
@@ -223,6 +308,58 @@ def addhostelinfo(request):
         response_data['message'] = "fail"
         errors.append("Permission: You don't have permissions to create a new hostel entry.")
         response_data['errors'] = errors
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@api_view(['POST'])
+def updateStudentHostel(request):
+    response_data = {}
+    errors = []
+    var = request.session.get('permissions')
+    if (var is not None) and (var[6]=='1'):
+        if request.method == 'POST':
+            roll_no = request.POST.get('roll_no')
+            if (roll_no is None) or (len(roll_no)==0):
+                errors.append("roll_no: Enter Roll Number")
+            elif re.match('[0-9]{1,}[A-Z]{1,}[0-9]{1,}',roll_no) is None:
+                errors.append("roll_no: Wrong format of Roll Number, expecting like 13ICS029")
+            else:
+                try:
+                    existing_entry = hostel_info.objects.get(roll_num = roll_no)
+                except hostel_info.DoesNotExist:
+                    existing_entry=None
+                if existing_entry is None:
+                    errors.append("roll_no: Entry corresponding to this roll number does not exists")
+                else:
+                    hostel_name = request.POST.get('hostel_name')
+                    if (hostel_name is None) or (len(hostel_name)==0):
+                        errors.append("hostel_name: Enter Hostel Name")
+                    room_num = request.POST.get('room_num')
+                    if (room_num is None) or (len(room_num)==0):
+                        errors.append("room_num: Enter Room Number")
+                    warden_name = request.POST.get('warden_name')
+                    warden_mob = request.POST.get('warden_mob')
+                    caretaker_name = request.POST.get('caretaker_name')
+                    caretaker_num = request.POST.get('caretaker_num')
+                    if len(errors) == 0:
+                        existing_entry.hostel_name = hostel_name
+                        existing_entry.room_num = room_num
+                        existing_entry.warden_name = warden_name
+                        existing_entry.warden_mob = warden_mob
+                        existing_entry.caretaker_name = caretaker_name
+                        existing_entry.caretaker_num = caretaker_num
+                        existing_entry.save()
+                        response_data['message'] = 'success'
+                    else:
+                        response_data['errors'] = errors
+                        response_data['message'] = 'fail'
+                response_data['errors'] = errors
+        else:
+            response_data['message'] = 'fail'
+    else:
+        errors.append("Permission: You don't have permissions to update a hostel entry.")
+        response_data['errors'] = errors
+        response_data['message'] = "fail"
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
