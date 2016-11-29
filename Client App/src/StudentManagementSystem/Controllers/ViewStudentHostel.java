@@ -2,6 +2,7 @@ package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.Model.Hostel;
+import StudentManagementSystem.Model.HostelResponse;
 import StudentManagementSystem.Model.LoginResponse;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,17 +60,11 @@ public class ViewStudentHostel implements Initializable {
             e.printStackTrace();
         }
     }
-    @FXML
-    private Button delete;
-    @FXML
-    private TextField roll_no;
-
-
-
+    
     public void deleteStudentHostel(ActionEvent event) throws IOException {
         Form newHostelForm = new Form();
-
-        newHostelForm.param("roll_no", roll_no.getText());
+        String rollNo = SessionManager.getInstance().getStudentRollNo();
+        newHostelForm.param("roll_no", rollNo);
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
@@ -80,7 +75,7 @@ public class ViewStudentHostel implements Initializable {
 
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
-        LoginResponse deleteHostelResponse = mapper.readValue(response, LoginResponse.class);
+        HostelResponse deleteHostelResponse = mapper.readValue(response, HostelResponse.class);
 
         System.out.println("got message " + deleteHostelResponse.getMessage());
         if (deleteHostelResponse.getMessage().equals("success")) {

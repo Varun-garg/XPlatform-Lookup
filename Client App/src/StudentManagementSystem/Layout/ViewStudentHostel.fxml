@@ -16,14 +16,14 @@
             </padding>
         </VBox>
         <JFXButton fx:id="button" layoutX="350.0" layoutY="31.0" />
-      <Button fx:id="delete" onAction="#deleteStudentHostel" layoutX="350.0" layoutY="108.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="148.0" styleClass="button_green" text="Delete">
+      <Button fx:id="delete" onAction="#deleteStudentHostel" layoutX="350.0" layoutY="68.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="148.0" styleClass="button_green" text="Delete">
          <font>
             <Font size="13.0" />
          </font></Button>
-      <TextField fx:id="roll_no"  layoutX="350.0" layoutY="68.0" prefHeight="29.0" prefWidth="149.0" promptText="Enter RollNo To Delete">
+      <!--<TextField fx:id="roll_no"  layoutX="350.0" layoutY="68.0" prefHeight="29.0" prefWidth="149.0" promptText="Enter RollNo To Delete">
          <font>
             <Font size="13.0" />
-         </font></TextField>
+         </font></TextField>-->
 
     </children>
 </AnchorPane>
