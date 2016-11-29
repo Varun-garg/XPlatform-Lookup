@@ -126,8 +126,8 @@ public class MemberHome implements Initializable {
             }
         } else {
             content.getChildren().clear();
-            VBox NoStudentMessage = Utility.WarningLabel("Select a student first", 0);
-            NoStudentMessage.setLayoutX((content.getMinWidth() - Utility.HBoxWidth) / 2);
+            VBox NoStudentMessage = Utility.WarningLabel("Select a student first", 0,300);
+            NoStudentMessage.setLayoutX((content.getMinWidth() - 300) / 2);
             NoStudentMessage.setLayoutY((content.getMinHeight()) / 2);
             content.getChildren().add(NoStudentMessage);
         }

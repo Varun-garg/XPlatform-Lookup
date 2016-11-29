@@ -44,17 +44,17 @@ public class ViewStudent implements Initializable {
         try {
             Student student = mapper.readValue(response, Student.class);
 
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Student Name", student.getFullName(), 0));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Enrollment", student.getEnrollNo(), 1));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Roll number", student.getRollNo(), 2));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Email", student.getEmail(), 3));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("School", student.getSchool(), 4));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Mobile number", student.getPhone(), 5));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Course", student.getProgramName(), 6));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Date of Birth", student.getDob(), 7));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Gender", student.getSex(), 8));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Father's Name", student.getFatherName(), 9));
-            personal_info_vbox.getChildren().add(Utility.GenerateRow("Mother's Name", student.getMotherName(), 10));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Student Name", student.getFullName(), 0,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Enrollment", student.getEnrollNo(), 1,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Roll number", student.getRollNo(), 2,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Email", student.getEmail(), 3,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("School", student.getSchool(), 4,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Mobile number", student.getPhone(), 5,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Course", student.getProgramName(), 6,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Date of Birth", student.getDob(), 7,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Gender", student.getSex(), 8,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Father's Name", student.getFatherName(), 9,300));
+            personal_info_vbox.getChildren().add(Utility.GenerateRow("Mother's Name", student.getMotherName(), 10,300));
         } catch (Exception e) {
             e.printStackTrace();
         }

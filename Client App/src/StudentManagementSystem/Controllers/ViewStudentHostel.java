@@ -5,10 +5,13 @@ import StudentManagementSystem.Model.Hostel;
 import StudentManagementSystem.Model.LoginResponse;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.VBox;
 
 import javax.ws.rs.client.Client;
@@ -54,12 +57,12 @@ public class ViewStudentHostel implements Initializable {
         ObjectMapper mapper = new ObjectMapper();
         try {
             Hostel hos = mapper.readValue(response, Hostel.class);
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Roll No:", hos.getRollNum(), 0));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Room No:", hos.getRoomNum(), 1));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Name:", hos.getWardenName(), 2));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Mobile No.:", hos.getWardenMob(), 3));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Name:", hos.getCaretakerName(), 4));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Mobile No:", hos.getCaretakerNum(), 5));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Roll No:", hos.getRollNum(), 0,300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Room No:", hos.getRoomNum(), 1,300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Name:", hos.getWardenName(), 2,300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Mobile No.:", hos.getWardenMob(), 3,300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Name:", hos.getCaretakerName(), 4,300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Mobile No:", hos.getCaretakerNum(), 5,300));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,17 +94,10 @@ public class ViewStudentHostel implements Initializable {
         if (addHostelResponse.getMessage().equals("success")) {
             System.out.print("Student with roll no" + roll_no1.getText() + "successfully added");
 
-            //   this.setRollNo(roll_no1.getText());
-            //   tab_plane.getSelectionModel().select(0);
-            //   this.Display();
         } else {
             System.out.println("Error: Student with roll no" + roll_no1.getText() + "could not be added");
             System.out.println(response);
         }
-    }
-
-    public void refresh() {
-        System.out.println("refresh called");
     }
 
     @Override
@@ -109,6 +105,12 @@ public class ViewStudentHostel implements Initializable {
         hostel_info_vbox.setSpacing(10);
         hostel_info_vbox.getChildren().clear();
         this.DisplayHostelInfo();
+
+        JFXButton button = new JFXButton("Add / Update Information");
+        button.setAlignment(Pos.CENTER);
+        button.setBlendMode(BlendMode.SRC_ATOP);
+        button.getStyleClass().add("windows7-default");
+        hostel_info_vbox.getChildren().add(button);
     }
 
 }

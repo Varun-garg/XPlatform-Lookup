@@ -22,9 +22,7 @@ import javafx.stage.Stage;
  */
 public class Utility {
 
-    public static final int HBoxWidth = 300;
-
-    public static HBox GenerateRow(String field1, String field2, int color_id) {
+    public static HBox GenerateRow(String field1, String field2, int color_id,int HBoxWidth) {
         Text text1 = new Text(field1.trim());
         text1.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
         Text text2 = new Text(field2.trim());
@@ -54,7 +52,7 @@ public class Utility {
         return hBox;
     }
 
-    public static VBox WarningLabel(String field1, int color_id) {
+    public static VBox WarningLabel(String field1, int color_id,int HBoxWidth) {
         Text text = new Text(field1.trim());
         text.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
         String color;
