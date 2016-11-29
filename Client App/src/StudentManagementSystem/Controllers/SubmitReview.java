@@ -106,8 +106,10 @@ public class SubmitReview implements Initializable {
                 personal_info_vb.getChildren().add(Utility.GenerateRow("Section", reviews[i].getSection(), i,623));
                 personal_info_vb.getChildren().add(Utility.GenerateRow("Comment", reviews[i].getComment(), i,623));
                 personal_info_vb.getChildren().add(Utility.GenerateRow("Date", reviews[i].getDate(), i,623));
-                Separator separator = new Separator();
-                personal_info_vb.getChildren().add(separator);
+                Separator separator1 = new Separator();
+                Separator separator2 = new Separator();
+                personal_info_vb.getChildren().add(separator1);
+                personal_info_vb.getChildren().add(separator2);
             }
             /*PropertyValueFactory<Review, String> studentProperty =
                     new PropertyValueFactory<Review, String>("student");

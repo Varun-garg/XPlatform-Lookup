@@ -60,7 +60,7 @@ public class ViewStudentHostel implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteStudentHostel(ActionEvent event) throws IOException {
         Form newHostelForm = new Form();
         String rollNo = SessionManager.getInstance().getStudentRollNo();

@@ -36,12 +36,17 @@ public class LogsController  implements Initializable {
             Logs logs[] = mapper.readValue(response, Logs[].class);
             for(int i=0;i<logs.length;i++) {
 
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Name", logs[i].getUname(), i,682));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Group", logs[i].getUgroup(), i,682));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Action", logs[i].getAction(), i,682));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Date-Time", logs[i].getDatetime(), i,682));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Ip-Address", logs[i].getIpAddress(), i,682));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("System", logs[i].getSystem(), i,682));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Name", logs[i].getUname(), i,642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Group", logs[i].getUgroup(), i,642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Action", logs[i].getAction(), i,642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Date-Time", logs[i].getDatetime(), i,642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Ip-Address", logs[i].getIpAddress(), i,642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("System", logs[i].getSystem(), i,642));
+                Separator separator1 = new Separator();
+                Separator separator2 = new Separator();
+                logs_info_vb.getChildren().add(separator1);
+                logs_info_vb.getChildren().add(separator2);
+
             }
 
         } catch (Exception e) {
