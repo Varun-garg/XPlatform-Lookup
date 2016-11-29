@@ -23,7 +23,7 @@ def user_logout(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def user_login(request):
     response_data = {}
     errors = []

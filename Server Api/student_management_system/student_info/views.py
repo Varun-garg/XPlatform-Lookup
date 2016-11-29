@@ -252,7 +252,7 @@ def updateStudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def deleteStudent(request):
     response_data = {}
     errors = []
@@ -260,11 +260,18 @@ def deleteStudent(request):
     if (var is not None) and (var[5]=='1'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
-            existing_entry = studentdb.objects.get(roll_no = roll_no)
-            existing_entry.delete()
-            response_data['message'] = "success"
-            action = "Deleted Student"
-            generateLogs(request, action)
+            if (roll_no is None) or (len(roll_no)==0):
+                errors.append("roll_no: Enter Roll Number")
+                response_data['message'] = "fail"
+                response_data['errors'] = errors
+            else:
+                existing_entry = studentdb.objects.get(roll_no = roll_no)
+                existing_entry.delete()
+                response_data['message'] = "success"
+                action = "Deleted Student"
+                generateLogs(request, action)
+        else:
+            response_data['message'] = 'fail'
     else:
         errors.append("Permission: You don't have permissions to delete a student entry.")
         response_data['message'] = 'fail'
@@ -382,7 +389,7 @@ def updateStudentHostel(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@api_view(['POST'])
+@csrf_exempt
 def deleteHostelStudent(request):
     response_data = {}
     errors = []
@@ -390,11 +397,18 @@ def deleteHostelStudent(request):
     if (var is not None) and (var[6]=='1'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
-            existing_entry = hostel_info.objects.get(roll_num = roll_no)
-            existing_entry.delete()
-            response_data['message'] = "success"
-            action = "Deleted Hostel Info"
-            generateLogs(request, action)
+            if (roll_no is None) or (len(roll_no)==0):
+                errors.append("roll_no: Enter Roll Number")
+                response_data['message'] = "fail"
+                response_data['errors'] = errors
+            else:
+                existing_entry = hostel_info.objects.get(roll_num = roll_no)
+                existing_entry.delete()
+                response_data['message'] = "success"
+                action = "Deleted Hostel Info"
+                generateLogs(request, action)
+        else:
+            response_data['message'] = 'fail'
     else:
         errors.append("Permission: You don't have permissions to delete a hostel entry.")
         response_data['message'] = 'fail'
@@ -532,23 +546,23 @@ def add_review(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-def upload_excel(request):
-    with open("C:\Users\Sarthak\Desktop\Test.csv") as file_path:
-        response_data = {}
-        reader = csv.reader(file_path)
-        for row in reader:
-            _, created = studentdb.objects.get_or_create(
-                full_name = row[0],
-                enroll_no = row[1],
-                program_name = row[2],
-                school = row[3],
-                roll_no = row[4],
-                father_name = row[5],
-                mother_name = row[6],
-                dob = row[7],
-                sex = row[8],
-                email = row[9],
-                phone = row[10],
-            )
-        response_data["message"] = "success"
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+#def upload_excel(request):
+#    with open("C:\Users\Sarthak\Desktop\Test.csv") as file_path:
+#        response_data = {}
+#        reader = csv.reader(file_path)
+#        for row in reader:
+#            _, created = studentdb.objects.get_or_create(
+#                full_name = row[0],
+#                enroll_no = row[1],
+#                program_name = row[2],
+#                school = row[3],
+#                roll_no = row[4],
+#                father_name = row[5],
+#                mother_name = row[6],
+#                dob = row[7],
+#                sex = row[8],
+#                email = row[9],
+#                phone = row[10],
+#            )
+#        response_data["message"] = "success"
+#    return HttpResponse(json.dumps(response_data), content_type="application/json")
