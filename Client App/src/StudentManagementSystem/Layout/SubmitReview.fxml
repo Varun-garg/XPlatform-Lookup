@@ -13,63 +13,70 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.SubmitReview">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="650.0"
+      xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="StudentManagementSystem.Controllers.SubmitReview">
     <children>
         <HBox prefHeight="31.0" prefWidth="200.0">
             <children>
-                <Label prefHeight="27.0" prefWidth="242.0" text="Enter the student Roll No." textFill="#1b0680" textOverrun="CLIP">
+                <Label prefHeight="27.0" prefWidth="242.0" text="Enter the student Roll No." textFill="#1b0680"
+                       textOverrun="CLIP">
                     <padding>
-                        <Insets right="20.0" />
+                        <Insets right="20.0"/>
                     </padding>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="18.0"/>
                     </font>
                 </Label>
-                <TextField fx:id="rollnum" />
+                <TextField fx:id="rollnum"/>
             </children>
         </HBox>
 
         <Label text="Sections:-" textFill="#1b0680" textOverrun="CLIP">
             <VBox.margin>
-                <Insets />
+                <Insets/>
             </VBox.margin>
             <font>
-                <Font name="System Bold" size="18.0" />
+                <Font name="System Bold" size="18.0"/>
             </font>
         </Label>
         <RadioButton fx:id="rb1" mnemonicParsing="false" prefHeight="8.0" prefWidth="103.0" text="personal">
             <toggleGroup>
-                <ToggleGroup fx:id="MyGroup" />
+                <ToggleGroup fx:id="MyGroup"/>
             </toggleGroup>
-         <padding>
-            <Insets bottom="10.0" />
-         </padding>
+            <padding>
+                <Insets bottom="10.0"/>
+            </padding>
         </RadioButton>
-        <RadioButton fx:id="rb2" mnemonicParsing="false" prefHeight="11.0" prefWidth="73.0" text="hostel" toggleGroup="$MyGroup">
-         <padding>
-            <Insets bottom="10.0" />
-         </padding></RadioButton>
-        <RadioButton fx:id="rb3" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="exam" toggleGroup="$MyGroup">
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin></RadioButton>
+        <RadioButton fx:id="rb2" mnemonicParsing="false" prefHeight="11.0" prefWidth="73.0" text="hostel"
+                     toggleGroup="$MyGroup">
+            <padding>
+                <Insets bottom="10.0"/>
+            </padding>
+        </RadioButton>
+        <RadioButton fx:id="rb3" mnemonicParsing="false" prefHeight="17.0" prefWidth="73.0" text="exam"
+                     toggleGroup="$MyGroup">
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </RadioButton>
         <TextArea fx:id="comment" prefHeight="200.0" prefWidth="200.0">
             <VBox.margin>
-                <Insets right="30.0" />
+                <Insets right="30.0"/>
             </VBox.margin>
         </TextArea>
         <Button mnemonicParsing="false" onAction="#addReview" styleClass="button_green" text="Click to Submit">
             <VBox.margin>
-                <Insets bottom="30.0" right="30.0" top="30.0" />
+                <Insets bottom="30.0" right="30.0" top="30.0"/>
             </VBox.margin>
         </Button>
-        <Separator prefWidth="200.0" />
+        <Separator prefWidth="200.0"/>
         <Label text="USER COMMENTS :">
             <VBox.margin>
-                <Insets bottom="20.0" left="5.0" right="20.0" top="10.0" />
+                <Insets bottom="20.0" left="5.0" right="20.0" top="10.0"/>
             </VBox.margin>
             <font>
-                <Font name="System Bold" size="18.0" />
+                <Font name="System Bold" size="18.0"/>
             </font>
         </Label>
         <!--<TableView fx:id="review" prefHeight="202.0" prefWidth="560.0">
@@ -88,17 +95,13 @@
         <ScrollPane prefHeight="248.0" prefWidth="590.0">
 
             <VBox fx:id="personal_info_vb" layoutX="8.0" layoutY="6.0" prefHeight="81.0" prefWidth="590.0">
-                <padding>
-                    <Insets bottom="25" left="25" right="25" top="25" />
-                </padding>
             </VBox>
 
         </ScrollPane>
 
 
-
     </children>
     <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
     </padding>
 </VBox>

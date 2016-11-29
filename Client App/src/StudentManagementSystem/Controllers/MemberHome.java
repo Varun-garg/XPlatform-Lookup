@@ -177,6 +177,17 @@ public class MemberHome implements Initializable {
         });
         NavigationVBox.getChildren().add(ReviewButton);
 
+        JFXButton Logs = new JFXButton();
+        Logs.setText("Logs");
+        Logs.setPrefWidth(190);
+        Logs.setPrefHeight(44);
+        Logs.setOnAction(e ->
+        {
+            Utility.DisplayForm("New Student", "Logs.fxml",700,650,this);
+        });
+        NavigationVBox.getChildren().add(Logs);
+
+
         JFXButton logoutButton = new JFXButton();
         logoutButton.setText("Log Out");
         logoutButton.setPrefWidth(190);

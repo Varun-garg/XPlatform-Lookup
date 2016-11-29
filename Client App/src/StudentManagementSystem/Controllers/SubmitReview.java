@@ -101,14 +101,12 @@ public class SubmitReview implements Initializable {
             System.out.println(response);
             Review reviews[] = mapper.readValue(response, Review[].class);
             for(int i=0;i<reviews.length;i++) {
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Name", reviews[i].getStudent(), i,600));
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Section", reviews[i].getSection(), i,600));
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Comment", reviews[i].getComment(), i,600));
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Date", reviews[i].getDate(), i,600));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Name", reviews[i].getStudent(), i,623));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Section", reviews[i].getSection(), i,623));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Comment", reviews[i].getComment(), i,623));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Date", reviews[i].getDate(), i,623));
                 Separator separator = new Separator();
                 personal_info_vb.getChildren().add(separator);
-
-
             }
             /*PropertyValueFactory<Review, String> studentProperty =
                     new PropertyValueFactory<Review, String>("student");
