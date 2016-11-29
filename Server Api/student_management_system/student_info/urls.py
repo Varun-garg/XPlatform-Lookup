@@ -6,8 +6,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     url(r'^student/search/$', views.studentSearch),
     url(r'^student/new/$', views.addstudent),
+    url(r'^student/update/$', views.updateStudent),
     url(r'^student/delete/$', views.deleteStudent),
     url(r'^student/new/hostel/$', views.addhostelinfo),
+    url(r'^student/hostel/update/$', views.updateStudentHostel),
     url(r'^student/semesters/(?P<roll_num>[\w-]+)', views.returnSemesters),
     url(r'^student/new/exam/$', views.addmarksinfo),
     url(r'^student/new/review/$', views.add_review),
