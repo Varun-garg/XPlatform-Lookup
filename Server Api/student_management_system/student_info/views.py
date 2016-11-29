@@ -252,7 +252,7 @@ def updateStudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def deleteStudent(request):
     response_data = {}
     errors = []
@@ -389,7 +389,7 @@ def updateStudentHostel(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-@csrf_exempt
+@api_view(['POST'])
 def deleteHostelStudent(request):
     response_data = {}
     errors = []
