@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^student/new/$', views.addstudent),
     url(r'^student/delete/$', views.deleteStudent),
     url(r'^student/new/hostel/$', views.addhostelinfo),
+    url(r'^student/semesters/(?P<roll_num>[\w-]+)', views.returnSemesters),
     url(r'^student/new/exam/$', views.addmarksinfo),
     url(r'^student/new/review/$', views.add_review),
     url(r'^student/(?P<roll_no>[\w-]+)/$', views.Student_Detail.as_view()),

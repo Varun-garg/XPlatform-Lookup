@@ -244,6 +244,21 @@ def deleteHostelStudent(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
+@api_view(['GET'])
+def returnSemesters(request, **kwargs):
+    response_data = {}
+    sems = []
+    roll_no = kwargs['roll_num']
+    existing_semesters = marks_status.objects.filter(roll_num=roll_no)
+    for i in existing_semesters:
+        sems.append(i.semester)
+    sems = list(set(sems))
+    response_data['semesters'] = sems
+    response_data['message'] = "success"
+
+    return HttpResponse(json.dumps(response_data), content_type="application.json")
+
+
 @api_view(['POST'])
 def addmarksinfo(request):
     response_data = {}
