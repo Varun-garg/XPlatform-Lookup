@@ -138,7 +138,7 @@ public class MemberHome implements Initializable {
         newStudentButton.setPrefHeight(44);
         newStudentButton.setOnAction(e ->
         {
-            Utility.DisplayForm("New Student", "StudentForm.fxml");
+            Utility.DisplayForm("New Student", "StudentForm.fxml",600,600);
         });
         NavigationVBox.getChildren().add(newStudentButton);
 
@@ -148,7 +148,7 @@ public class MemberHome implements Initializable {
         ReviewButton.setPrefHeight(44);
         ReviewButton.setOnAction(e ->
         {
-            Utility.DisplayForm("New Student", "SubmitReview.fxml");
+            Utility.DisplayForm("New Student", "SubmitReview.fxml",700,650);
         });
         NavigationVBox.getChildren().add(ReviewButton);
 
