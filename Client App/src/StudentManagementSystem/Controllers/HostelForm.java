@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by varun on 28/11/2016.
+ * Created by varun on 29/11/2016.
  */
-public class StudentForm implements Initializable {
+public class HostelForm implements Initializable {
     ArrayList<Field> studentFields = new ArrayList<>();
     Label OtherErrorsLabel;
 

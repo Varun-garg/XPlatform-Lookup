@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       spacing="10" xmlns="http://javafx.com/javafx/8.0.60"
-      fx:controller="StudentManagementSystem.Controllers.StudentForm" stylesheets="@Buttons.css,@LayoutStyle.css">
+      fx:controller="StudentManagementSystem.Controllers.HostelForm" stylesheets="@Buttons.css,@LayoutStyle.css">
     <padding>
         <Insets bottom="25" left="25" right="25" top="25"/>
     </padding>

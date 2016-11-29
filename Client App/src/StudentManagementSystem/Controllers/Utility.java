@@ -88,8 +88,10 @@ public class Utility {
             FXMLLoader fxmlLoader = new FXMLLoader(Utility.class.getClassLoader().getResource("StudentManagementSystem/Layout/" + fxmlFileName));
             Parent parent = fxmlLoader.load();
 
-            StudentForm studentForm = fxmlLoader.getController();
-            studentForm.setMemberHome((MemberHome) currentClass);
+            if(fxmlFileName.equals("StudentForm.fxml")) {
+                StudentForm studentForm = fxmlLoader.getController();
+                studentForm.setMemberHome((MemberHome) currentClass);
+            }
 
             window.setScene(new Scene(parent, height, width));
         } catch (Exception e) {
