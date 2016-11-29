@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -51,6 +50,7 @@ public class MemberHome implements Initializable {
     TabPane tabPane = null;
 
     Student students[];
+    private VBox StudentsVBox;
 
     Task fetchStudentsTask = new Task() {
         @Override
@@ -75,10 +75,35 @@ public class MemberHome implements Initializable {
         }
     };
 
+    public void AddStudentToNavigationList(Form newStudentForm) {
+        JFXButton student_button = new JFXButton();
+        student_button.setText(newStudentForm.asMap().getFirst("full_name"));
+        student_button.setPrefWidth(190);
+        student_button.setPrefHeight(44);
+
+        student_button.setOnAction(f -> {
+            try {
+                SessionManager.getInstance().setStudentFullName(newStudentForm.asMap().getFirst("full_name"));
+                SessionManager.getInstance().setStudentRollNo(newStudentForm.asMap().getFirst("roll_no"));
+                content.getChildren().clear();
+                FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
+                tabPane = fxmlLoader2.load();
+                content.getChildren().setAll(tabPane);
+                students_drawer.close();
+                students_drawer.toBack();
+            } catch (Exception exception) {
+                System.out.println(getClass().getSimpleName());
+                exception.printStackTrace();
+            }
+        });
+
+        StudentsVBox.getChildren().add(student_button);
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        VBox StudentsVBox;
         try {
             StudentsVBox = FXMLLoader.load(getClass().getResource("../Layout/StudentsDrawer.fxml"));
             students_drawer.setSidePane(StudentsVBox);
@@ -102,8 +127,8 @@ public class MemberHome implements Initializable {
         } else {
             content.getChildren().clear();
             VBox NoStudentMessage = Utility.WarningLabel("Select a student first", 0);
-            NoStudentMessage.setLayoutX( (content.getMinWidth() - Utility.HBoxWidth) / 2);
-            NoStudentMessage.setLayoutY( (content.getMinHeight()) / 2);
+            NoStudentMessage.setLayoutX((content.getMinWidth() - Utility.HBoxWidth) / 2);
+            NoStudentMessage.setLayoutY((content.getMinHeight()) / 2);
             content.getChildren().add(NoStudentMessage);
         }
 
@@ -138,7 +163,7 @@ public class MemberHome implements Initializable {
         newStudentButton.setPrefHeight(44);
         newStudentButton.setOnAction(e ->
         {
-            Utility.DisplayForm("New Student", "StudentForm.fxml",600,600);
+            Utility.DisplayForm("New Student", "StudentForm.fxml", 600, 600, this);
         });
         NavigationVBox.getChildren().add(newStudentButton);
 
@@ -148,7 +173,7 @@ public class MemberHome implements Initializable {
         ReviewButton.setPrefHeight(44);
         ReviewButton.setOnAction(e ->
         {
-            Utility.DisplayForm("Reviews", "SubmitReview.fxml",700,650);
+            Utility.DisplayForm("Reviews", "SubmitReview.fxml", 700, 650, this);
         });
         NavigationVBox.getChildren().add(ReviewButton);
 
@@ -219,7 +244,8 @@ public class MemberHome implements Initializable {
                         FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
                         tabPane = fxmlLoader2.load();
                         content.getChildren().setAll(tabPane);
-                        studentsButton.fire();
+                        students_drawer.close();
+                        students_drawer.toBack();
                     } catch (Exception exception) {
                         System.out.println(getClass().getSimpleName());
                         exception.printStackTrace();

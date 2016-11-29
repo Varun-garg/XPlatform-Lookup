@@ -81,8 +81,6 @@ public class LoginController implements Initializable {
                         sessionManager.setFullName(username);
                         sessionManager.setLoginStatus(SessionManager.LOGGED_IN);
                         sessionManager.setPassword(password);
-                        if (loginResponse.getRollNo().length() > 0)
-                            sessionManager.setRollNumber(loginResponse.getRollNo());
                         sessionManager.setUserType(loginResponse.getType());
 
                         Map<String, NewCookie> tempCookie = rawResponse.getCookies();

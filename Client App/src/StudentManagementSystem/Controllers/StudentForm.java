@@ -1,8 +1,8 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
-import StudentManagementSystem.Model.PostResponse;
 import StudentManagementSystem.Model.Field;
+import StudentManagementSystem.Model.PostResponse;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
@@ -10,15 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -36,6 +33,8 @@ import java.util.ResourceBundle;
 public class StudentForm implements Initializable {
     ArrayList<Field> studentFields = new ArrayList<>();
     Label OtherErrorsLabel;
+
+    MemberHome memberHome;
 
     @FXML
     private GridPane StudentFormGridPane;
@@ -64,11 +63,10 @@ public class StudentForm implements Initializable {
         try {
             PostResponse AddStudentResponse = mapper.readValue(response, PostResponse.class);
 
-            System.out.println("got message " + AddStudentResponse.getMessage());
             if (AddStudentResponse.getMessage().equals("success")) {
-                System.out.print("Student with roll no " + " successfully added");
+                memberHome.AddStudentToNavigationList(newStudentForm);
+                StudentFormGridPane.getScene().getWindow().hide();
             } else {
-                System.out.println("Error: Student with roll no " + " could not be added");
                 System.out.println(AddStudentResponse.getErrors());
 
                 for (String error : AddStudentResponse.getErrors()) {
@@ -90,6 +88,10 @@ public class StudentForm implements Initializable {
 
     }
 
+    public void setMemberHome(MemberHome memberHome) {
+        this.memberHome = memberHome;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         studentFields.add(new Field("Full name:", "full_name", "text"));
@@ -106,7 +108,7 @@ public class StudentForm implements Initializable {
 
 
         for (int i = 0; i < studentFields.size(); i++) {
-            FormHelper.insertField(studentFields.get(i),StudentFormGridPane);
+            FormHelper.insertField(studentFields.get(i), StudentFormGridPane);
         }
 
         OtherErrorsLabel = new Label();

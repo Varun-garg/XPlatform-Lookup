@@ -82,12 +82,17 @@ public class Utility {
         return vBox;
     }
 
-    public static void DisplayForm(String title, String fxmlFileName,int height,int width) {
+    public static void DisplayForm(String title, String fxmlFileName,int height,int width,Object currentClass) {
         Stage window = new Stage();
         window.setTitle(title);
         window.initModality(Modality.APPLICATION_MODAL);
         try {
-            Parent parent = FXMLLoader.load(Utility.class.getClassLoader().getResource("StudentManagementSystem/Layout/" + fxmlFileName));
+            FXMLLoader fxmlLoader = new FXMLLoader(Utility.class.getClassLoader().getResource("StudentManagementSystem/Layout/" + fxmlFileName));
+            Parent parent = fxmlLoader.load();
+
+            StudentForm studentForm = fxmlLoader.getController();
+            studentForm.setMemberHome((MemberHome) currentClass);
+
             window.setScene(new Scene(parent, height, width));
         } catch (Exception e) {
             System.out.println(Utility.class.getSimpleName());
