@@ -2,18 +2,14 @@ package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.Model.Hostel;
-import StudentManagementSystem.Model.HostelResponse;
-import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.Model.PostResponse;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.VBox;
 
@@ -40,7 +36,7 @@ public class ViewStudentHostel implements Initializable {
     boolean isAvailable = false;
 
 
-    public void DisplayHostelInfo() {
+    public void displayHostelInfo() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
         String rollNo = SessionManager.getInstance().getStudentRollNo();
@@ -65,25 +61,27 @@ public class ViewStudentHostel implements Initializable {
     }
 
     public void deleteStudentHostel(ActionEvent event) throws IOException {
+        System.out.println("inside delete hostel");
         Form newHostelForm = new Form();
         String rollNo = SessionManager.getInstance().getStudentRollNo();
         newHostelForm.param("roll_no", rollNo);
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/delete");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/delete/");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).
                 post(Entity.entity(newHostelForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
         String response = rawResponse.readEntity(String.class);
+        System.out.println(response);
         ObjectMapper mapper = new ObjectMapper();
-        HostelResponse deleteHostelResponse = mapper.readValue(response, HostelResponse.class);
+        PostResponse deleteHostelResponse = mapper.readValue(response, PostResponse.class);
 
         System.out.println("got message " + deleteHostelResponse.getMessage());
         if (deleteHostelResponse.getMessage().equals("success")) {
             System.out.print("Student successfully deleted");
-
+            displayHostelInfo();
         } else {
             System.out.println("Error: in deleting the student");
             System.out.println(response);
@@ -94,7 +92,7 @@ public class ViewStudentHostel implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         hostel_info_vbox.setSpacing(10);
         hostel_info_vbox.getChildren().clear();
-        this.DisplayHostelInfo();
+        this.displayHostelInfo();
 
         button.setText("Add / Update");
         button.setAlignment(Pos.CENTER);
