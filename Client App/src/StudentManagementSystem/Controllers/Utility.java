@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class Utility {
 
-    public static HBox GenerateRow(String field1, String field2, int color_id,int HBoxWidth) {
+    public static HBox GenerateRow(String field1, String field2, int color_id, int HBoxWidth) {
         Text text1 = new Text(field1.trim());
         text1.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
         Text text2 = new Text(field2.trim());
@@ -53,7 +53,7 @@ public class Utility {
     }
 
 
-    public static VBox WarningLabel(String field1, int color_id,int HBoxWidth) {
+    public static VBox WarningLabel(String field1, int color_id, int HBoxWidth) {
         Text text = new Text(field1.trim());
         text.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
         String color;
@@ -71,7 +71,7 @@ public class Utility {
         vBox.setAlignment(Pos.CENTER);
         vBox.setStyle("-fx-background-color: " + color + ";-fx-border-color: #263238;-fx-border-radius: 3");
 
-        Image image = new Image (Utility.class.getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/warning-icon.png"));
+        Image image = new Image(Utility.class.getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/warning-icon.png"));
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
@@ -81,7 +81,7 @@ public class Utility {
         return vBox;
     }
 
-    public static void DisplayForm(String title, String fxmlFileName,int height,int width,Object currentClass) {
+    public static void DisplayForm(String title, String fxmlFileName, int width, int height, Object currentClass) {
         Stage window = new Stage();
         window.setTitle(title);
         window.initModality(Modality.APPLICATION_MODAL);
@@ -89,16 +89,22 @@ public class Utility {
             FXMLLoader fxmlLoader = new FXMLLoader(Utility.class.getClassLoader().getResource("StudentManagementSystem/Layout/" + fxmlFileName));
             Parent parent = fxmlLoader.load();
 
-            if(fxmlFileName.equals("StudentForm.fxml")) {
+            if (fxmlFileName.equals("StudentForm.fxml")) { //TODO: more elegant way needed here
                 StudentForm studentForm = fxmlLoader.getController();
                 studentForm.setMemberHome((MemberHome) currentClass);
             }
-            if(fxmlFileName.equals("HostelForm.fxml")) {
+
+            if (fxmlFileName.equals("StudentsList.fxml")) {
+                StudentList studentList = fxmlLoader.getController();
+                studentList.setMemberHome((MemberHome) currentClass);
+            }
+
+            if (fxmlFileName.equals("HostelForm.fxml")) {
                 HostelForm HostelForm = fxmlLoader.getController();
                 HostelForm.setHostelHome((ViewStudentHostel) currentClass);
             }
 
-            window.setScene(new Scene(parent, height, width));
+            window.setScene(new Scene(parent, width, height));
         } catch (Exception e) {
             System.out.println(Utility.class.getSimpleName());
             e.printStackTrace();

@@ -101,6 +101,20 @@ public class MemberHome implements Initializable {
 
     }
 
+    public void refreshTabPane()
+    {
+        try {
+            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
+            tabPane = fxmlLoader2.load();
+            content.getChildren().setAll(tabPane);
+        }
+        catch (Exception e)
+        {
+            System.out.println();
+        }
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -144,7 +158,7 @@ public class MemberHome implements Initializable {
         studentsButton.setPrefWidth(190);
         studentsButton.setPrefHeight(44);
         studentsButton.setOnAction(e -> {
-            if (students_drawer.isShown()) {
+            /*if (students_drawer.isShown()) {
                 students_drawer.close();
                 if (tabPane != null)
                     tabPane.toFront();
@@ -154,6 +168,8 @@ public class MemberHome implements Initializable {
                 if (tabPane != null)
                     tabPane.toBack();
             }
+            */
+            Utility.DisplayForm("Students", "StudentsList.fxml", 300, 600, this);
         });
         NavigationVBox.getChildren().add(studentsButton);
 

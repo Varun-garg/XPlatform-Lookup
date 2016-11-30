@@ -36,6 +36,10 @@ public class StudentForm implements Initializable {
 
     MemberHome memberHome;
 
+    public void setMemberHome(MemberHome memberHome) {
+        this.memberHome = memberHome;
+    }
+
     @FXML
     private GridPane FormGridPane;
 
@@ -88,9 +92,6 @@ public class StudentForm implements Initializable {
 
     }
 
-    public void setMemberHome(MemberHome memberHome) {
-        this.memberHome = memberHome;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
