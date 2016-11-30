@@ -546,23 +546,24 @@ def add_review(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-#def upload_excel(request):
-#    with open("C:\Users\Sarthak\Desktop\Test.csv") as file_path:
-#        response_data = {}
-#        reader = csv.reader(file_path)
-#        for row in reader:
-#            _, created = studentdb.objects.get_or_create(
-#                full_name = row[0],
-#                enroll_no = row[1],
-#                program_name = row[2],
-#                school = row[3],
-#                roll_no = row[4],
-#                father_name = row[5],
-#                mother_name = row[6],
-#                dob = row[7],
-#                sex = row[8],
-#                email = row[9],
-#                phone = row[10],
-#            )
-#        response_data["message"] = "success"
-#    return HttpResponse(json.dumps(response_data), content_type="application/json")
+@api_view(['POST'])
+def upload_excel(request):
+    stuList = request.FILES['stuList']
+    response_data = {}
+    reader = csv.reader(stuList)
+    for row in reader:
+        _, created = studentdb.objects.get_or_create(
+            full_name = row[0],
+            enroll_no = row[1],
+            program_name = row[2],
+            school = row[3],
+            roll_no = row[4],
+            father_name = row[5],
+            mother_name = row[6],
+            dob = row[7],
+            sex = row[8],
+            email = row[9],
+            phone = row[10],
+       )
+    response_data["message"] = "success"
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
