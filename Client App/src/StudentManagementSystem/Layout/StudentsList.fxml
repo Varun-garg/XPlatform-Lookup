@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ScrollPane?>
-<HBox xmlns:fx="http://javafx.com/fxml/1"
-      spacing="10" xmlns="http://javafx.com/javafx/8.0.60"
-      fx:controller="StudentManagementSystem.Controllers.StudentList" stylesheets="@Buttons.css,@LayoutStyle.css"
-      styleClass="bevel-grey-square" alignment="TOP_CENTER">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<VBox alignment="TOP_CENTER" spacing="10" styleClass="bevel-grey-square" stylesheets="@Buttons.css,@LayoutStyle.css"
+      xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="StudentManagementSystem.Controllers.StudentList">
     <padding>
-        <Insets bottom="15" left="15" right="15" top="15"/>
+        <Insets bottom="15" left="15" right="15" top="15" />
     </padding>
-    <ScrollPane fx:id="ListScrollPane" minWidth="260">
+    <TextField minWidth="255" fx:id="SearchBox"/>
+    <padding>
+        <Insets bottom="15" left="15" right="15" top="15" />
+    </padding>
+    <ScrollPane fx:id="ListScrollPane" minWidth="260" prefWidth="260.0">
 
     </ScrollPane>
 
-</HBox>
+</VBox>

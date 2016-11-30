@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="245"
+<VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="255"
       prefHeight="610.0" xmlns="http://javafx.com/javafx/8.0.112-ea">
     <children>
 
