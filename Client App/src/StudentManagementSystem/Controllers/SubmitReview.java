@@ -96,7 +96,7 @@ public class SubmitReview implements Initializable {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
         clientTarget = client.target(Configuration.API_HOST + "data/student/review/all");
-        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).get();
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
         try {

@@ -3,9 +3,7 @@ package StudentManagementSystem.Controllers;
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.ConfirmationBox;
 import StudentManagementSystem.DisplayMethods;
-import StudentManagementSystem.Model.LoginResponse;
-import StudentManagementSystem.Model.PostResponse;
-import StudentManagementSystem.Model.Student;
+import StudentManagementSystem.Model.*;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
@@ -14,6 +12,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -51,6 +50,7 @@ public class MemberHome implements Initializable {
     VBox NavigationVBox;
     @FXML
     AnchorPane content;
+    int permit;
 
     TabPane tabPane = null;
 
@@ -79,6 +79,26 @@ public class MemberHome implements Initializable {
             return FETCH_SUCCESS;
         }
     };
+    public void getClientStatus() {
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        clientTarget = client.target(Configuration.API_HOST + "user/review-permit/");
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).get();
+        String response = rawResponse.readEntity(String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        ClientStatus status ;
+
+        try {
+            status = mapper.readValue(response, ClientStatus.class);
+            System.out.println(response);
+
+            permit= Integer.parseInt(status.getPermit());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void AddStudentToNavigationList(Form newStudentForm) {
         JFXButton student_button = new JFXButton();
@@ -119,6 +139,7 @@ public class MemberHome implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        getClientStatus();
 
         try {
             StudentsVBox = FXMLLoader.load(getClass().getResource("../Layout/StudentsDrawer.fxml"));
@@ -227,10 +248,21 @@ public class MemberHome implements Initializable {
         ReviewButton.setText("Submit Review");
         ReviewButton.setPrefWidth(190);
         ReviewButton.setPrefHeight(44);
-        ReviewButton.setOnAction(e ->
-        {
-            Utility.DisplayForm("Reviews", "SubmitReview.fxml", 700, 650, this);
-        });
+        if(permit==0) {
+
+
+
+            ReviewButton.setOnAction(e ->
+            {
+                Utility.DisplayForm("Reviews", "Comments.fxml", 700, 650, this);
+            });
+        }else{
+
+            ReviewButton.setOnAction(e ->
+            {
+                Utility.DisplayForm("Reviews", "SubmitReview.fxml", 700, 650, this);
+            });
+        }
         NavigationVBox.getChildren().add(ReviewButton);
 
         JFXButton Logs = new JFXButton();

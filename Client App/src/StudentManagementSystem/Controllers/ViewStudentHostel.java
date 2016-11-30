@@ -48,6 +48,7 @@ public class ViewStudentHostel implements Initializable {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
+
             hostel_info_vbox.getChildren().clear();
             hostel = mapper.readValue(response, Hostel.class);
             hostel_info_vbox.getChildren().add(Utility.GenerateRow("Roll No:", hostel.getRollNum(), 0, 300));

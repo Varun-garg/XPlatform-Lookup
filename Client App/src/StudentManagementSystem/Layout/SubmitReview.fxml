@@ -71,34 +71,6 @@
             </VBox.margin>
         </Button>
         <Separator prefWidth="200.0"/>
-        <Label text="USER COMMENTS :">
-            <VBox.margin>
-                <Insets bottom="20.0" left="5.0" right="20.0" top="10.0"/>
-            </VBox.margin>
-            <font>
-                <Font name="System Bold" size="18.0"/>
-            </font>
-        </Label>
-        <!--<TableView fx:id="review" prefHeight="202.0" prefWidth="560.0">
-                   <columns>
-                       <TableColumn fx:id="student" prefWidth="150.0" text="Student" />
-                       <TableColumn fx:id="section" prefWidth="150.0" text="Section" />
-                       <TableColumn fx:id="coment" prefWidth="140.0" text="Comment" />
-                       <TableColumn fx:id="date" prefWidth="160.0" text="Date" />
-                   </columns>
-                   <VBox.margin>
-                       <Insets right="30.0" />
-                   </VBox.margin>
-               </TableView>-->
-
-
-        <ScrollPane prefHeight="248.0" prefWidth="590.0">
-
-            <VBox fx:id="personal_info_vb" layoutX="8.0" layoutY="6.0" prefHeight="81.0" prefWidth="590.0">
-            </VBox>
-
-        </ScrollPane>
-
 
     </children>
     <padding>
