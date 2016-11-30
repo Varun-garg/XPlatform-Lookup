@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -28,12 +29,13 @@ public class SplashFXMLController implements Initializable {
 
         new SplashScreen().start();
     }
-    class SplashScreen extends Thread{
 
-        public void run(){
+    class SplashScreen extends Thread {
+
+        public void run() {
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(3500);
 
                 Platform.runLater(new Runnable() {
                     @Override
@@ -45,8 +47,9 @@ public class SplashFXMLController implements Initializable {
                             root = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Login.fxml"));
 
                         } catch (IOException e) {
-                            Logger.getLogger(SplashFXMLController.class.getName()).log(Level.SEVERE,null,e);
+                            Logger.getLogger(SplashFXMLController.class.getName()).log(Level.SEVERE, null, e);
                         }
+                        /*
                         Stage CurrentStage = (Stage) rootPane.getScene().getWindow();
                         DisplayMethods displayMethods = DisplayMethods.getInstance();
                         try {
@@ -56,21 +59,25 @@ public class SplashFXMLController implements Initializable {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        /*Stage primaryStage = new Stage();
+                        Stage primaryStage = new Stage();
                         primaryStage.setScene(new Scene(root, 400, 400));
-                        primaryStage.show();
+                        primaryStage.show();*/
                         //System.out.println(System.getProperties());
-
-                        rootPane.getScene().getWindow().hide();*/
+                        rootPane.getScene().getWindow().hide();
+                        try {
+                            DisplayMethods.getInstance().LoginDisplay(null);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 });
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            }
-
         }
+
     }
+}
 
 

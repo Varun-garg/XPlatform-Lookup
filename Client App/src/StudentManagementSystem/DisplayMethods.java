@@ -66,14 +66,14 @@ public class DisplayMethods {
         parentStage.setTitle("Login to Student Management System");
         Parent splashLayout = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/SplashFXML.fxml"));
         parentStage.setScene(new Scene(splashLayout, 400, 400));
-        //parentStage.initStyle(StageStyle.TRANSPARENT);
+        parentStage.initStyle(StageStyle.TRANSPARENT);
         parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
         parentStage.show();
     }
     public void LoginDisplay(Stage parentStage) throws Exception {
 
         if (parentStage == null) parentStage = new Stage();
-        //parentStage.setTitle("Login to Student Management System");
+        parentStage.setTitle("Login to Student Management System");
         Parent LoginLayout = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Login.fxml"));
         parentStage.setScene(new Scene(LoginLayout, 400, 400));
         //parentStage.initStyle(StageStyle.DECORATED);
