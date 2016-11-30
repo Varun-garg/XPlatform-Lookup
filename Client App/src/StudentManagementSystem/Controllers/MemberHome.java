@@ -3,23 +3,31 @@ package StudentManagementSystem.Controllers;
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.ConfirmationBox;
 import StudentManagementSystem.DisplayMethods;
-import StudentManagementSystem.Model.*;
+import StudentManagementSystem.Model.ClientStatus;
+import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.Model.PostResponse;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import javafx.concurrent.Task;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataBodyPart;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.MultiPart;
+import com.sun.jersey.multipart.file.FileDataBodyPart;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Separator;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.commons.io.FileUtils;
+import org.glassfish.jersey.client.ClientConfig;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -27,10 +35,13 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.MessageBodyWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 /**
  * Created by varun on 17/11/2016.
@@ -54,31 +65,6 @@ public class MemberHome implements Initializable {
 
     TabPane tabPane = null;
 
-    Student students[];
-    private VBox StudentsVBox;
-
-    Task fetchStudentsTask = new Task() {
-        @Override
-        protected String call() throws Exception {
-            try {
-                WebTarget clientTarget;
-                Client client = ClientBuilder.newClient();
-                updateMessage("Fetching students list");
-                clientTarget = client.target(Configuration.API_HOST + "data/admin" + "/?format=json");
-                javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
-                String response = rawResponse.readEntity(String.class);
-                ObjectMapper mapper = new ObjectMapper();
-
-                students = mapper.readValue(response, Student[].class);
-
-            } catch (Exception e) {
-                System.out.println("got exception in fetchStudentsTask");
-                e.printStackTrace();
-                return FETCH_FAIL;
-            }
-            return FETCH_SUCCESS;
-        }
-    };
     public void getClientStatus() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
@@ -86,44 +72,17 @@ public class MemberHome implements Initializable {
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).get();
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
-        ClientStatus status ;
+        ClientStatus status;
 
         try {
             status = mapper.readValue(response, ClientStatus.class);
             System.out.println(response);
 
-            permit= Integer.parseInt(status.getPermit());
+            permit = Integer.parseInt(status.getPermit());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    public void AddStudentToNavigationList(Form newStudentForm) {
-        JFXButton student_button = new JFXButton();
-        student_button.setText(newStudentForm.asMap().getFirst("full_name"));
-        student_button.setPrefWidth(190);
-        student_button.setPrefHeight(44);
-
-        student_button.setOnAction(f -> {
-            try {
-                SessionManager.getInstance().setStudentFullName(newStudentForm.asMap().getFirst("full_name"));
-                SessionManager.getInstance().setStudentRollNo(newStudentForm.asMap().getFirst("roll_no"));
-                content.getChildren().clear();
-                FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
-                tabPane = fxmlLoader2.load();
-                content.getChildren().setAll(tabPane);
-                students_drawer.close();
-                students_drawer.toBack();
-            } catch (Exception exception) {
-                System.out.println(getClass().getSimpleName());
-                exception.printStackTrace();
-            }
-        });
-
-        StudentsVBox.getChildren().add(student_button);
-
     }
 
     public void refreshTabPane() {
@@ -140,15 +99,6 @@ public class MemberHome implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         getClientStatus();
-
-        try {
-            StudentsVBox = FXMLLoader.load(getClass().getResource("../Layout/StudentsDrawer.fxml"));
-            students_drawer.setSidePane(StudentsVBox);
-        } catch (Exception e) {
-            System.out.println("caught exception in " + this.getClass().getSimpleName());
-            e.printStackTrace();
-            return;
-        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
 
@@ -171,7 +121,6 @@ public class MemberHome implements Initializable {
 
         NavigationVBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");
         students_drawer.toBack();
-        StudentsVBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
 
         if (tabPane != null)
             tabPane.toBack();
@@ -181,17 +130,6 @@ public class MemberHome implements Initializable {
         studentsButton.setPrefWidth(190);
         studentsButton.setPrefHeight(44);
         studentsButton.setOnAction(e -> {
-            /*if (students_drawer.isShown()) {
-                students_drawer.close();
-                if (tabPane != null)
-                    tabPane.toFront();
-            } else {
-                students_drawer.open();
-                students_drawer.toFront();
-                if (tabPane != null)
-                    tabPane.toBack();
-            }
-            */
             Utility.DisplayForm("Students", "StudentsList.fxml", 300, 600, this);
         });
         NavigationVBox.getChildren().add(studentsButton);
@@ -221,23 +159,60 @@ public class MemberHome implements Initializable {
             );
             File csv = fileChooser.showOpenDialog(window);
             if (csv != null) {
-                System.out.println(csv);
-                Form form = new Form();
                 try {
-                    form.param("stuList", FileUtils.readFileToString(csv));
-                    WebTarget clientTarget;
-                    Client client = ClientBuilder.newClient();
-                    clientTarget = client.target(Configuration.API_HOST + "data/excelUpload/");
+                    ClientConfig clientConfig = new ClientConfig();
+                    clientConfig.register(MessageBodyWriter.class);
 
-                    javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie())
-                            .post(Entity.entity(form,MediaType.MULTIPART_FORM_DATA_TYPE));
+                    MultiPart multiPart = new MultiPart();
 
-                    String response = rawResponse.readEntity(String.class);
+                    FileDataBodyPart fileDataBodyPart = new FileDataBodyPart("students.csv", csv,
+                            MediaType.TEXT_PLAIN_TYPE);
+                    multiPart.bodyPart(fileDataBodyPart);
+                    final FormDataMultiPart part = new FormDataMultiPart();
+                    final FormDataContentDisposition dispo = FormDataContentDisposition//
+                            .name("stuList")//
+                            .fileName("students.csv")//
+                            .build();
+                    final FormDataBodyPart bodyPart = new FormDataBodyPart(dispo, new FileInputStream(csv), MediaType.valueOf("application/vnd.ms-excel"));
+                    part.bodyPart(bodyPart);
+
+                    System.out.println("media type: " + multiPart.getMediaType());
+                    WebResource resource = com.sun.jersey.api.client.Client.create().resource(Configuration.API_HOST + "data/excelUpload/");
+                    String response = resource.type(MediaType.MULTIPART_FORM_DATA_TYPE).post(String.class, part);
+
                     ObjectMapper mapper = new ObjectMapper();
                     PostResponse AddResponse = mapper.readValue(response, PostResponse.class);
                     System.out.println(response);
+
+                    if (AddResponse.getMessage().equals("success")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Student Management System");
+                        alert.setContentText("CSV successfully uploaded");
+                        alert.showAndWait().ifPresent(rs -> {
+                            if (rs == ButtonType.OK) {
+                                alert.close();
+                            }
+                        });
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Student Management System");
+                        alert.setContentText("Sorry, some error occurred");
+                        alert.showAndWait().ifPresent(rs -> {
+                            if (rs == ButtonType.OK) {
+                                alert.close();
+                            }
+                        });
+                    }
+
                 } catch (Exception d) {
-                    d.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Student Management System");
+                    alert.setContentText("Sorry, some error occurred");
+                    alert.showAndWait().ifPresent(rs -> {
+                        if (rs == ButtonType.OK) {
+                            alert.close();
+                        }
+                    });
                 }
             } else
                 System.out.println("no file uploaded");
@@ -248,15 +223,12 @@ public class MemberHome implements Initializable {
         ReviewButton.setText("Submit Review");
         ReviewButton.setPrefWidth(190);
         ReviewButton.setPrefHeight(44);
-        if(permit==0) {
-
-
-
+        if (permit == 0) {
             ReviewButton.setOnAction(e ->
             {
                 Utility.DisplayForm("Reviews", "Comments.fxml", 700, 650, this);
             });
-        }else{
+        } else {
 
             ReviewButton.setOnAction(e ->
             {
@@ -326,37 +298,5 @@ public class MemberHome implements Initializable {
             }
         });
         NavigationVBox.getChildren().add(logoutButton);
-
-        fetchStudentsTask.setOnSucceeded(e -> {
-
-            for (int i = 0; i < students.length; i++) {
-                JFXButton student_button = new JFXButton();
-                student_button.setText(students[i].getFullName());
-                student_button.setPrefWidth(190);
-                student_button.setPrefHeight(44);
-                final int CurrentIndex = i;
-                student_button.setOnAction(f -> {
-                    try {
-                        SessionManager.getInstance().setStudentFullName(students[CurrentIndex].getFullName());
-                        SessionManager.getInstance().setStudentRollNo(students[CurrentIndex].getRollNo());
-                        content.getChildren().clear();
-                        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
-                        tabPane = fxmlLoader2.load();
-                        content.getChildren().setAll(tabPane);
-                        students_drawer.close();
-                        students_drawer.toBack();
-                    } catch (Exception exception) {
-                        System.out.println(getClass().getSimpleName());
-                        exception.printStackTrace();
-                    }
-                });
-
-                StudentsVBox.getChildren().add(student_button);
-            }
-        });
-
-        Thread thread = new Thread(fetchStudentsTask);
-        thread.setDaemon(true);
-        thread.start();
     }
 }

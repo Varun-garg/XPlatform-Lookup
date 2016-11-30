@@ -70,7 +70,6 @@ public class StudentForm implements Initializable {
             PostResponse AddStudentResponse = mapper.readValue(response, PostResponse.class);
 
             if (AddStudentResponse.getMessage().equals("success")) {
-                memberHome.AddStudentToNavigationList(newStudentForm);
                 FormGridPane.getScene().getWindow().hide();
             } else {
                 System.out.println(AddStudentResponse.getErrors());
