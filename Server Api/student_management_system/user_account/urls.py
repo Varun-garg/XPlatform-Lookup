@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^new_usergroup', views.new_usergroup, name="new_usergroup"),
     url(r'^new_user', views.new_user_registration, name="new_user_signup"),
     url(r'^logout', views.user_logout, name="user_logout"),
+    url(r'^review-permit/$', views.reviewPermit, name="review_permit"),
 ]

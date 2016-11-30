@@ -186,3 +186,15 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+@api_view(['GET'])
+def reviewPermit(request):
+    response_data = {}
+    var = request.session.get('permissions')
+    if var[3]=='1':
+        response_data["permit"] = '0'
+    elif var[8]=='1':
+        response_data["permit"] = '1'
+    response_data["message"] = "success"
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
