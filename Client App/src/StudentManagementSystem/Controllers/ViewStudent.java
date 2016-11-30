@@ -21,7 +21,7 @@ public class ViewStudent implements Initializable {
 
     @FXML
     private VBox personal_info_vbox;
-    
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

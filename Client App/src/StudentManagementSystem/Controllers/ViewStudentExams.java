@@ -1,25 +1,24 @@
 package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
-import StudentManagementSystem.Model.Exams;
-import StudentManagementSystem.Model.ExamsResult;
-import StudentManagementSystem.Model.MarksSummary;
-import StudentManagementSystem.Model.OverallResult;
+import StudentManagementSystem.Model.*;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +28,7 @@ import java.util.ResourceBundle;
  * Created by rishabh on 19/11/2016.
  */
 public class ViewStudentExams implements Initializable {
+
 
     private String cookie;
 
@@ -53,6 +53,7 @@ public class ViewStudentExams implements Initializable {
     @FXML
     private ChoiceBox<String> cb;
 
+    String rollNo = SessionManager.getInstance().getStudentRollNo();
     private String sid = getCookie();
 
     public String getCookie() {
@@ -97,6 +98,57 @@ public class ViewStudentExams implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    private TextField Subjectcode;
+    @FXML
+    private TextField Grade;
+
+    public void addExams(ActionEvent event) throws IOException {
+        Form newExamForm = new Form();
+
+        newExamForm.param("roll_no", rollNo);
+        newExamForm.param("subject_code", Subjectcode.getText());
+        newExamForm.param("grade", Grade.getText());
+        newExamForm.param("tc", "0");
+        newExamForm.param("tgp","0");
+        newExamForm.param("sgpa", "0");
+        newExamForm.param("result", "0");
+        newExamForm.param("semester", "0");
+
+
+
+        WebTarget clientTarget;
+        Client client = ClientBuilder.newClient();
+        clientTarget = client.target(Configuration.API_HOST + "data/student/new/exam/");
+
+        javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).
+                post(Entity.entity(newExamForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+
+        String response = rawResponse.readEntity(String.class);
+        ObjectMapper mapper = new ObjectMapper();
+        PostResponse addExamResponse = mapper.readValue(response, PostResponse.class);
+
+        System.out.println("got message " + addExamResponse.getMessage());
+        if (addExamResponse.getMessage().equals("success")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Message Here...");
+            alert.setContentText("Result has been successfully added");
+            alert.showAndWait().ifPresent(rs -> {
+                if (rs == ButtonType.OK) {
+                    alert.close();
+                }
+            });
+
+
+            //   this.setRollNo(roll_no1.getText());
+            //   tab_plane.getSelectionModel().select(0);
+            //   this.Display();
+        } else {
+            System.out.println("Error: Student with could not be added");
+            System.out.println(response);
+        }
+    }
+
 
     public void choicebox() {
         for (int i = 1; i <= 7; i++)

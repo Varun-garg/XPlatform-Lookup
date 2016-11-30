@@ -56,23 +56,23 @@
                 <Separator prefHeight="20.0"/>
                 <HBox prefHeight="17.0" styleClass="hbox">
                     <children>
-                        <TextField promptText="Subjectcode">
+                        <TextField fx:id="Subjectcode" promptText="Subjectcode">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </HBox.margin>
                         </TextField>
-                        <TextField layoutX="10.0" layoutY="10.0" promptText="Grade">
+                        <TextField fx:id="Grade" layoutX="10.0" layoutY="10.0" promptText="Grade">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </HBox.margin>
                         </TextField>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Button mnemonicParsing="false" text="    ADD    ">
+                        <Region  HBox.hgrow="ALWAYS"/>
+                        <Button onAction="#addExams" mnemonicParsing="false" styleClass="dark-blue" text="    ADD    ">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </HBox.margin>
                         </Button>
-                        <Button layoutX="348.0" layoutY="10.0" mnemonicParsing="false" text="  DELETE  ">
+                        <Button layoutX="348.0" layoutY="10.0" mnemonicParsing="false" styleClass="red" text="  DELETE  ">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </HBox.margin>
