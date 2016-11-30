@@ -58,8 +58,14 @@ public class HostelForm implements Initializable {
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/new/hostel/");
 
+        if(hostelHome.isAvailable)
+        {
+            clientTarget = client.target(Configuration.API_HOST + "data/student/hostel/update/");
+        }
+        else {
+            clientTarget = client.target(Configuration.API_HOST + "data/student/new/hostel/");
+        }
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie())
                 .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 
