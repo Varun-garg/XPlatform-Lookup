@@ -82,6 +82,7 @@ public class SubmitReview implements Initializable {
                     alert.close();
                 }
             });
+            displayReview();
 
         } else {
             System.out.println("Error: Student with roll no" + rollnum.getText() + "could not be added");
