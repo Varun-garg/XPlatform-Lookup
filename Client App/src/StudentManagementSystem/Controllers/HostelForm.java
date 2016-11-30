@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.GridPane;
@@ -70,8 +72,31 @@ public class HostelForm implements Initializable {
             PostResponse AddResponse = mapper.readValue(response, PostResponse.class);
 
             if (AddResponse.getMessage().equals("success")) {
+
+                if (hostelHome.isAvailable) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Message Here...");
+                    alert.setContentText("Hostel has been successfully updated");
+                    alert.showAndWait().ifPresent(rs -> {
+                        if (rs == ButtonType.OK) {
+                            alert.close();
+                        }
+                    });
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Message Here...");
+                    alert.setContentText("Hostel has been successfully added");
+                    alert.showAndWait().ifPresent(rs -> {
+                        if (rs == ButtonType.OK) {
+                            alert.close();
+                        }
+                    });
+
+                }
                 hostelHome.displayHostelInfo();
                 FormGridPane.getScene().getWindow().hide();
+
             } else {
                 System.out.println(AddResponse.getErrors());
 
