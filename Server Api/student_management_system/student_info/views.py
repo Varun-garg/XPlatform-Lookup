@@ -500,6 +500,54 @@ def addmarksinfo(request):
 
 
 @api_view(['POST'])
+def deleteExamStudent(request):
+    response_data = {}
+    errors = []
+    var = request.session.get('permissions')
+    if (var is not None) and (var[7] == '1'):
+        if request.method == 'POST':
+            roll_no = request.POST.get('roll_no')
+            semester = request.POST.get('semester')
+
+            if (roll_no is None) or (len(roll_no)==0):
+                errors.append("roll_no: Enter Roll Number")
+                response_data['message'] = "fail"
+                response_data['errors'] = errors
+
+            elif (semester is None) or (len(semester)==0):
+                errors.append("semester: Enter Semester")
+                response_data['message'] = "fail"
+                response_data['errors'] = errors
+            else:
+                try:
+                    existing_entry_marks = marks_status.objects.get(roll_num = roll_no, semester=semester)
+                except marks_status.DoesNotExist:
+                    existing_entry_marks=None
+                try:
+                    existing_entry_subjects = marks_subjects.objects.filter(roll_num = roll_no, semester = semester)
+                except marks_subjects.DoesNotExist:
+                    existing_entry_subjects=None
+                if existing_entry_marks is None or existing_entry_subjects is None:
+                    errors.append("roll_no: Details corresponding to this roll_no and semester does not exist.")
+                    response_data['errors'] = errors
+                    response_data['message'] = "fail"
+                else:
+                    existing_entry_marks.delete()
+                    existing_entry_subjects.delete()
+                    response_data['message'] = "success"
+                    action = "Deleted Exam Info"
+                    generateLogs(request, action)
+                    response_data['message'] = "success"
+        else:
+            response_data['message'] = 'fail'
+    else:
+        errors.append("Permission: You don't have permissions to delete an exam entry.")
+        response_data['message'] = 'fail'
+        response_data['errors'] = errors
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@api_view(['POST'])
 def add_review(request):
     response_data = {}
     errors = []
