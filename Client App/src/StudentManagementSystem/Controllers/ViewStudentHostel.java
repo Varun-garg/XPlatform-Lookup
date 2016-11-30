@@ -33,7 +33,9 @@ public class ViewStudentHostel implements Initializable {
 
     @FXML
     private JFXButton button;
+
     boolean isAvailable = false;
+    Hostel hostel;
 
 
     public void displayHostelInfo() {
@@ -47,13 +49,13 @@ public class ViewStudentHostel implements Initializable {
         ObjectMapper mapper = new ObjectMapper();
         try {
             hostel_info_vbox.getChildren().clear();
-            Hostel hos = mapper.readValue(response, Hostel.class);
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Roll No:", hos.getRollNum(), 0, 300));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Room No:", hos.getRoomNum(), 1, 300));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Name:", hos.getWardenName(), 2, 300));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Mobile No.:", hos.getWardenMob(), 3, 300));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Name:", hos.getCaretakerName(), 4, 300));
-            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Mobile No:", hos.getCaretakerNum(), 5, 300));
+            hostel = mapper.readValue(response, Hostel.class);
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Roll No:", hostel.getRollNum(), 0, 300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Room No:", hostel.getRoomNum(), 1, 300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Name:", hostel.getWardenName(), 2, 300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Warden Mobile No.:", hostel.getWardenMob(), 3, 300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Name:", hostel.getCaretakerName(), 4, 300));
+            hostel_info_vbox.getChildren().add(Utility.GenerateRow("Caretaker Mobile No:", hostel.getCaretakerNum(), 5, 300));
             isAvailable = true;
         } catch (Exception e) {
             e.printStackTrace();

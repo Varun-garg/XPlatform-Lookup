@@ -4,6 +4,7 @@ import StudentManagementSystem.Configuration;
 import StudentManagementSystem.ConfirmationBox;
 import StudentManagementSystem.DisplayMethods;
 import StudentManagementSystem.Model.LoginResponse;
+import StudentManagementSystem.Model.PostResponse;
 import StudentManagementSystem.Model.Student;
 import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -24,6 +28,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -101,15 +106,12 @@ public class MemberHome implements Initializable {
 
     }
 
-    public void refreshTabPane()
-    {
+    public void refreshTabPane() {
         try {
             FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
             tabPane = fxmlLoader2.load();
             content.getChildren().setAll(tabPane);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println();
         }
 
@@ -140,7 +142,7 @@ public class MemberHome implements Initializable {
             }
         } else {
             content.getChildren().clear();
-            VBox NoStudentMessage = Utility.WarningLabel("Select a student first", 0,300);
+            VBox NoStudentMessage = Utility.WarningLabel("Select a student first", 0, 300);
             NoStudentMessage.setLayoutX((content.getMinWidth() - 300) / 2);
             NoStudentMessage.setLayoutY((content.getMinHeight()) / 2);
             content.getChildren().add(NoStudentMessage);
@@ -183,6 +185,44 @@ public class MemberHome implements Initializable {
         });
         NavigationVBox.getChildren().add(newStudentButton);
 
+        JFXButton fileUpload = new JFXButton();
+        fileUpload.setText("Upload CSV");
+        fileUpload.setPrefWidth(190);
+        fileUpload.setPrefHeight(44);
+        fileUpload.setOnAction(e ->
+        {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Upload CSV for SMS");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("CSV File", "*.csv")
+            );
+            File csv = fileChooser.showOpenDialog(window);
+            if (csv != null) {
+                System.out.println(csv);
+                Form form = new Form();
+                try {
+                    form.param("stuList", FileUtils.readFileToString(csv));
+                    WebTarget clientTarget;
+                    Client client = ClientBuilder.newClient();
+                    clientTarget = client.target(Configuration.API_HOST + "data/excelUpload/");
+
+                    javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie())
+                            .post(Entity.entity(form,MediaType.MULTIPART_FORM_DATA_TYPE));
+
+                    String response = rawResponse.readEntity(String.class);
+                    ObjectMapper mapper = new ObjectMapper();
+                    PostResponse AddResponse = mapper.readValue(response, PostResponse.class);
+                    System.out.println(response);
+                } catch (Exception d) {
+                    d.printStackTrace();
+                }
+            } else
+                System.out.println("no file uploaded");
+        });
+        NavigationVBox.getChildren().add(fileUpload);
+
         JFXButton ReviewButton = new JFXButton();
         ReviewButton.setText("Submit Review");
         ReviewButton.setPrefWidth(190);
@@ -199,7 +239,7 @@ public class MemberHome implements Initializable {
         Logs.setPrefHeight(44);
         Logs.setOnAction(e ->
         {
-            Utility.DisplayForm("Logs", "Logs.fxml",700,650,this);
+            Utility.DisplayForm("Logs", "Logs.fxml", 700, 650, this);
         });
         NavigationVBox.getChildren().add(Logs);
 

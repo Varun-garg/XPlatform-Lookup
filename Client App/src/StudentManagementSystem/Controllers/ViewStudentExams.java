@@ -138,6 +138,7 @@ public class ViewStudentExams implements Initializable {
                     alert.close();
                 }
             });
+            displayExamsInfo("7");
 
 
             //   this.setRollNo(roll_no1.getText());

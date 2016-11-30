@@ -3,13 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.JFXButton?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="StudentManagementSystem.Controllers.ViewStudent">
+            fx:controller="StudentManagementSystem.Controllers.ViewStudent" stylesheets="@Buttons.css,@LayoutStyle.css">
     <children>
         <VBox fx:id="personal_info_vbox" layoutX="8.0" layoutY="6.0">
             <padding>
                 <Insets bottom="25" left="25" right="25" top="25"/>
             </padding>
         </VBox>
+        <JFXButton fx:id="button" layoutX="350.0" layoutY="31.0"/>
     </children>
 </AnchorPane>
