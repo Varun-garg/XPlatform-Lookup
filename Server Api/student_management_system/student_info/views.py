@@ -53,8 +53,21 @@ class Student_Exams(APIView):
 
 
 class Review(generics.ListAPIView):
-    queryset = SubmitReview.objects.all()
     serializer_class = SubmitReviewSerializer
+
+    def get_queryset(self):
+        var = self.request.session.get('permissions')
+        sec1 = ''
+        sec2 = ''
+        sec3 = ''
+        if var[5]=='1':
+            sec1 = 'personal'
+        if var[6]=='1':
+            sec2 = 'hostel'
+        if var[7] == '1':
+            sec3 = 'exam'
+        return SubmitReview.objects.filter(Q(section=sec1) | Q(section=sec2)|Q(section=sec3))
+
 
 
 #student centric reviews
