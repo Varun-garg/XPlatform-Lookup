@@ -39,7 +39,6 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
-
 .glass-grey {
     -fx-background-color: #c3c4c4,
     linear-gradient(#d6d6d6 50%, white 100%),
@@ -218,6 +217,7 @@
     -fx-text-fill: #242d35;
     -fx-font-size: 14px;
 }
+
 .lion-default-square {
     -fx-background-color: rgba(0, 0, 0, 0.08),
     linear-gradient(#5a61af, #51536d),

@@ -35,15 +35,12 @@ public class StudentForm implements Initializable {
     Label OtherErrorsLabel;
 
     MemberHome memberHome;
-
+    @FXML
+    private GridPane FormGridPane;
 
     public void setMemberHome(MemberHome memberHome) {
         this.memberHome = memberHome;
     }
-
-    @FXML
-    private GridPane FormGridPane;
-
 
     public void AddStudent(ActionEvent event) {
 
@@ -58,7 +55,7 @@ public class StudentForm implements Initializable {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
 
-            clientTarget = client.target(Configuration.API_HOST + "data/student/new/");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/new/");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie())
                 .post(Entity.entity(newStudentForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));

@@ -28,15 +28,12 @@ import java.util.ResourceBundle;
  */
 public class ViewStudentHostel implements Initializable {
 
-    @FXML
-    private VBox hostel_info_vbox;
-
-    @FXML
-    private JFXButton button;
-
     boolean isAvailable = false;
     Hostel hostel;
-
+    @FXML
+    private VBox hostel_info_vbox;
+    @FXML
+    private JFXButton button;
 
     public void displayHostelInfo() {
         WebTarget clientTarget;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <TabPane xmlns:fx="http://javafx.com/fxml/1" fx:id="tab_plane" maxHeight="-Infinity" maxWidth="-Infinity"
          minHeight="-Infinity"
          minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE"

@@ -5,28 +5,29 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="650.0" style="fx-border-color:black" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.SubmitReview">
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefWidth="650.0" style="fx-border-color:black" xmlns="http://javafx.com/javafx/8.0.60"
+      fx:controller="StudentManagementSystem.Controllers.SubmitReview">
     <children>
         <Label text="STUDENT COMMENTS " underline="true">
             <VBox.margin>
-                <Insets bottom="20.0" left="200.0" right="20.0" top="10.0" />
+                <Insets bottom="20.0" left="200.0" right="20.0" top="10.0"/>
             </VBox.margin>
             <font>
-                <Font name="System Bold" size="18.0" />
+                <Font name="System Bold" size="18.0"/>
             </font>
         </Label>
-        
+
         <ScrollPane prefHeight="248.0" prefWidth="590.0" style="fx-border-color:black">
 
             <VBox fx:id="personal_info_vb" layoutX="8.0" layoutY="6.0" prefHeight="81.0" prefWidth="590.0">
-           </VBox>
+            </VBox>
 
         </ScrollPane>
 
 
     </children>
     <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
     </padding>
 </VBox>

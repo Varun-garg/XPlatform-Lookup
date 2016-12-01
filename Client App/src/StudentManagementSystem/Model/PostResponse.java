@@ -1,4 +1,3 @@
-
 package StudentManagementSystem.Model;
 
 import com.fasterxml.jackson.annotation.*;

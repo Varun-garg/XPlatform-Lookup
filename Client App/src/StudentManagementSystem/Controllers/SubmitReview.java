@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by varun on 19/11/2016.
+ * Created by rishabh on 19/11/2016.
  */
 public class SubmitReview implements Initializable {
 
@@ -40,7 +40,8 @@ public class SubmitReview implements Initializable {
 
     @FXML
     private RadioButton rb3;
-
+    @FXML
+    private VBox personal_info_vb;
 
     public void addReview(ActionEvent event) throws IOException {
 
@@ -89,8 +90,6 @@ public class SubmitReview implements Initializable {
             System.out.println(response);
         }
     }
-    @FXML
-    private VBox personal_info_vb;
 
     public void displayReview() {
         WebTarget clientTarget;
@@ -102,11 +101,11 @@ public class SubmitReview implements Initializable {
         try {
             System.out.println(response);
             Review reviews[] = mapper.readValue(response, Review[].class);
-            for(int i=0;i<reviews.length;i++) {
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Name", reviews[i].getStudent(), i,623));
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Section", reviews[i].getSection(), i,623));
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Comment", reviews[i].getComment(), i,623));
-                personal_info_vb.getChildren().add(Utility.GenerateRow("Date", reviews[i].getDate(), i,623));
+            for (int i = 0; i < reviews.length; i++) {
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Name", reviews[i].getStudent(), i, 623));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Section", reviews[i].getSection(), i, 623));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Comment", reviews[i].getComment(), i, 623));
+                personal_info_vb.getChildren().add(Utility.GenerateRow("Date", reviews[i].getDate(), i, 623));
                 Separator separator1 = new Separator();
                 Separator separator2 = new Separator();
                 personal_info_vb.getChildren().add(separator1);

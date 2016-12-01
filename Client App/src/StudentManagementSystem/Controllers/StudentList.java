@@ -46,21 +46,47 @@ public class StudentList implements Initializable {
     MemberHome memberHome;
 
     VBox StudentsVBox;
-
+    SearchService service;
 
     public void setMemberHome(MemberHome memberHome) {
         this.memberHome = memberHome;
     }
 
+    public void Search(ActionEvent e) {
+        service.setUrl(Configuration.API_HOST + "data/student/search/?query=" + SearchBox.getText());
+        System.out.println(service.getUrl());
+        if (!service.isRunning()) {
+            service.reset();
+            service.start();
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        SearchBox.setFont(Font.font(null, FontWeight.LIGHT, 14));
+        SearchBox.setOnAction(e -> Search(e));
+        service = new SearchService();
+        service.setUrl(Configuration.API_HOST + "data/admin" + "/?format=json");
+        service.start();
+        try {
+            StudentsVBox = FXMLLoader.load(getClass().getResource("../Layout/StudentsDrawer.fxml"));
+            ListScrollPane.setContent(StudentsVBox);
+        } catch (Exception e) {
+            System.out.println("caught exception in " + this.getClass().getSimpleName());
+            e.printStackTrace();
+            return;
+        }
+    }
+
     public class SearchService extends Service<String> {
         private StringProperty url = new SimpleStringProperty(this, "url");
 
-        public final void setUrl(String value) {
-            url.set(value);
-        }
-
         public final String getUrl() {
             return url.get();
+        }
+
+        public final void setUrl(String value) {
+            url.set(value);
         }
 
         public final StringProperty urlProperty() {
@@ -126,34 +152,6 @@ public class StudentList implements Initializable {
                     }
                 }
             };
-        }
-    }
-
-    SearchService service;
-
-    public void Search(ActionEvent e) {
-        service.setUrl(Configuration.API_HOST + "data/student/search/?query=" + SearchBox.getText());
-        System.out.println(service.getUrl());
-        if (!service.isRunning()) {
-            service.reset();
-            service.start();
-        }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        SearchBox.setFont(Font.font(null, FontWeight.LIGHT, 14));
-        SearchBox.setOnAction(e -> Search(e));
-        service = new SearchService();
-        service.setUrl(Configuration.API_HOST + "data/admin" + "/?format=json");
-        service.start();
-        try {
-            StudentsVBox = FXMLLoader.load(getClass().getResource("../Layout/StudentsDrawer.fxml"));
-            ListScrollPane.setContent(StudentsVBox);
-        } catch (Exception e) {
-            System.out.println("caught exception in " + this.getClass().getSimpleName());
-            e.printStackTrace();
-            return;
         }
     }
 }

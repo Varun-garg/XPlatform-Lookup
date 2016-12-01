@@ -20,7 +20,6 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -31,37 +30,35 @@ import java.util.ResourceBundle;
 public class ViewStudentExams implements Initializable {
 
 
+    String rollNo = SessionManager.getInstance().getStudentRollNo();
+    int deletesem;
     private String cookie;
-
     @FXML // fx:id="exams"
     private TableView<Exams> exams;
-
     @FXML // fx:id="subjectcode"
     private TableColumn<ExamsResult, String> subjectcode;
-
     @FXML // fx:id="grade"
     private TableColumn<ExamsResult, String> grade;
-
     @FXML
     private Label l1;
-
     @FXML
     private Label l2;
-
     @FXML
     private Label l3;
-
     @FXML
     private ChoiceBox<String> cb;
-
-    String rollNo = SessionManager.getInstance().getStudentRollNo();
     private String sid = getCookie();
+    @FXML
+    private TextField Subjectcode;
+    @FXML
+    private TextField Grade;
+    @FXML
+    private TextField Semester;
 
     public String getCookie() {
         return SessionManager.getCookie();
     }
 
-    int deletesem;
     public void displayExamsInfo(String n) {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
@@ -105,12 +102,12 @@ public class ViewStudentExams implements Initializable {
     public void totalSemesters() {
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/semesters/"+rollNo+"/");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/semesters/" + rollNo + "/");
         //clientTarget = client.target("https://studentmanagementsystem.pythonanywhere.com/data/student/semesters/13ICS047/");
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").get();
         String response = rawResponse.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
-        ExamSemesterNum num ;
+        ExamSemesterNum num;
 
         try {
             num = mapper.readValue(response, ExamSemesterNum.class);
@@ -124,23 +121,16 @@ public class ViewStudentExams implements Initializable {
         }
     }
 
-    @FXML
-    private TextField Subjectcode;
-    @FXML
-    private TextField Grade;
-    @FXML
-    private TextField Semester;
-
     public void addExams(ActionEvent event) throws IOException {
         Form newExamForm = new Form();
 
-        String sem= Semester.getText();
+        String sem = Semester.getText();
         newExamForm.param("roll_no", rollNo);
         newExamForm.param("subject_code", Subjectcode.getText());
         newExamForm.param("grade", Grade.getText());
         newExamForm.param("semester", sem);
         newExamForm.param("tc", "0");
-        newExamForm.param("tgp","0");
+        newExamForm.param("tgp", "0");
         newExamForm.param("sgpa", "8");
         newExamForm.param("result", "Promoted");
 
@@ -175,7 +165,7 @@ public class ViewStudentExams implements Initializable {
     }
 
     public void deleteStudentExam(ActionEvent event) throws IOException {
-        System.out.println("inside delete hostel"+deletesem);
+        System.out.println("inside delete hostel" + deletesem);
         Form newExamForm = new Form();
         String rollNo = SessionManager.getInstance().getStudentRollNo();
         newExamForm.param("roll_no", rollNo);
@@ -223,7 +213,6 @@ public class ViewStudentExams implements Initializable {
             cb.getItems().add("" + i);
         cb.setValue("6");
     }
-
 
 
     @Override

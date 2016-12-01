@@ -5,15 +5,11 @@ package StudentManagementSystem.Model;
  */
 
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -40,11 +36,8 @@ public class Review {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
 
-
     /**
-     *
-     * @return
-     * The student
+     * @return The student
      */
     @JsonProperty("student")
     public String getStudent() {
@@ -52,9 +45,7 @@ public class Review {
     }
 
     /**
-     *
-     * @param student
-     * The student
+     * @param student The student
      */
     @JsonProperty("student")
     public void setStudent(String student) {
@@ -62,9 +53,7 @@ public class Review {
     }
 
     /**
-     *
-     * @return
-     * The section
+     * @return The section
      */
     @JsonProperty("section")
     public String getSection() {
@@ -72,9 +61,7 @@ public class Review {
     }
 
     /**
-     *
-     * @param section
-     * The section
+     * @param section The section
      */
     @JsonProperty("section")
     public void setSection(String section) {
@@ -82,9 +69,7 @@ public class Review {
     }
 
     /**
-     *
-     * @return
-     * The comment
+     * @return The comment
      */
     @JsonProperty("comment")
     public String getComment() {
@@ -92,9 +77,7 @@ public class Review {
     }
 
     /**
-     *
-     * @param comment
-     * The comment
+     * @param comment The comment
      */
     @JsonProperty("comment")
     public void setComment(String comment) {
@@ -102,9 +85,7 @@ public class Review {
     }
 
     /**
-     *
-     * @return
-     * The user
+     * @return The user
      */
     @JsonProperty("user")
     public String getUser() {
@@ -112,9 +93,7 @@ public class Review {
     }
 
     /**
-     *
-     * @param user
-     * The user
+     * @param user The user
      */
     @JsonProperty("user")
     public void setUser(String user) {
@@ -122,9 +101,7 @@ public class Review {
     }
 
     /**
-     *
-     * @return
-     * The date
+     * @return The date
      */
     @JsonProperty("date")
     public String getDate() {
@@ -132,9 +109,7 @@ public class Review {
     }
 
     /**
-     *
-     * @param date
-     * The date
+     * @param date The date
      */
     @JsonProperty("date")
     public void setDate(String date) {

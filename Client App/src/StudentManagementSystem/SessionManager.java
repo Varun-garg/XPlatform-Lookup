@@ -24,14 +24,6 @@ public class SessionManager {
         StudentRollNo = null;
     }
 
-    public int getLoginStatus() {
-        return LoginStatus;
-    }
-
-    public void setLoginStatus(int loginStatus) {
-        LoginStatus = loginStatus;
-    }
-
     public static SessionManager getInstance() {
         return ourInstance;
     }
@@ -42,6 +34,14 @@ public class SessionManager {
 
     public void setCookie(String cookie) {
         SessionManager.cookie = cookie;
+    }
+
+    public int getLoginStatus() {
+        return LoginStatus;
+    }
+
+    public void setLoginStatus(int loginStatus) {
+        LoginStatus = loginStatus;
     }
 
     public String getRollNumber() {

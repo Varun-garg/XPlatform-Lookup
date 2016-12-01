@@ -104,7 +104,7 @@ public class MemberHome implements Initializable {
 
         hBox.setMinWidth(180);
         hBox.setMaxWidth(180);
-       // hBox.setMaxHeight(10);
+        // hBox.setMaxHeight(10);
 
         hBox.getChildren().add(text1);
         hBox.getChildren().add(spacer);
@@ -161,7 +161,7 @@ public class MemberHome implements Initializable {
             tabPane.toBack();
 
         JFXButton studentsButton = new JFXButton();
-        studentsButton.setGraphic(generateHBoxButton("Students","ic_people_black_24dp_2x.png"));
+        studentsButton.setGraphic(generateHBoxButton("Students", "ic_people_black_24dp_2x.png"));
         studentsButton.setPrefWidth(190);
         studentsButton.setPrefHeight(44);
         studentsButton.setAlignment(Pos.BASELINE_RIGHT);
@@ -171,7 +171,7 @@ public class MemberHome implements Initializable {
         NavigationVBox.getChildren().add(studentsButton);
 
         JFXButton newStudentButton = new JFXButton();
-        newStudentButton.setGraphic(generateHBoxButton("New Student","ic_person_add_black_24dp_2x.png"));
+        newStudentButton.setGraphic(generateHBoxButton("New Student", "ic_person_add_black_24dp_2x.png"));
         newStudentButton.setPrefWidth(190);
         newStudentButton.setPrefHeight(44);
         newStudentButton.setOnAction(e ->
@@ -181,7 +181,7 @@ public class MemberHome implements Initializable {
         NavigationVBox.getChildren().add(newStudentButton);
 
         JFXButton fileUpload = new JFXButton();
-        fileUpload.setGraphic(generateHBoxButton("Upload CSV","ic_file_upload_black_24dp_2x.png"));
+        fileUpload.setGraphic(generateHBoxButton("Upload CSV", "ic_file_upload_black_24dp_2x.png"));
         fileUpload.setPrefWidth(190);
         fileUpload.setPrefHeight(44);
         fileUpload.setOnAction(e ->
@@ -258,7 +258,7 @@ public class MemberHome implements Initializable {
         NavigationVBox.getChildren().add(fileUpload);
 
         JFXButton ReviewButton = new JFXButton();
-        ReviewButton.setGraphic(generateHBoxButton("Reviews","ic_rate_review_black_24dp_2x.png"));
+        ReviewButton.setGraphic(generateHBoxButton("Reviews", "ic_rate_review_black_24dp_2x.png"));
         ReviewButton.setPrefWidth(190);
         ReviewButton.setPrefHeight(44);
         if (permit == 0) {
@@ -276,7 +276,7 @@ public class MemberHome implements Initializable {
         NavigationVBox.getChildren().add(ReviewButton);
 
         JFXButton Logs = new JFXButton();
-        Logs.setGraphic(generateHBoxButton("Logs","ic_receipt_black_24dp_2x.png"));
+        Logs.setGraphic(generateHBoxButton("Logs", "ic_receipt_black_24dp_2x.png"));
         Logs.setPrefWidth(190);
         Logs.setPrefHeight(44);
         Logs.setOnAction(e ->
@@ -287,7 +287,7 @@ public class MemberHome implements Initializable {
 
 
         JFXButton logoutButton = new JFXButton();
-        logoutButton.setGraphic(generateHBoxButton("Log out","ic_exit_to_app_black_24dp_2x.png"));
+        logoutButton.setGraphic(generateHBoxButton("Log out", "ic_exit_to_app_black_24dp_2x.png"));
         logoutButton.setPrefWidth(190);
         logoutButton.setPrefHeight(44);
         logoutButton.setOnAction(e -> {

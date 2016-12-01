@@ -15,7 +15,7 @@
       styleClass="login"
       stylesheets="@Buttons.css,@LayoutStyle.css" xmlns="http://javafx.com/javafx/8.0.76-ea"
       fx:controller="StudentManagementSystem.Controllers.LoginController"
-        style="-fx-background-color: #f4fcff">
+      style="-fx-background-color: #f4fcff">
     <children>
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -54,7 +54,8 @@
             </JFXPasswordField>
             <JFXButton fx:id="login_button" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="TOP"
                        mnemonicParsing="false"
-                       onAction="#LoginEvent" prefHeight="25.0" prefWidth="150" styleClass="windows7-default" text="Login"
+                       onAction="#LoginEvent" prefHeight="25.0" prefWidth="150" styleClass="windows7-default"
+                       text="Login"
                        textAlignment="CENTER">
                 <opaqueInsets>
                     <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>

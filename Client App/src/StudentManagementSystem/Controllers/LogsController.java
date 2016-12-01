@@ -2,7 +2,6 @@ package StudentManagementSystem.Controllers;
 
 import StudentManagementSystem.Configuration;
 import StudentManagementSystem.Model.Logs;
-import StudentManagementSystem.Model.Review;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * Created by rishabh on 11/30/2016.
  */
-public class LogsController  implements Initializable {
+public class LogsController implements Initializable {
 
     @FXML
     private VBox logs_info_vb;
@@ -34,14 +33,14 @@ public class LogsController  implements Initializable {
             System.out.println(response);
 
             Logs logs[] = mapper.readValue(response, Logs[].class);
-            for(int i=0;i<logs.length;i++) {
+            for (int i = 0; i < logs.length; i++) {
 
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Name", logs[i].getUname(), i,642));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Group", logs[i].getUgroup(), i,642));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Action", logs[i].getAction(), i,642));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Date-Time", logs[i].getDatetime(), i,642));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("Ip-Address", logs[i].getIpAddress(), i,642));
-                logs_info_vb.getChildren().add(Utility.GenerateRow("System", logs[i].getSystem(), i,642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Name", logs[i].getUname(), i, 642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Group", logs[i].getUgroup(), i, 642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Action", logs[i].getAction(), i, 642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Date-Time", logs[i].getDatetime(), i, 642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("Ip-Address", logs[i].getIpAddress(), i, 642));
+                logs_info_vb.getChildren().add(Utility.GenerateRow("System", logs[i].getSystem(), i, 642));
                 Separator separator1 = new Separator();
                 Separator separator2 = new Separator();
                 logs_info_vb.getChildren().add(separator1);
@@ -53,6 +52,7 @@ public class LogsController  implements Initializable {
             e.printStackTrace();
         }
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         displayLogs();

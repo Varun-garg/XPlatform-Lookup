@@ -3,17 +3,18 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60"
+      fx:controller="StudentManagementSystem.Controllers.LogsController">
+    <children>
+        <ScrollPane prefHeight="568.0" prefWidth="560.0">
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentManagementSystem.Controllers.LogsController">
-   <children>
-      <ScrollPane prefHeight="568.0" prefWidth="560.0">
+            <VBox fx:id="logs_info_vb" layoutX="8.0" layoutY="6.0" prefHeight="81.0" prefWidth="590.0">
+            </VBox>
 
-         <VBox fx:id="logs_info_vb" layoutX="8.0" layoutY="6.0" prefHeight="81.0" prefWidth="590.0">
-         </VBox>
-
-      </ScrollPane>
-   </children>
-   <padding>
-      <Insets left="20.0" right="20.0" top="30.0" />
-   </padding>
+        </ScrollPane>
+    </children>
+    <padding>
+        <Insets left="20.0" right="20.0" top="30.0"/>
+    </padding>
 </VBox>

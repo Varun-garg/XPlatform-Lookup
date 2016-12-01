@@ -3,17 +3,14 @@ package StudentManagementSystem.Model;
 /**
  * Created by rishabh on 11/30/2016.
  */
+
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -31,9 +28,7 @@ public class ExamSemesters {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The message
+     * @return The message
      */
     @JsonProperty("message")
     public String getMessage() {
@@ -41,9 +36,7 @@ public class ExamSemesters {
     }
 
     /**
-     *
-     * @param message
-     * The message
+     * @param message The message
      */
     @JsonProperty("message")
     public void setMessage(String message) {
@@ -51,9 +44,7 @@ public class ExamSemesters {
     }
 
     /**
-     *
-     * @return
-     * The semesters
+     * @return The semesters
      */
     @JsonProperty("semesters")
     public List<Integer> getSemesters() {
@@ -61,9 +52,7 @@ public class ExamSemesters {
     }
 
     /**
-     *
-     * @param semesters
-     * The semesters
+     * @param semesters The semesters
      */
     @JsonProperty("semesters")
     public void setSemesters(List<Integer> semesters) {

@@ -3,15 +3,12 @@ package StudentManagementSystem.Model;
 /**
  * Created by rishabh on 12/1/2016.
  */
+
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -19,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "message",
         "permit"
 })
-public class ClientStatus{
+public class ClientStatus {
 
     @JsonProperty("message")
     private String message;
@@ -29,9 +26,7 @@ public class ClientStatus{
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The message
+     * @return The message
      */
     @JsonProperty("message")
     public String getMessage() {
@@ -39,9 +34,7 @@ public class ClientStatus{
     }
 
     /**
-     *
-     * @param message
-     * The message
+     * @param message The message
      */
     @JsonProperty("message")
     public void setMessage(String message) {
@@ -49,9 +42,7 @@ public class ClientStatus{
     }
 
     /**
-     *
-     * @return
-     * The permit
+     * @return The permit
      */
     @JsonProperty("permit")
     public String getPermit() {
@@ -59,9 +50,7 @@ public class ClientStatus{
     }
 
     /**
-     *
-     * @param permit
-     * The permit
+     * @param permit The permit
      */
     @JsonProperty("permit")
     public void setPermit(String permit) {

@@ -4,15 +4,11 @@ package StudentManagementSystem.Model;
  * Created by rishabh on 11/30/2016.
  */
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -42,9 +38,7 @@ public class Logs {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
-     * @return
-     * The uname
+     * @return The uname
      */
     @JsonProperty("uname")
     public String getUname() {
@@ -52,9 +46,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @param uname
-     * The uname
+     * @param uname The uname
      */
     @JsonProperty("uname")
     public void setUname(String uname) {
@@ -62,9 +54,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @return
-     * The ugroup
+     * @return The ugroup
      */
     @JsonProperty("ugroup")
     public String getUgroup() {
@@ -72,9 +62,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @param ugroup
-     * The ugroup
+     * @param ugroup The ugroup
      */
     @JsonProperty("ugroup")
     public void setUgroup(String ugroup) {
@@ -82,9 +70,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @return
-     * The action
+     * @return The action
      */
     @JsonProperty("action")
     public String getAction() {
@@ -92,9 +78,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @param action
-     * The action
+     * @param action The action
      */
     @JsonProperty("action")
     public void setAction(String action) {
@@ -102,9 +86,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @return
-     * The datetime
+     * @return The datetime
      */
     @JsonProperty("datetime")
     public String getDatetime() {
@@ -112,9 +94,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @param datetime
-     * The datetime
+     * @param datetime The datetime
      */
     @JsonProperty("datetime")
     public void setDatetime(String datetime) {
@@ -122,9 +102,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @return
-     * The ipAddress
+     * @return The ipAddress
      */
     @JsonProperty("ipAddress")
     public String getIpAddress() {
@@ -132,9 +110,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @param ipAddress
-     * The ipAddress
+     * @param ipAddress The ipAddress
      */
     @JsonProperty("ipAddress")
     public void setIpAddress(String ipAddress) {
@@ -142,9 +118,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @return
-     * The system
+     * @return The system
      */
     @JsonProperty("system")
     public String getSystem() {
@@ -152,9 +126,7 @@ public class Logs {
     }
 
     /**
-     *
-     * @param system
-     * The system
+     * @param system The system
      */
     @JsonProperty("system")
     public void setSystem(String system) {

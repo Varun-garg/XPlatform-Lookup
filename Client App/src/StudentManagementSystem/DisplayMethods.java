@@ -7,10 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 
@@ -70,6 +68,7 @@ public class DisplayMethods {
         parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
         parentStage.show();
     }
+
     public void LoginDisplay(Stage parentStage) throws Exception {
 
         if (parentStage == null) {
