@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,6 +22,8 @@ public class ConfirmationBox {
         Stage window = new Stage();
         window.setTitle(title);
         window.initModality(Modality.APPLICATION_MODAL);
+        window.getIcons().add(new Image(ConfirmationBox.class.getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
+
 
         Label l = new Label(message);
         l.setFont(Font.font("Bold", 20));

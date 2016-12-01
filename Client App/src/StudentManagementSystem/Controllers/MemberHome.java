@@ -19,11 +19,17 @@ import com.sun.jersey.multipart.file.FileDataBodyPart;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -85,6 +91,35 @@ public class MemberHome implements Initializable {
         }
     }
 
+    HBox generateHBoxButton(String text, String fileName) {
+        Text text1 = new Text(text.trim());
+        text1.setFont(Font.font("Calibri", FontWeight.LIGHT, 19));
+
+        HBox hBox = new HBox();
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        hBox.setPadding(new Insets(5, 5, 5, 5));
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setSpacing(10);
+
+        hBox.setMinWidth(180);
+        hBox.setMaxWidth(180);
+       // hBox.setMaxHeight(10);
+
+        hBox.getChildren().add(text1);
+        hBox.getChildren().add(spacer);
+
+        ImageView imageView = new ImageView(
+                new Image(getClass().getClassLoader().
+                        getResourceAsStream("StudentManagementSystem/Assets/" + fileName))
+        );
+        imageView.setFitHeight(25);
+        imageView.setFitWidth(25);
+
+        hBox.getChildren().add(imageView);
+        return hBox;
+    }
+
     public void refreshTabPane() {
         try {
             FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Menu.fxml"));
@@ -119,23 +154,24 @@ public class MemberHome implements Initializable {
             content.getChildren().add(NoStudentMessage);
         }
 
-        NavigationVBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");
+        NavigationVBox.setStyle("-fx-background-color: rgba(207,216,220,0.5);");
         students_drawer.toBack();
 
         if (tabPane != null)
             tabPane.toBack();
 
         JFXButton studentsButton = new JFXButton();
-        studentsButton.setText("Students");
+        studentsButton.setGraphic(generateHBoxButton("Students","ic_people_black_24dp_2x.png"));
         studentsButton.setPrefWidth(190);
         studentsButton.setPrefHeight(44);
+        studentsButton.setAlignment(Pos.BASELINE_RIGHT);
         studentsButton.setOnAction(e -> {
             Utility.DisplayForm("Students", "StudentsList.fxml", 300, 600, this);
         });
         NavigationVBox.getChildren().add(studentsButton);
 
         JFXButton newStudentButton = new JFXButton();
-        newStudentButton.setText("New Student");
+        newStudentButton.setGraphic(generateHBoxButton("New Student","ic_person_add_black_24dp_2x.png"));
         newStudentButton.setPrefWidth(190);
         newStudentButton.setPrefHeight(44);
         newStudentButton.setOnAction(e ->
@@ -145,7 +181,7 @@ public class MemberHome implements Initializable {
         NavigationVBox.getChildren().add(newStudentButton);
 
         JFXButton fileUpload = new JFXButton();
-        fileUpload.setText("Upload CSV");
+        fileUpload.setGraphic(generateHBoxButton("Upload CSV","ic_file_upload_black_24dp_2x.png"));
         fileUpload.setPrefWidth(190);
         fileUpload.setPrefHeight(44);
         fileUpload.setOnAction(e ->
@@ -194,6 +230,7 @@ public class MemberHome implements Initializable {
                             }
                         });
                     } else {
+                        System.out.println(response);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Student Management System");
                         alert.setContentText("Sorry, some error occurred");
@@ -205,6 +242,7 @@ public class MemberHome implements Initializable {
                     }
 
                 } catch (Exception d) {
+                    d.printStackTrace();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Student Management System");
                     alert.setContentText("Sorry, some error occurred");
@@ -220,7 +258,7 @@ public class MemberHome implements Initializable {
         NavigationVBox.getChildren().add(fileUpload);
 
         JFXButton ReviewButton = new JFXButton();
-        ReviewButton.setText("Submit Review");
+        ReviewButton.setGraphic(generateHBoxButton("Reviews","ic_rate_review_black_24dp_2x.png"));
         ReviewButton.setPrefWidth(190);
         ReviewButton.setPrefHeight(44);
         if (permit == 0) {
@@ -238,7 +276,7 @@ public class MemberHome implements Initializable {
         NavigationVBox.getChildren().add(ReviewButton);
 
         JFXButton Logs = new JFXButton();
-        Logs.setText("Logs");
+        Logs.setGraphic(generateHBoxButton("Logs","ic_receipt_black_24dp_2x.png"));
         Logs.setPrefWidth(190);
         Logs.setPrefHeight(44);
         Logs.setOnAction(e ->
@@ -249,7 +287,7 @@ public class MemberHome implements Initializable {
 
 
         JFXButton logoutButton = new JFXButton();
-        logoutButton.setText("Log Out");
+        logoutButton.setGraphic(generateHBoxButton("Log out","ic_exit_to_app_black_24dp_2x.png"));
         logoutButton.setPrefWidth(190);
         logoutButton.setPrefHeight(44);
         logoutButton.setOnAction(e -> {

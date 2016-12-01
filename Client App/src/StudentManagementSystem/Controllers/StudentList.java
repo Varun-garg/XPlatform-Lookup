@@ -107,7 +107,7 @@ public class StudentList implements Initializable {
                         JFXButton student_button = new JFXButton();
                         student_button.setText(students[i].getFullName());
                         student_button.setPrefWidth(255);
-                        student_button.setPrefHeight(44);
+                        student_button.setMinHeight(44);
                         final int CurrentIndex = i;
                         student_button.getStyleClass().add("lion-default-square");
                         student_button.setOnAction(f -> {

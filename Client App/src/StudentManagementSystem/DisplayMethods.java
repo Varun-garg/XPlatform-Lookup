@@ -72,7 +72,14 @@ public class DisplayMethods {
     }
     public void LoginDisplay(Stage parentStage) throws Exception {
 
-        if (parentStage == null) parentStage = new Stage();
+        if (parentStage == null) {
+            parentStage = new Stage();
+            parentStage.setResizable(false);
+            parentStage.setOnCloseRequest(e -> {
+                e.consume();
+                MainApplication.closeProgram();
+            });
+        }
         parentStage.setTitle("Login to Student Management System");
         Parent LoginLayout = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/Login.fxml"));
         parentStage.setScene(new Scene(LoginLayout, 400, 400));

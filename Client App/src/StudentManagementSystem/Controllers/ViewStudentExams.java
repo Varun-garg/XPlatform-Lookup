@@ -179,11 +179,11 @@ public class ViewStudentExams implements Initializable {
         Form newExamForm = new Form();
         String rollNo = SessionManager.getInstance().getStudentRollNo();
         newExamForm.param("roll_no", rollNo);
-        newExamForm.param("semeste", String.valueOf(deletesem));
+        newExamForm.param("semester", String.valueOf(deletesem));
 
         WebTarget clientTarget;
         Client client = ClientBuilder.newClient();
-        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/delete/"+rollNo+"/"+deletesem+"/");
+        clientTarget = client.target(Configuration.API_HOST + "data/student/exam/delete/");
 
         javax.ws.rs.core.Response rawResponse = clientTarget.request("application/json").header("Cookie", SessionManager.getCookie()).
                 post(Entity.entity(newExamForm, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
