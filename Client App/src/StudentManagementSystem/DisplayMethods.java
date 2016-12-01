@@ -65,7 +65,7 @@ public class DisplayMethods {
         if (parentStage == null) parentStage = new Stage();
         parentStage.setTitle("Login to Student Management System");
         Parent splashLayout = FXMLLoader.load(getClass().getClassLoader().getResource("StudentManagementSystem/Layout/SplashFXML.fxml"));
-        parentStage.setScene(new Scene(splashLayout, 400, 400));
+        parentStage.setScene(new Scene(splashLayout, 600, 400));
         parentStage.initStyle(StageStyle.TRANSPARENT);
         parentStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("StudentManagementSystem/Assets/logo.png")));
         parentStage.show();

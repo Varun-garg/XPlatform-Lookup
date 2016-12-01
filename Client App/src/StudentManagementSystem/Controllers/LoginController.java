@@ -141,8 +141,8 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        vbox_auth_details.setManaged(false);
-        vbox_auth_details.setVisible(false);
+        vbox_auth_options.setManaged(false);
+        vbox_auth_options.setVisible(false);
     }
 
     public void show_details(ActionEvent event) {
