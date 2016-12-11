@@ -16,10 +16,14 @@ class UserSMS(models.Model):
 class UserGroup(models.Model):
     group_name = models.CharField(max_length = 200, null = True)
     description = models.CharField(max_length = 200, null = True)
-    permissions = models.CharField(max_length = 50, null = True)
+    user_permit = models.CharField(max_length = 50, null = True)
+    student_permit = models.CharField(max_length=50, null=True)
+    hostel_permit = models.CharField(max_length=50, null=True)
+    exam_permit = models.CharField(max_length=50, null=True)
+    review_permit = models.CharField(max_length=50, null=True)
 
     def __str__(self):
-        return self.group_name + ' ' + str(self.permissions)
+        return self.group_name + ' ' + self.description
 
 
 class Logs(models.Model):

@@ -26,8 +26,8 @@ class Hostel_Detail(generics.RetrieveAPIView):
 def addhostelinfo(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[6]=='1'):
+    var = request.session.get('permissions')['hostel_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             roll_num = request.POST.get('roll_no')
             if (roll_num is None) or (len(roll_num)==0):
@@ -82,8 +82,8 @@ def addhostelinfo(request):
 def updateStudentHostel(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[6]=='1'):
+    var = request.session.get('permissions')['hostel_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
             if (roll_no is None) or (len(roll_no)==0):
@@ -136,8 +136,8 @@ def updateStudentHostel(request):
 def deleteHostelStudent(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[6]=='1'):
+    var = request.session.get('permissions')['hostel_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
             if (roll_no is None) or (len(roll_no)==0):

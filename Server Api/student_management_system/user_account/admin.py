@@ -3,7 +3,7 @@ from .models import UserSMS, UserGroup, Logs
 
 
 class UserGroupAdmin(admin.ModelAdmin):
-    list_display = ('group_name', 'description', 'permissions')
+    list_display = ('group_name', 'description', 'user_permit', 'student_permit', 'hostel_permit', 'exam_permit', 'review_permit')
 
 
 class UserSMSAdmin(admin.ModelAdmin):

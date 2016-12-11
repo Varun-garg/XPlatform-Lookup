@@ -51,8 +51,14 @@ def user_login(request):
                     #-------------------------------------------------
                     request.session['user'] = user.username
                     group = user.group_name
-                    permissions = UserGroup.objects.get(group_name=group).permissions
-                    request.session['permissions'] = permissions
+                    permissions = UserGroup.objects.get(group_name=group)
+                    temp={}
+                    temp['user_permit'] = permissions.user_permit
+                    temp['student_permit'] = permissions.student_permit
+                    temp['hostel_permit'] = permissions.hostel_permit
+                    temp['exam_permit'] = permissions.exam_permit
+                    temp['review_permit'] = permissions.review_permit
+                    request.session['permissions'] = temp
                     request.session['usergroup'] = group
                     #-------------------------------------------------
                     response_data['group_name'] = user.group_name
@@ -76,8 +82,8 @@ def user_login(request):
 @api_view(['POST'])
 def new_user_registration(request):
     response_data = {}
-    var = request.session.get('permissions')
-    if (var is not None) and (var[10] == '1'):
+    var = request.session.get('permissions')['user_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         errors = []
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -128,8 +134,8 @@ def new_user_registration(request):
 def new_usergroup(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[10] == '1'):
+    var = request.session.get('permissions')['user_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             group_name = request.POST.get('group_name')
             if (group_name is None) or (len(group_name)==0):
@@ -191,10 +197,14 @@ def get_client_ip(request):
 @api_view(['GET'])
 def reviewPermit(request):
     response_data = {}
-    var = request.session.get('permissions')
-    if var[3]=='1':
-        response_data["permit"] = '0'
-    elif var[8]=='1':
-        response_data["permit"] = '1'
+    var = request.session.get('permissions')['review_permit']
+    if var=='1':
+        response_data["permit"] = 'read'
+    elif var=='2':
+        response_data["permit"] = 'read+write'
+    elif var=='3':
+        response_data["permit"] = 'write'
+    else:
+        response_data["permit"] = 'no'
     response_data["message"] = "success"
     return HttpResponse(json.dumps(response_data), content_type="application/json")

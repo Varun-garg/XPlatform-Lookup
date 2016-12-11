@@ -24,13 +24,13 @@ class Review(generics.ListAPIView):
         sec1 = ''
         sec2 = ''
         sec3 = ''
-        if var[5]=='1':
+        if var['student_permit']=='2' or var['student_permit']=='3':
             sec1 = 'personal'
-        if var[6]=='1':
+        if var['hostel_permit']=='2' or var['hostel_permit']=='3':
             sec2 = 'hostel'
-        if var[7] == '1':
+        if var['exam_permit'] == '2' or var['exam_permit'] == '3':
             sec3 = 'exam'
-        return SubmitReview.objects.filter(Q(section=sec1) | Q(section=sec2)|Q(section=sec3))
+        return SubmitReview.objects.filter(Q(section=sec1) | Q(section=sec2) | Q(section=sec3))
 
 
 
@@ -48,8 +48,8 @@ class Review(APIView):
 def add_review(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[8]=='1'):
+    var = request.session.get('permissions')['review_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             stu_roll = request.POST.get('stu_roll')
             if (stu_roll is None) or (len(stu_roll) == 0):

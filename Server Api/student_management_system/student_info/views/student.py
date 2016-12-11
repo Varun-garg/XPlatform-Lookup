@@ -51,8 +51,8 @@ def studentSearch(request):
 def addstudent(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[5] == '1'):
+    var = request.session.get('permissions')['student_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             full_name = request.POST.get('full_name')
             if (full_name is None) or (len(full_name)==0):
@@ -136,8 +136,8 @@ def addstudent(request):
 def updateStudent(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[5] == '1'):
+    var = request.session.get('permissions')['student_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
             if (roll_no is None) or (len(roll_no)==0):
@@ -223,8 +223,8 @@ def updateStudent(request):
 def deleteStudent(request):
     response_data = {}
     errors = []
-    var = request.session.get('permissions')
-    if (var is not None) and (var[5]=='1'):
+    var = request.session.get('permissions')['student_permit']
+    if (var is not None) and (var == '2' or var == '3'):
         if request.method == 'POST':
             roll_no = request.POST.get('roll_no')
             if (roll_no is None) or (len(roll_no)==0):
