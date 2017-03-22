@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="client_app" default="all">
+  
+  
+  <property file="client_app.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.libs.classpath">
+    <fileset dir="${basedir}/libs">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  
+  <path id="library.libs.classpath">
+    <fileset dir="D:/projects/Projects/Student Management System/Client App/libs">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Client App -->
+  
+  <dirname property="module.client_app.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.client_app" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.client_app" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.client_app" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.client_app" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="client_app.output.dir" value="${module.client_app.basedir}/out/production/Client App"/>
+  <property name="client_app.testoutput.dir" value="${module.client_app.basedir}/out/test/Client App"/>
+  
+  <path id="client_app.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="client_app.module.production.classpath">
+    <path refid="${module.jdk.classpath.client_app}"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="client_app.runtime.production.module.classpath">
+    <pathelement location="${client_app.output.dir}"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="client_app.module.classpath">
+    <path refid="${module.jdk.classpath.client_app}"/>
+    <pathelement location="${client_app.output.dir}"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="client_app.runtime.module.classpath">
+    <pathelement location="${client_app.testoutput.dir}"/>
+    <pathelement location="${client_app.output.dir}"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.client_app">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.client_app">
+    <patternset refid="excluded.from.module.client_app"/>
+  </patternset>
+  
+  <path id="client_app.module.sourcepath">
+    <dirset dir="${module.client_app.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.client_app" depends="compile.module.client_app.production,compile.module.client_app.tests" description="Compile module Client App"/>
+  
+  <target name="compile.module.client_app.production" depends="register.custom.compilers" description="Compile module Client App; production classes">
+    <mkdir dir="${client_app.output.dir}"/>
+    <javac2 destdir="${client_app.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.client_app}/javac">
+      <compilerarg line="${compiler.args.client_app}"/>
+      <bootclasspath refid="client_app.module.bootclasspath"/>
+      <classpath refid="client_app.module.production.classpath"/>
+      <src refid="client_app.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.client_app"/>
+    </javac2>
+    
+    <copy todir="${client_app.output.dir}">
+      <fileset dir="${module.client_app.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.client_app.tests" depends="register.custom.compilers,compile.module.client_app.production" description="compile module Client App; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.client_app" description="cleanup module">
+    <delete dir="${client_app.output.dir}"/>
+    <delete dir="${client_app.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.client_app, clean.artifact.client_app" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.client_app" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.client_app" value="${basedir}/../../sms_client_builds"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="artifact.temp.output.Client_App" value="${artifacts.temp.dir}/Client_App.jar"/>
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
+  </target>
+  
+  <target name="clean.artifact.client_app" description="clean Client App artifact output">
+    <delete dir="${artifact.output.client_app}"/>
+  </target>
+  
+  <target name="artifact.client_app" depends="init.artifacts, compile.module.client_app" description="Build &#39;Client App&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <mkdir dir="${artifact.output.client_app}"/>
+    <copy todir="${artifact.temp.output.Client_App}">
+      <fileset dir="${client_app.output.dir}"/>
+    </copy>
+    <copy file="${basedir}/libs/jfoenix.jar" tofile="${artifact.temp.output.Client_App}/jfoenix.jar"/>
+    <copy file="${basedir}/libs/json-simple.jar" tofile="${artifact.temp.output.Client_App}/json-simple.jar"/>
+    <copy file="${basedir}/libs/cglib-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/cglib-2.1.88.jar"/>
+    <copy file="${basedir}/libs/guava-14.0.1.jar" tofile="${artifact.temp.output.Client_App}/guava-14.0.1.jar"/>
+    <copy file="${basedir}/libs/mimepull-1.6.jar" tofile="${artifact.temp.output.Client_App}/mimepull-1.6.jar"/>
+    <copy file="${basedir}/libs/jersey-client.jar" tofile="${artifact.temp.output.Client_App}/jersey-client.jar"/>
+    <copy file="${basedir}/libs/jersey-common.jar" tofile="${artifact.temp.output.Client_App}/jersey-common.jar"/>
+    <copy file="${basedir}/libs/jersey-server.jar" tofile="${artifact.temp.output.Client_App}/jersey-server.jar"/>
+    <copy file="${basedir}/libs/hk2-api-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/hk2-api-2.1.88.jar"/>
+    <copy file="${basedir}/libs/httpmime-4.5.2.jar" tofile="${artifact.temp.output.Client_App}/httpmime-4.5.2.jar"/>
+    <copy file="${basedir}/libs/jaxb-api-2.2.7.jar" tofile="${artifact.temp.output.Client_App}/jaxb-api-2.2.7.jar"/>
+    <copy file="${basedir}/libs/UndecoratorBis.jar" tofile="${artifact.temp.output.Client_App}/UndecoratorBis.jar"/>
+    <copy file="${basedir}/libs/fluent-hc-4.5.2.jar" tofile="${artifact.temp.output.Client_App}/fluent-hc-4.5.2.jar"/>
+    <copy file="${basedir}/libs/json-simple-1.1.jar" tofile="${artifact.temp.output.Client_App}/json-simple-1.1.jar"/>
+    <copy file="${basedir}/libs/jsonp-jaxrs-1.0.jar" tofile="${artifact.temp.output.Client_App}/jsonp-jaxrs-1.0.jar"/>
+    <copy file="${basedir}/libs/hk2-utils-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/hk2-utils-2.1.88.jar"/>
+    <copy file="${basedir}/libs/javax.json-1.0.1.jar" tofile="${artifact.temp.output.Client_App}/javax.json-1.0.1.jar"/>
+    <copy file="${basedir}/libs/controlsfx-8.40.12.jar" tofile="${artifact.temp.output.Client_App}/controlsfx-8.40.12.jar"/>
+    <copy file="${basedir}/libs/hk2-locator-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/hk2-locator-2.1.88.jar"/>
+    <copy file="${basedir}/libs/jackson-core-2.8.1.jar" tofile="${artifact.temp.output.Client_App}/jackson-core-2.8.1.jar"/>
+    <copy file="${basedir}/libs/javax.inject-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/javax.inject-2.1.88.jar"/>
+    <copy file="${basedir}/libs/javax.ws.rs-api-2.0.jar" tofile="${artifact.temp.output.Client_App}/javax.ws.rs-api-2.0.jar"/>
+    <copy file="${basedir}/libs/org.osgi.core-4.2.0.jar" tofile="${artifact.temp.output.Client_App}/org.osgi.core-4.2.0.jar"/>
+    <copy file="${basedir}/libs/persistence-api-1.0.jar" tofile="${artifact.temp.output.Client_App}/persistence-api-1.0.jar"/>
+    <copy file="${basedir}/libs/jersey-multipart-1.8.jar" tofile="${artifact.temp.output.Client_App}/jersey-multipart-1.8.jar"/>
+    <copy file="${basedir}/libs/jackson-databind-2.8.1.jar" tofile="${artifact.temp.output.Client_App}/jackson-databind-2.8.1.jar"/>
+    <copy file="${basedir}/libs/javax.servlet-api-3.1.0.jar" tofile="${artifact.temp.output.Client_App}/javax.servlet-api-3.1.0.jar"/>
+    <copy file="${basedir}/libs/javax.annotation-api-1.2.jar" tofile="${artifact.temp.output.Client_App}/javax.annotation-api-1.2.jar"/>
+    <copy file="${basedir}/libs/jersey-container-servlet.jar" tofile="${artifact.temp.output.Client_App}/jersey-container-servlet.jar"/>
+    <copy file="${basedir}/libs/asm-all-repackaged-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/asm-all-repackaged-2.1.88.jar"/>
+    <copy file="${basedir}/libs/jackson-annotations-2.8.1.jar" tofile="${artifact.temp.output.Client_App}/jackson-annotations-2.8.1.jar"/>
+    <copy file="${basedir}/libs/jersey-gf-bundle-1.1.0-ea.jar" tofile="${artifact.temp.output.Client_App}/jersey-gf-bundle-1.1.0-ea.jar"/>
+    <copy file="${basedir}/libs/validation-api-1.1.0.Final.jar" tofile="${artifact.temp.output.Client_App}/validation-api-1.1.0.Final.jar"/>
+    <copy file="${basedir}/libs/osgi-resource-locator-1.0.1.jar" tofile="${artifact.temp.output.Client_App}/osgi-resource-locator-1.0.1.jar"/>
+    <copy file="${basedir}/libs/jersey-container-servlet-core.jar" tofile="${artifact.temp.output.Client_App}/jersey-container-servlet-core.jar"/>
+    <copy file="${basedir}/libs/jersey-media-json-processing-2.24.1.jar" tofile="${artifact.temp.output.Client_App}/jersey-media-json-processing-2.24.1.jar"/>
+    <copy file="${basedir}/libs/jfoenix.jar" tofile="${artifact.temp.output.Client_App}/jfoenix.jar"/>
+    <copy file="${basedir}/libs/json-simple.jar" tofile="${artifact.temp.output.Client_App}/json-simple.jar"/>
+    <copy file="${basedir}/libs/cglib-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/cglib-2.1.88.jar"/>
+    <copy file="${basedir}/libs/guava-14.0.1.jar" tofile="${artifact.temp.output.Client_App}/guava-14.0.1.jar"/>
+    <copy file="${basedir}/libs/mimepull-1.6.jar" tofile="${artifact.temp.output.Client_App}/mimepull-1.6.jar"/>
+    <copy file="${basedir}/libs/jersey-client.jar" tofile="${artifact.temp.output.Client_App}/jersey-client.jar"/>
+    <copy file="${basedir}/libs/jersey-common.jar" tofile="${artifact.temp.output.Client_App}/jersey-common.jar"/>
+    <copy file="${basedir}/libs/jersey-server.jar" tofile="${artifact.temp.output.Client_App}/jersey-server.jar"/>
+    <copy file="${basedir}/libs/hk2-api-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/hk2-api-2.1.88.jar"/>
+    <copy file="${basedir}/libs/httpmime-4.5.2.jar" tofile="${artifact.temp.output.Client_App}/httpmime-4.5.2.jar"/>
+    <copy file="${basedir}/libs/jaxb-api-2.2.7.jar" tofile="${artifact.temp.output.Client_App}/jaxb-api-2.2.7.jar"/>
+    <copy file="${basedir}/libs/UndecoratorBis.jar" tofile="${artifact.temp.output.Client_App}/UndecoratorBis.jar"/>
+    <copy file="${basedir}/libs/fluent-hc-4.5.2.jar" tofile="${artifact.temp.output.Client_App}/fluent-hc-4.5.2.jar"/>
+    <copy file="${basedir}/libs/json-simple-1.1.jar" tofile="${artifact.temp.output.Client_App}/json-simple-1.1.jar"/>
+    <copy file="${basedir}/libs/jsonp-jaxrs-1.0.jar" tofile="${artifact.temp.output.Client_App}/jsonp-jaxrs-1.0.jar"/>
+    <copy file="${basedir}/libs/hk2-utils-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/hk2-utils-2.1.88.jar"/>
+    <copy file="${basedir}/libs/javax.json-1.0.1.jar" tofile="${artifact.temp.output.Client_App}/javax.json-1.0.1.jar"/>
+    <copy file="${basedir}/libs/controlsfx-8.40.12.jar" tofile="${artifact.temp.output.Client_App}/controlsfx-8.40.12.jar"/>
+    <copy file="${basedir}/libs/hk2-locator-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/hk2-locator-2.1.88.jar"/>
+    <copy file="${basedir}/libs/jackson-core-2.8.1.jar" tofile="${artifact.temp.output.Client_App}/jackson-core-2.8.1.jar"/>
+    <copy file="${basedir}/libs/javax.inject-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/javax.inject-2.1.88.jar"/>
+    <copy file="${basedir}/libs/javax.ws.rs-api-2.0.jar" tofile="${artifact.temp.output.Client_App}/javax.ws.rs-api-2.0.jar"/>
+    <copy file="${basedir}/libs/org.osgi.core-4.2.0.jar" tofile="${artifact.temp.output.Client_App}/org.osgi.core-4.2.0.jar"/>
+    <copy file="${basedir}/libs/persistence-api-1.0.jar" tofile="${artifact.temp.output.Client_App}/persistence-api-1.0.jar"/>
+    <copy file="${basedir}/libs/jersey-multipart-1.8.jar" tofile="${artifact.temp.output.Client_App}/jersey-multipart-1.8.jar"/>
+    <copy file="${basedir}/libs/jackson-databind-2.8.1.jar" tofile="${artifact.temp.output.Client_App}/jackson-databind-2.8.1.jar"/>
+    <copy file="${basedir}/libs/javax.servlet-api-3.1.0.jar" tofile="${artifact.temp.output.Client_App}/javax.servlet-api-3.1.0.jar"/>
+    <copy file="${basedir}/libs/javax.annotation-api-1.2.jar" tofile="${artifact.temp.output.Client_App}/javax.annotation-api-1.2.jar"/>
+    <copy file="${basedir}/libs/jersey-container-servlet.jar" tofile="${artifact.temp.output.Client_App}/jersey-container-servlet.jar"/>
+    <copy file="${basedir}/libs/asm-all-repackaged-2.1.88.jar" tofile="${artifact.temp.output.Client_App}/asm-all-repackaged-2.1.88.jar"/>
+    <copy file="${basedir}/libs/jackson-annotations-2.8.1.jar" tofile="${artifact.temp.output.Client_App}/jackson-annotations-2.8.1.jar"/>
+    <copy file="${basedir}/libs/jersey-gf-bundle-1.1.0-ea.jar" tofile="${artifact.temp.output.Client_App}/jersey-gf-bundle-1.1.0-ea.jar"/>
+    <copy file="${basedir}/libs/validation-api-1.1.0.Final.jar" tofile="${artifact.temp.output.Client_App}/validation-api-1.1.0.Final.jar"/>
+    <copy file="${basedir}/libs/osgi-resource-locator-1.0.1.jar" tofile="${artifact.temp.output.Client_App}/osgi-resource-locator-1.0.1.jar"/>
+    <copy file="${basedir}/libs/jersey-container-servlet-core.jar" tofile="${artifact.temp.output.Client_App}/jersey-container-servlet-core.jar"/>
+    <copy file="${basedir}/libs/jersey-media-json-processing-2.24.1.jar" tofile="${artifact.temp.output.Client_App}/jersey-media-json-processing-2.24.1.jar"/>
+    <fx:fileset id="all_but_Client_App" dir="${artifact.temp.output.Client_App}" includes="**/*.jar">
+      <exclude name="Client_App.jar"/>
+    </fx:fileset>
+    <fx:fileset id="all_Client_App" dir="${artifact.temp.output.Client_App}" includes="**/*.jar"/>
+    <fx:application id="Client_App_id" name="Client App" mainClass="StudentManagementSystem.MainApplication"/>
+    <fx:jar destfile="${artifact.temp.output.Client_App}/Client_App.jar">
+      <fx:application refid="Client_App_id"/>
+      <fileset dir="${artifact.temp.output.Client_App}" excludes="**/*.jar"/>
+      <fx:resources>
+        <fx:fileset refid="all_but_Client_App"/>
+      </fx:resources>
+      <manifest>
+        <attribute name="Implementation-Title" value=""/>
+        <attribute name="Implementation-Version" value=""/>
+        <attribute name="Implementation-Vendor" value=""/>
+      </manifest>
+    </fx:jar>
+    <fx:deploy width="600" height="400" updatemode="background" outdir="${artifact.temp.output.Client_App}/deploy" outfile="Client_App">
+      <fx:application refid="Client_App_id"/>
+      <fx:resources>
+        <fx:fileset refid="all_Client_App"/>
+      </fx:resources>
+    </fx:deploy>
+    <copy todir="${artifact.output.client_app}">
+      <fileset dir="${artifact.temp.output.Client_App}/deploy"/>
+    </copy>
+    <delete includeemptydirs="true">
+      <fileset dir="${artifact.temp.output.Client_App}"/>
+    </delete>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.client_app" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

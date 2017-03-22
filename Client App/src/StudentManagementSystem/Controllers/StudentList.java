@@ -109,7 +109,7 @@ public class StudentList implements Initializable {
 
                         if (!_url.contains("search")) {
                             students = mapper.readValue(response, Student[].class);
-                            students = (Student[]) Arrays.stream(students).sorted((s1, s2) -> s1.getFullName().compareTo(s2.getFullName())).toArray(Student[]::new);
+                            students = Arrays.stream(students).sorted((s1, s2) -> s1.getFullName().compareTo(s2.getFullName())).toArray(Student[]::new);
                             System.out.println(response);
                         } else {
                             StudentSearch searchResults = mapper.readValue(response, StudentSearch.class);

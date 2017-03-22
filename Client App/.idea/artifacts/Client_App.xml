@@ -14,9 +14,9 @@
     <root id="root">
       <element id="archive" name="Client_App.jar">
         <element id="module-output" name="Client App" />
-      </element>
-      <element id="directory" name="dependencies">
-        <element id="library" level="project" name="libs" />
+        <element id="directory" name="libs">
+          <element id="library" level="project" name="libs" />
+        </element>
       </element>
     </root>
   </artifact>

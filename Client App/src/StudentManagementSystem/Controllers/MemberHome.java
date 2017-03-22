@@ -10,12 +10,6 @@ import StudentManagementSystem.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataBodyPart;
-import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.jersey.multipart.MultiPart;
-import com.sun.jersey.multipart.file.FileDataBodyPart;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,7 +27,8 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.media.multipart.*;
+import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -41,9 +36,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.MessageBodyWriter;
+import javax.ws.rs.core.Response;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -84,7 +78,10 @@ public class MemberHome implements Initializable {
             status = mapper.readValue(response, ClientStatus.class);
             System.out.println(response);
 
-            permit = Integer.parseInt(status.getPermit());
+            if (status.getPermit().equalsIgnoreCase("write"))
+                permit = 1;
+            else
+                permit = 0;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,7 +193,7 @@ public class MemberHome implements Initializable {
             File csv = fileChooser.showOpenDialog(window);
             if (csv != null) {
                 try {
-                    ClientConfig clientConfig = new ClientConfig();
+                    /* ClientConfig clientConfig = new ClientConfig();
                     clientConfig.register(MessageBodyWriter.class);
 
                     MultiPart multiPart = new MultiPart();
@@ -218,7 +215,27 @@ public class MemberHome implements Initializable {
 
                     ObjectMapper mapper = new ObjectMapper();
                     PostResponse AddResponse = mapper.readValue(response, PostResponse.class);
-                    System.out.println(response);
+                    System.out.println(response); */
+
+                    Client client = ClientBuilder.newBuilder()
+                            .register(MultiPartFeature.class).build();
+
+                    WebTarget webTarget = client.target(Configuration.API_HOST + "data/excelUpload/");
+                    MultiPart multiPart = new MultiPart();
+                    multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
+
+                    FileDataBodyPart fileDataBodyPart = new FileDataBodyPart("stuList", csv,
+                            MediaType.TEXT_PLAIN_TYPE);
+                    multiPart.bodyPart(fileDataBodyPart);
+
+
+                    Response rawResponse = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+                            .post(Entity.entity(multiPart, multiPart.getMediaType()));
+
+                    String response = rawResponse.readEntity(String.class);
+                    System.out.println("Response: " + response);
+                    ObjectMapper mapper = new ObjectMapper();
+                    PostResponse AddResponse = mapper.readValue(response, PostResponse.class);
 
                     if (AddResponse.getMessage().equals("success")) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -261,18 +278,13 @@ public class MemberHome implements Initializable {
         ReviewButton.setGraphic(generateHBoxButton("Reviews", "ic_rate_review_black_24dp_2x.png"));
         ReviewButton.setPrefWidth(190);
         ReviewButton.setPrefHeight(44);
-        if (permit == 0) {
+        if (permit == 0)
             ReviewButton.setOnAction(e ->
-            {
-                Utility.DisplayForm("Reviews", "Comments.fxml", 700, 650, this);
-            });
-        } else {
+                    Utility.DisplayForm("Reviews", "Comments.fxml", 700, 650, this));
+        else
+            ReviewButton.setOnAction(e ->
+                    Utility.DisplayForm("Reviews", "SubmitReview.fxml", 700, 650, this));
 
-            ReviewButton.setOnAction(e ->
-            {
-                Utility.DisplayForm("Reviews", "SubmitReview.fxml", 700, 650, this);
-            });
-        }
         NavigationVBox.getChildren().add(ReviewButton);
 
         JFXButton Logs = new JFXButton();

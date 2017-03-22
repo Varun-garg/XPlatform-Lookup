@@ -57,7 +57,6 @@ public class LoginController implements Initializable {
             @Override
             protected String call() throws Exception {
                 try {
-                    updateMessage("Sending Authentication details to API");
                     WebTarget clientTarget;
                     Client client = ClientBuilder.newClient();
                     clientTarget = client.target(Configuration.API_HOST + "user/login");//?email=" + username + "&password=" + password
@@ -74,7 +73,6 @@ public class LoginController implements Initializable {
                     ObjectMapper mapper = new ObjectMapper();
                     LoginResponse loginResponse = mapper.readValue(response, LoginResponse.class);
 
-                    System.out.println("got message " + loginResponse.getMessage());
                     updateMessage("Receiving data from API");
                     if (loginResponse.getMessage().equals("success")) {
                         SessionManager sessionManager = SessionManager.getInstance();
@@ -95,7 +93,7 @@ public class LoginController implements Initializable {
                         updateMessage("Authentication failed, username/password mismatch");
                         return LOGIN_FAIL;
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     e.printStackTrace();
                     updateMessage("Login failed, an exception occurred ");
                     return LOGIN_EXCEPTION;
