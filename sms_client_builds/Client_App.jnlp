@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Client_App.jnlp">
+  <information>
+    <title>Client App</title>
+    <vendor>Unknown</vendor>
+    <description>Client App</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Client_App.jar" size="215329" download="eager" />
+    <jar href="libs\hk2-api-2.5.0-b32.jar" size="185793" download="eager" />
+    <jar href="libs\hk2-locator-2.5.0-b32.jar" size="187274" download="eager" />
+    <jar href="libs\hk2-utils-2.5.0-b32.jar" size="134908" download="eager" />
+    <jar href="libs\jackson-annotations-2.8.1.jar" size="55783" download="eager" />
+    <jar href="libs\jackson-core-2.8.1.jar" size="280014" download="eager" />
+    <jar href="libs\jackson-databind-2.8.1.jar" size="1230290" download="eager" />
+    <jar href="libs\javax.annotation-api-1.2.jar" size="26366" download="eager" />
+    <jar href="libs\javax.inject-2.5.0-b32.jar" size="5951" download="eager" />
+    <jar href="libs\javax.ws.rs-api-2.0.1.jar" size="115534" download="eager" />
+    <jar href="libs\jersey-client.jar" size="168997" download="eager" />
+    <jar href="libs\jersey-common.jar" size="715923" download="eager" />
+    <jar href="libs\jersey-guava-2.25.1.jar" size="971309" download="eager" />
+    <jar href="libs\jersey-media-multipart-2.25.jar" size="67855" download="eager" />
+    <jar href="libs\jfoenix.jar" size="2170154" download="eager" />
+    <jar href="libs\mimepull-1.9.7.jar" size="63985" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="StudentManagementSystem.MainApplication"  name="Client App" />
+  <update check="background"/>
+</jnlp>
